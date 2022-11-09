@@ -7,3 +7,6 @@ git checkout -b branchname
 ```
 
 - 브랜치에서 작업하고 push 해보기
+
+하이하이
+나는 경수
