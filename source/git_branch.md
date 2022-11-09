@@ -16,3 +16,5 @@ git checkout -b branchname
 꼭 clone 후 그 폴더 들어가서 브랜치 생성후 push하기~ commit 메세지 길게길게~
 
 나래누나 하이하이
+
+안녕하세요 깃은 너무 어렵네요
