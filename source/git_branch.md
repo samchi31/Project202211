@@ -14,3 +14,5 @@ git checkout -b branchname
 굿굿 나래언니한테 알려주세요
 
 꼭 clone 후 그 폴더 들어가서 브랜치 생성후 push하기~ commit 메세지 길게길게~
+
+나래누나 하이하이
