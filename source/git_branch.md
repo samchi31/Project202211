@@ -10,3 +10,7 @@ git checkout -b branchname
 
 하이하이
 나는 경수
+
+굿굿 나래언니한테 알려주세요
+
+꼭 clone 후 그 폴더 들어가서 브랜치 생성후 push하기~ commit 메세지 길게길게~
