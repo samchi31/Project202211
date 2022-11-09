@@ -1,0 +1,33 @@
+깃으로 협업하기!
+
+* 깃허브에서 먼저 저장소가 만들어져 있어야 한다.
+* main
+* clone
+* branch
+* $ 이후 코드들을 적으면 된다.
+
+====== 처음 ======
+1. 자주 쓸 폴더 하나를 협업할 폴더로 지정한다.
+ex) 나는 Desktop에 있는 "git_co-working"폴더에다가 협업 파일들을 불러올 거야!
+
+2. 그 폴더로 들어가 main에 있는 파일을 똑같이 복제해온다.
+$ git clone url
+ex) $ git clone https://github.com/samchi31/Project202211
+
+3. 들어가서 바꿀 거 바꾼다.
+
+4. clone한 폴더 안에 명령어를 쳐서 다른 사람에게 요청할 것들을 올린다. 이때, branch를 설정해서 main에다가 올리지 않아야 한다.
+$ git checkout -b branchname
+$ git status
+$ git add .
+$ git commit -m '요청할 메세지의 제목 정도?'
+$ git push -u origin branchname
+ex)
+$ git checkout -b ks2
+$ git status
+$ git add .
+$ git commit -m '깃을 같이 사용하는 방법에 대해 작성했습니다.'
+$ git push -u origin ks2
+
+5. github 홈페이지로 가서 해당 저장소로 들어가면 pull request 관련 떠있을 것이다. 안 떠있다면 pull request메뉴로 들어간다.
+들어가서 
