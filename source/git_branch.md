@@ -20,3 +20,5 @@ git checkout -b branchname
 안녕하세요 깃은 너무 어렵네요
 
 야 너는 정말 간식을 좋아해
+
+깃허브 어려워
