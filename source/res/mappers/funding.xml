@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="funding">
+
+	<resultMap type="FundingVO" id="fundingMap">
+		<result property="fundingDetail" column="fundingDetail" jdbcType="CLOB" javaType="java.lang.String"/>
+	</resultMap>
+	
+	<!-- 펀딩 목록 카운트 -->
+	<select id="selectFundingCount" resultType="int">
+		SELECT count(1)
+		  FROM FUNDING A
+             , (select funding_id, mem_id, COUNT(1) AS CNT, SUM(donate_amount) as TOT_AM from donate 
+                where refund = 'N' GROUP BY funding_id, mem_id ) B
+             , INSTITUTION C    /* 기관명 */
+          WHERE A.funding_id = b.funding_id(+)
+          AND b.mem_id(+) = #{memId}
+          AND A.MEM_ID = C.MEM_ID(+)
+	</select>
+
+	<!-- 펀딩 목록 조회 -->
+	<select id="selectFundingList" resultMap="fundingMap">
+		SELECT * FROM (
+			SELECT 
+				ROWNUM AS RUM,
+				MO.* 
+			FROM (
+				SELECT A.funding_id as fundingId,
+					   A.mem_id as memId,
+				       A.funding_title as fundingTitle,
+				       A.TARGET_AMOUNT AS targetAmount, 
+		               A.RECENT_AMOUNT as recentAmount,
+				       to_char(A.funding_start_date, 'yyyy-MM-DD') as fundingStartDate,
+				       to_char(A.funding_end_date, 'yyyy-MM-DD') as fundingEndDate,
+				       A.funding_account as fundingAccount,
+				       A.funding_account_holder as fundingAccountHolder,
+				       A.FUNDING_DETAIL AS fundingDetail,
+				       A.FUNDING_BANK_NAME as fundingBankName,
+				       nvl(C.INST_NAME, '기관명 없음') AS instName,			  /* 기관명 */
+		               DECODE(B.CNT, 0, 'N', NULL, 'N', 'Y') AS donateYn   /* 후원 여부 */
+				  FROM FUNDING A
+		             , (select funding_id, mem_id, COUNT(1) AS CNT, SUM(donate_amount) as TOT_AM from donate 
+		                where refund = 'N' GROUP BY funding_id, mem_id ) B
+		             , INSTITUTION C    /* 기관명 */
+		          WHERE A.funding_id = b.funding_id(+)
+		          AND b.mem_id(+) = #{memId}
+		          AND A.MEM_ID = C.MEM_ID(+)
+          		  ORDER BY A.funding_end_date
+          	) MO
+        ) WHERE RUM BETWEEN (#{pageNo} - 1) * #{pageRowCnt} + 1 AND ((#{pageNo} - 1) * #{pageRowCnt}) + #{pageRowCnt} 
+	</select>
+
+	<!-- 기관 회원 -->
+	<!-- 펀딩 등록 처리 -->
+	<insert id="insertFunding" parameterType="FundingVO">
+		insert into FUNDING(
+			FUNDING_ID,
+			MEM_ID,
+			FUNDING_TITLE,
+			TARGET_AMOUNT,
+			RECENT_AMOUNT,
+			FUNDING_START_DATE,
+			FUNDING_END_DATE,
+			FUNDING_ACCOUNT,
+			FUNDING_ACCOUNT_HOLDER,
+			FUNDING_BANK_NAME,
+			FUNDING_DETAIL,
+			FUNDING_THUMBNAIL
+		) values (
+			#{fundingId},
+			#{memId},
+			#{fundingTitle},
+			#{targetAmount},
+			#{recentAmount},
+			to_date(#{fundingStartDate}, 'yyyy-MM-dd'),
+			to_date(#{fundingEndDate}, 'yyyy-MM-dd'),
+			#{fundingAccount},
+			#{fundingAccountHolder},
+			#{fundingBankName},
+			#{fundingDetail},
+			#{fundingThumbnail}
+		)
+	</insert>
+	
+	<!-- 관리자 -->
+	<!-- 펀딩 취소 처리 -->
+	<update id="stopFunding" parameterType="FundingVO">
+		UPDATE funding 
+		   SET FUNDING_STOP = 'Y' 
+		 WHERE FUNDING_ID = #{fundingId} 
+	</update>
+	
+	<!-- 펀딩글 자세히보기 -->
+	<select id="selectFundingDetail" parameterType="FundingVO" resultMap="fundingMap">
+		SELECT A.funding_id as fundingId,
+			   A.mem_id as memId,
+		       A.funding_title as fundingTitle,
+		       A.TARGET_AMOUNT AS targetAmount, 
+               A.RECENT_AMOUNT as recentAmount,
+		       to_char(A.funding_start_date, 'yyyy-MM-DD') as fundingStartDate,
+		       to_char(A.funding_end_date, 'yyyy-MM-DD') as fundingEndDate,
+		       A.funding_account as fundingAccount,
+		       A.funding_account_holder as fundingAccountHolder,
+		       A.FUNDING_DETAIL AS fundingDetail,
+		       A.FUNDING_BANK_NAME as fundingBankName,
+               DECODE(B.CNT, 0, 'N', NULL, 'N', 'Y') AS donateYn   /* 후원 여부 */
+		  FROM FUNDING A
+             , (select funding_id, mem_id, COUNT(1) AS CNT, SUM(donate_amount) as TOT_AM from donate 
+                where refund = 'N' GROUP BY funding_id, mem_id ) B
+          WHERE A.funding_id = b.funding_id(+)
+          AND b.mem_id(+) = #{memId}
+          AND A.funding_id = #{fundingId}
+	</select>
+	
+	<!-- 기관회원 -->
+	<!-- 펀딩 글 수정 -->
+	<update id="updateFunding" parameterType="FundingVO">
+		UPDATE funding
+		   SET funding_title=#{fundingTitle},
+		       target_amount=#{targetAmount},
+		       funding_start_date=#{fundingStartDate},
+		       funding_end_date=#{fundingEndDate},
+		       funding_account=#{fundingAccount},
+		       funding_account_holder=#{fundingAccountHolder},
+		       funding_bank_name=#{fundingBankName},
+		       funding_detail=#{fundingDetail}
+		 WHERE FUNDING_ID = #{fundingId}
+		   AND MEM_ID = #{memId}
+	</update>
+
+</mapper>
