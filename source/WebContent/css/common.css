@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+* {margin:0; padding:0;}
+body,html {width:100%; height: 100%; margin: 0; padding: 0;}
+header { width:100%;height:80px; background-color:rgba(255,255,255,0.4); 
+position:absolute; top:0; left:0; border-bottom:1px solid black}
+
+.logo {display:inline-block;margin:1% 2%}
+.logo a{color:#000;font-size:30px;text-decoration:none;}
+
+.gnb {float:right;width:70%;height:80px;margin-top:1.7%}
+.gnbmenu li {width:15%;float:left;list-style:none;text-align:center;
+font-size:14px;font-weight:600}
+.gnb .loginbt {border:1px solid #444;font-size:14px; text-decoration:none;
+border-radius:10px; padding:10px 20px;color:#444;}
+
+
+.menu_wrap {width:100%; background-color:rgba(255,255,255,0.4);position:absolute;top:80px;
+padding:2% 0;}
+.menu_wrap ul {width:70%;float:right;}
+.menu_wrap li {border:1px solid red; width:15%;list-style:none;float:left;
+text-align:center;font-size:14px;line-height:200%}
+.menu_wrap li a {display:block;text-decoration:none;}
+
+.visual {width:100%;height:100vh;}
+.visual img {width:100%}
+.visual_title {margin:18% 0 0 5%}
+.visual_title h2{font-size:120px;font-weight:bold; color:#000;}
+
+.container {width:100%; height:auto;overflow:hidden; margin-top:10%}
+
+.v_content {border:1px solid red;}
+.row {margin:10%}
+.row .left {width:40%;float:left;margin-right:10%}
+.row .right{width:40%;float:left}
+.row .left img, .row .right img {width:100%; display:block}
+
+
+.c_content {background-color:pink}
+
+
+footer {width:100%; height:100px; background-color:black;}

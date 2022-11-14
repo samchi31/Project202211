@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userClass">
+
+<select id="selectAllDesc" parameterType="map" resultType="UsrClsVO">
+	
+	SELECT A.* 
+	FROM (
+		SELECT ROWNUM AS RNUM, B.* 
+		FROM (
+			SELECT * FROM CLASS 
+			WHERE CLASS_DELETE = 'N' 
+			<if test = "category != null">
+			AND   CLASS_CT_ID = #{category}
+			</if>
+			ORDER BY CLASS_ID DESC ) B
+	<![CDATA[
+		WHERE ROWNUM <= #{end} ) A
+	WHERE A.RNUM >= #{start}
+	]]>
+	
+</select>
+
+<select id="countList" resultType="int">
+
+	SELECT COUNT(*) FROM CLASS 
+
+</select>
+
+<select id="selectOnePost" parameterType="String" resultType="UsrClsVO">
+
+	SELECT * FROM CLASS 
+	WHERE CLASS_ID = #{class_id}
+
+</select>
+
+<delete id="updatePostRemove" parameterType="String" >
+
+	UPDATE CLASS 
+	SET CLASS_DELETE = 'Y'
+	WHERE CLASS_ID = #{class_id}
+
+</delete>
+
+<update id="updateViews" parameterType="String">
+	
+	UPDATE CLASS
+	SET CLASS_VIEWS = CLASS_VIEWS + 1
+	WHERE CLASS_ID = #{class_id}
+
+</update>
+
+<insert id="userClass.insertPost" parameterType="UsrClsVO">
+
+	INSERT INTO CLASS 
+	(CLASS_ID, MEM_ID, CLASS_TITLE, CLASS_CONTENT, CLASS_DATE, CLS_CT_ID, CLASS_THUMBNAIL) 
+	VALUES (
+		'C'||LPAD(SEQ_USRCLS.NEXTVAL, 5, '0'),
+		#{memId},
+		#{classTitle},
+		#{classContent},
+		SYSDATE,
+		#{clsCtId},
+		#{classThumbnail}
+	)
+
+</insert>
+
+<select id="userClass.selectReply" parameterType="String" resultType="ReplyVO">
+
+	SELECT *
+	FROM (SELECT * 
+	      FROM REPLY
+	      WHERE CLASS_ID = #{classId}  
+	      AND DELETE_AT ='N' 
+	      ) 
+	      
+	START WITH  PARENT_COMMENT_ID IS NULL
+	CONNECT BY PRIOR COMMENT_ID = PARENT_COMMENT_ID 
+	ORDER SIBLINGS BY COMMENT_ID 
+
+</select>
+
+
+</mapper>

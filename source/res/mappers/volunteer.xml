@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="volunteer">
+
+	<select id="getList" resultType="VolunteerVO">
+		select *
+		from volunteer
+	</select>
+	
+	<select id="getDetail" parameterType="String" resultType="VolunteerVO">
+		select *
+		from volunteer
+		where vol_id = #{volId}
+	</select>
+	
+	<select id="getReviewList" parameterType="String" resultType="ReviewVO">
+		select *
+		from review 
+		where reserv_id = (select reserv_id from reservation where vol_id = #{volId})
+	</select>
+	
+	<insert id="registerVol" parameterType="VolunteerVO">
+	insert into volunteer
+	values ('V'||LPAD(SEQ_VOLUNTEER.NEXTVAL, 5, '0'), #{volTitle}, #{memId}, #{startDate}, #{endDate},
+	#{startTime}, #{endTime}, #{personnel}, #{total}, #{volCtId}, #{location}, #{status}, #{target},
+	#{qualification}, #{detail}, #{thumbnail})
+	</insert>
+	
+	
+	
+</mapper>

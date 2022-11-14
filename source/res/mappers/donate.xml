@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="donate">
+
+	<!-- 일반회원 -->
+	<!-- 후원(donate)내역 처리 -->
+	<select id="selectDonateList" resultType="DonateVO">
+	SELECT DONATE_ID as donateId,  
+	          MEM_ID as memId, 
+	          FUNDING_ID as fundingId, 
+	          DONATE_AMOUNT as donateAmount, 
+	          to_char(DONATE_DATE,'yyyy-MM-DD:HH') as donateDate, 
+	          REFUND as refund, 
+	          DONATE_ACCOUNT as donateAccount, 
+	          DONATE_ACCOUNT_HOLDER as donateAccountHolder, 
+	          DONATE_BANK_NAME as donateBankName
+	FROM donate
+	</select>
+
+	<!-- 일반 회원 -->
+	<!-- 후원(donate)처리 -->
+	<insert id="insertDonate" parameterType="DonateVO">
+	insert into donate(
+		DONATE_ID,
+		MEM_ID,
+		FUNDING_ID,
+		DONATE_AMOUNT,
+		DONATE_DATE,
+		DONATE_ACCOUNT,
+		DONATE_ACCOUNT_HOLDER,
+		DONATE_BANK_NAME
+	) values (
+		'DNT'||seq_donate.nextval,
+		#{memId},
+		#{fundingId},
+		#{donateAmount},
+		sysdate,
+		#{donateAccount},
+		#{donateAccountHolder},
+		#{donateBankName}
+	)
+	</insert>	
+	
+	<!-- 일반회원 -->
+	<!-- 후원(donate) 취소 처리 -->
+	<update id="updateCancelDonate" parameterType="DonateVO">
+		UPDATE donate
+		  SET refund = 'Y'
+		WHERE FUNDING_ID = #{fundingId}
+		  AND MEM_ID = #{memId}
+	</update>
+	
+	
+	<!-- 일반회원 -->
+	<!--  후원(donate) 상세 내용 조회-->
+	<select id="selectDonateAllList" resultType="DonateVO">
+	SELECT DONATE_ID as donateId,  
+         MEM_ID as memId, 
+         FUNDING_ID as fundingId, 
+         DONATE_AMOUNT as donateAmount, 
+         to_char(DONATE_DATE,'yyyy-MM-DD:HH') as donateDate, 
+         REFUND as refund, 
+         DONATE_ACCOUNT as donateAccount, 
+         DONATE_ACCOUNT_HOLDER as donateAccountHolder, 
+         DONATE_BANK_NAME as donateBankName
+	FROM donate
+	</select>
+</mapper>

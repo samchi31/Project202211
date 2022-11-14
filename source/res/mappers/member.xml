@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	
+<!-- 
+		1) id속성 : 해당 태그를 호출할 때 <mapper> 태그의 namespace와 연결하여 사용하는 이름.
+		2) parameterType 속성 : SQL문에 사용될 데이터가 들어있는 객체타입 지정(보통 VO클래스, 자바의 자료형이름 등이 사용됨.)
+		                                                        (typeAlias로 지정한 alias명을 사용할 수 있다.)
+		3) resultType 속성 : select문을 실행한 결과를 담을 객체타입을 지정한다.(보통 VO클래스, 자바의 자료형이름 등이 사용됨.)
+		                                                         (typeAlias로 지정한 alias명을 사용할 수 있다.)
+		4) resultMap 속성 : 결과 레코드 컬럼명과 VO객체의 property명이 다를 경우 적절한 매핑을 위해 사용한다.
+ -->
+	
+	<insert id="insertMember" parameterType="MemberVO">
+		insert into member 
+					(MEM_ID, MEM_PASS, MEM_NAME, MEM_TEL, MEM_ZIP, MEM_ADDR1, MEM_ADDR2, MAIL, REGNO, JOIN_DATE, MEM_STATUS, ADMIN) 
+					values (#{memId}, #{memPass}, #{memName}, #{memTel}, #{memZip}, #{memAddr1}, #{memAddr2}, #{mail}, #{regno1}||#{regno2}, sysdate, 'N', 'N')
+	</insert>
+	
+	<insert id="insertIns" parameterType="InsVO">
+		insert into institution 
+					(MEM_ID, INST_NAME, INST_APPROVE, ATCH_COURSE) 
+					values (#{memId}, #{instName}, 'N', #{atchCourse})
+	</insert>
+	
+	<update id="updateMember" parameterType="MemberVO">
+		update member 
+ 			set mem_name = #{memName},
+					mem_tel = #{memTel},
+					mem_addr = #{memAddr},
+					atch_file_id = #{atchFileId}
+					where mem_id = #{memId}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from member where mem_id = #{memId}
+	</delete>
+	
+	<select id="searchId" parameterType="String" resultType="MemberVO">
+		select mem_id
+		from member
+		where mem_name = #{memName}
+		and mem_tel = #{memTel}
+	</select>
+	
+	<select id="searchPw" parameterType="String" resultType="MemberVO">
+		select mem_pass
+		from member
+		where mem_id = #{memId}
+		and mail = #{mail}
+	</select>
+	
+	<select id="checkId" parameterType="member.vo.MemberVO" resultType="MemberVO">
+		select * 
+		from member
+		where mem_id = #{memId}
+	</select>
+	
+	<select id="checkMember" parameterType="member.vo.MemberVO" resultType="MemberVO">
+		select * 
+		from member
+		where mem_id = #{memId}
+		and mem_pass = #{memPass}
+	</select>
+	
+</mapper>
