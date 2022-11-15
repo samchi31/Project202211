@@ -1,15 +1,17 @@
 package userClass.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.RequestWrapper;
 
 import userClass.service.IUsrClsService;
 import userClass.service.UsrClsService;
+import userClass.vo.ReplyVO;
 import userClass.vo.UsrClsVO;
 
 
@@ -28,8 +30,10 @@ public class UsrClsDetail extends HttpServlet {
 		
 //		request.getParameter("classId")
 		UsrClsVO usrClsVO = clsService.getOneClassDetail(request.getParameter("classId"));
+		List<ReplyVO> replyVOList = clsService.selectReplyAll(request.getParameter("classId"));
 		
 		request.setAttribute("usrClsVO", usrClsVO);
+		request.setAttribute("replyList", replyVOList);
 
 
 		request.getRequestDispatcher("/userClass/usrClsDetail.jsp").forward(request, response);

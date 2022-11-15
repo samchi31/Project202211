@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import common.QueryDao;
+import userClass.vo.ReplyVO;
 import userClass.vo.UsrClsVO;
 
 public class UsrClsDao extends QueryDao implements IUsrClsDao {
@@ -44,6 +45,16 @@ public class UsrClsDao extends QueryDao implements IUsrClsDao {
 	@Override
 	public int insertPost(UsrClsVO usrClsVO) {
 		return insert("userClass.insertPost", usrClsVO);
+	}
+	
+	@Override
+	public int updatePost(UsrClsVO usrClsVO) {
+		return update("userClass.updatePost", usrClsVO);
+	}
+	
+	@Override
+	public List<ReplyVO> selectReplyAll(String classId) {
+		return selectList("userClass.selectReplyAll",classId);
 	}
 	
 }

@@ -10,8 +10,15 @@
 		FROM (
 			SELECT * FROM CLASS 
 			WHERE CLASS_DELETE = 'N' 
+			AND   APPROVAL='Y'
 			<if test = "category != null">
-			AND   CLASS_CT_ID = #{category}
+			AND   CLS_CT_ID = #{category}
+			</if>
+			<if test = "search != null">
+			AND	(
+				MEM_ID LIKE '%'||#{search}||'%'
+				OR	CLASS_CONTENT LIKE '%'||#{search}||'%'
+				OR	CLASS_TITLE LIKE '%'||#{search}||'%')
 			</if>
 			ORDER BY CLASS_ID DESC ) B
 	<![CDATA[
@@ -24,6 +31,8 @@
 <select id="countList" resultType="int">
 
 	SELECT COUNT(*) FROM CLASS 
+	WHERE CLASS_DELETE = 'N' 
+	AND   APPROVAL='Y'
 
 </select>
 
@@ -50,7 +59,7 @@
 
 </update>
 
-<insert id="userClass.insertPost" parameterType="UsrClsVO">
+<insert id="insertPost" parameterType="UsrClsVO">
 
 	INSERT INTO CLASS 
 	(CLASS_ID, MEM_ID, CLASS_TITLE, CLASS_CONTENT, CLASS_DATE, CLS_CT_ID, CLASS_THUMBNAIL) 
@@ -66,20 +75,31 @@
 
 </insert>
 
-<select id="userClass.selectReply" parameterType="String" resultType="ReplyVO">
+<update id="updatePost" parameterType="UsrClsVO">
 
+	UPDATE CLASS
+	SET 
+		CLASS_TITLE = #{classTitle}, 
+		CLASS_CONTENT = #{classContent}, 
+		CLASS_DATE = SYSDATE, 
+		CLS_CT_ID = #{clsCtId}, 
+		CLASS_THUMBNAIL = #{classThumbnail}
+	WHERE CLASS_ID = #{classId}
+
+</update>
+
+<select id="selectReplyAll" parameterType="String" resultType="ReplyVO">
+	
 	SELECT *
 	FROM (SELECT * 
 	      FROM REPLY
-	      WHERE CLASS_ID = #{classId}  
-	      AND DELETE_AT ='N' 
-	      ) 
-	      
-	START WITH  PARENT_COMMENT_ID IS NULL
-	CONNECT BY PRIOR COMMENT_ID = PARENT_COMMENT_ID 
-	ORDER SIBLINGS BY COMMENT_ID 
+	      WHERE CLASS_ID = #{classId}
+	      AND REPLY_DELETE ='N' 
+	      ) 	      
+	START WITH  PARENT_REPLY_ID IS NULL
+	CONNECT BY PRIOR REPLY_ID = PARENT_REPLY_ID 
+	ORDER SIBLINGS BY REPLY_ID 
 
 </select>
-
 
 </mapper>

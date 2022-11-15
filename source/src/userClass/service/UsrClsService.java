@@ -1,6 +1,7 @@
 package userClass.service;
 
 import userClass.dao.UsrClsDao;
+import userClass.vo.ReplyVO;
 import userClass.vo.UsrClsVO;
 
 import java.util.List;
@@ -53,6 +54,14 @@ public class UsrClsService implements IUsrClsService{
 		return dao.insertPost(usrClsVO);
 	}
 	
+	@Override
+	public int updatePost(UsrClsVO usrClsVO) {
+		return dao.updatePost(usrClsVO);
+	}
+	@Override
+	public List<ReplyVO> selectReplyAll(String classId) {
+		return dao.selectReplyAll(classId);
+	}	
 	
 	
 }

@@ -55,8 +55,9 @@ public class UsrClsList extends HttpServlet {
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("search",request.getParameter("search"));
 		if(request.getParameter("category") != "전체") {
-			map.put("category", request.getParameter("category"));
+			map.put("category", ClsCategory.valueOfKor(request.getParameter("category")));
 		} else {
 			map.put("category", null);
 		}

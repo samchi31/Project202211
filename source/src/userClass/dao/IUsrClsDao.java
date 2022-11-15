@@ -3,6 +3,7 @@ package userClass.dao;
 import java.util.List;
 import java.util.Map;
 
+import userClass.vo.ReplyVO;
 import userClass.vo.UsrClsVO;
 
 public interface IUsrClsDao {
@@ -17,4 +18,8 @@ public interface IUsrClsDao {
 	public int updateViews(String classId);
 	
 	public int insertPost(UsrClsVO usrClsVO);
+	
+	public int updatePost(UsrClsVO usrClsVO);
+	
+	public List<ReplyVO> selectReplyAll(String classId); 
 }

@@ -14,14 +14,6 @@
 	
 	<typeAliases>
 		<typeAlias type="userClass.vo.UsrClsVO" alias="UsrClsVO"/>
-		<typeAlias type="member.vo.MemberVO" alias="MemberVO"/>
-		<typeAlias type="notice.vo.NoticeVO" alias="NoticeVO" />
-		<typeAlias type="notice.vo.AtchFileVO" alias="AtchFileVO" />
-		<typeAlias type="member.vo.InsVO" alias="InsVO"/>
-		<typeAlias type="funding.vo.FundingVO" alias="FundingVO"/>
-		<typeAlias type="donate.vo.DonateVO" alias="DonateVO"/>
-		<typeAlias type="volunteer.vo.VolunteerVO" alias="VolunteerVO"/>
-		<typeAlias type="volunteer.vo.ReviewVO" alias="ReviewVO"/>
 		<typeAlias type="userClass.vo.ReplyVO" alias="ReplyVO"/>
 	</typeAliases>
 	
@@ -45,7 +37,5 @@
 	<mappers>
 <!-- 	mapper 추가 해야됨 -->
 		<mapper resource="mappers/userClass.xml" />
-		<mapper resource="mappers/member.xml" />
-		<mapper resource="mappers/notice.xml"/>
 	</mappers>
 </configuration>
