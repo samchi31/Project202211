@@ -3,6 +3,7 @@ package userClass.service;
 import java.util.List;
 import java.util.Map;
 
+import userClass.vo.ReplyVO;
 import userClass.vo.UsrClsVO;
 
 public interface IUsrClsService {
@@ -47,4 +48,18 @@ public interface IUsrClsService {
 	 * @return
 	 */
 	public int insertPost(UsrClsVO usrClsVO);
+	
+	/**
+	 * 게시글 수정
+	 * @param usrClsVO
+	 * @return
+	 */
+	public int updatePost(UsrClsVO usrClsVO);
+	
+	/**
+	 * 게시글의 댓글 가져오기
+	 * @param classId
+	 * @return
+	 */
+	public List<ReplyVO> selectReplyAll(String classId);
 }

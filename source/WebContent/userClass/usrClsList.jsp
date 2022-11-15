@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%
-	List<UsrClsVO> clsList = (List<UsrClsVO>) request.getAttribute("list");
+List<UsrClsVO> clsList = (List<UsrClsVO>) request.getAttribute("list");
 int perPage = (int) request.getAttribute("perPage");
 int startPage = (int) request.getAttribute("sPage");
 int endPage = (int) request.getAttribute("ePage");
@@ -11,6 +11,8 @@ int currentPage = (int) request.getAttribute("cPage");
 
 String msg = session.getAttribute("msg") == null ? "" : (String) session.getAttribute("msg");
 session.removeAttribute("msg");	// 세션은 계속 유지되니 속성값 삭제
+
+String category= request.getParameter("category") == null? "카테고리 선택" : request.getParameter("category");
 %>
 <!DOCTYPE html>
 <html>
@@ -40,6 +42,12 @@ img {
 	display: flex;
 	justify-content: center;
 }
+
+#search{
+	display: flex;
+	justify-content:center;
+}
+
 </style>
 
 
@@ -53,9 +61,9 @@ img {
 		<p></p>
 		<div id="search">
 			<div class="dropdown">
-				<button class="btn btn-primary dropdown-toggle" type="button"
-					data-toggle="dropdown">
-					카테고리 선택 <span class="caret"></span>
+				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+					<%=category %> 
+					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
 					<li><a href="#">전체</a></li>
@@ -67,9 +75,10 @@ img {
 					<li><a href="#">언어</a></li>
 				</ul>
 			</div>
-			<span class="glyphicon glyphicon-search"> 
+			<div>
 				<input class="form-control" id="textSearch" type="text" placeholder="Search..">
-			</span>
+				<button id="btn_search"><span class="glyphicon glyphicon-search"></span></button>
+			</div>
 		</div>
 
 		<div class="wrapper">
@@ -154,8 +163,13 @@ img {
 	<%}%>
 	
 	$(".dropdown-menu li a").click(function(){		  
-		  $(".btn:first-child").html($(this).text()+' <span class="caret"></span>');	
-		  location.href="<%=request.getContextPath()%>/UsrClsEdit.do?category="+$(this).text();
+// 		  $(".btn:first-child").html($(this).text()+' <span class="caret"></span>');	
+		  location.href="<%=request.getContextPath()%>/UsrClsList.do?category="+$(this).text();
+	});
+	
+	$('#btn_search').on('click', function(){
+		location.href="<%=request.getContextPath()%>/UsrClsList.do?category="+"<%=category %>"
+				+"&search="+$('#textSearch').val();
 	});
 
 		

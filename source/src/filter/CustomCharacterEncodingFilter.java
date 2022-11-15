@@ -14,7 +14,7 @@ public class CustomCharacterEncodingFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		
+
 	}
 
 	@Override
@@ -23,14 +23,14 @@ public class CustomCharacterEncodingFilter implements Filter {
 //		System.out.println("현재 설정된 인코딩 정보 : " + encoding);
 		request.setCharacterEncoding(encoding);
 		response.setCharacterEncoding(encoding);
-		
+
 		chain.doFilter(request, response);
-		
+
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		if(filterConfig.getInitParameter("encoding")==null) {
+		if (filterConfig.getInitParameter("encoding") == null) {
 			this.encoding = "UTF-8";
 		} else {
 			this.encoding = filterConfig.getInitParameter("encoding");

@@ -67,6 +67,9 @@ public class UsrClsVO {
 	public void setClsCtId(String clsCtId) {
 		this.clsCtId = ClsCategory.valueOf(clsCtId);
 	}
+	public void setClsCtId(ClsCategory clsCtId) {
+		this.clsCtId = clsCtId;
+	}
 	public String getClassViews() {
 		return classViews;
 	}
