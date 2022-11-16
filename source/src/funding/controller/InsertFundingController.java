@@ -53,7 +53,7 @@ public class InsertFundingController extends HttpServlet {
 		String fundingAccountHolder = req.getParameter("fundingAccountHolder");
 		String fundingBankName = req.getParameter("fundingBankName");
 		String fundingDetail = req.getParameter("fundingDetail");
-//		String fundingThumbnail = req.getParameter("fundingThumbnail");
+     	String fundingThumbnail = req.getParameter("fundingThumbnail");
 		
 		IFundingService fundingService = FundingServiceImpl.getInstance();
 		

@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 </head>
 <body>
@@ -25,6 +26,7 @@
       		<input type="hidden" id="stopFundingId" name="stopFundingId" value="" />
       		<input type="hidden" id="cancelFundingId" name="cancelFundingId" value="" />
       		<input type="hidden" id="detailFundingId" name="detailFundingId" value="" />
+      		<input type="hidden" id="pageNo" name="pageNo" value="<%=param.getPageNo()%>" />
 		<h1 class="f_title">후원목록
 			<p>DONATE</p>
 		</h1>
@@ -39,16 +41,16 @@
         if(fundingList.size() > 0){
         	for(int i=0; i<fundingList.size(); i++ ){
         %>
-        <div class="row">
+        <div class="row" data-aos="fade-up">
           <div class="col-sm-6">
-            <a href="#">
-            	<img src="http://localhost:8889/ONProject/<%=fundingList.get(i).getFundingThumbnail() %>" class="media-object thumbnailImg"/>         
+            <a href="#" onClick="fnDetail('<%=fundingList.get(i).getFundingId() %>')" >
+            	<!-- <img src="/ONProject/funding/Filedownload.do?fundingId=<%= fundingList.get(i).getFundingId() %>" class="media-object thumbnailImg"/>-->
+            	<img src="<%=request.getContextPath() %>/<%= fundingList.get(i).getFundingThumbnail() %>" class="media-object thumbnailImg"/>
             </a>
           </div>
           <div class="col-sm-6">
            	<p><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;후원코드 : <%= fundingList.get(i).getFundingId() %></p>
-            <h2 class="f_title2">후원명 : <%= fundingList.get(i).getFundingTitle() %></h2>
-            <p><span class="glyphicon glyphicon-grain"></span>&nbsp;&nbsp;후원기관 : <%= fundingList.get(i).getMemId() %></p>
+            <h2 class="f_title2"><%= fundingList.get(i).getFundingTitle() %></h2>
             <p><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;목표금액 : <%= fundingList.get(i).getTargetAmount() %></p>
             <p><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;현재금액 : <%= fundingList.get(i).getRecentAmount() %></p>
             <p><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;후원기간 : <%= fundingList.get(i).getFundingStartDate() %> -  <%= fundingList.get(i).getFundingEndDate() %></p>
@@ -76,7 +78,7 @@
 			</ul>
 			<ul class="pagination pager">
 				<%for(int i=param.getFirstPageNo(); i <= param.getLastPageNo(); i++ ){ %>					
-					<li class="active"><a class="paging" href="#"><%=i%></a></li>
+					<li><a class="paging" href="#" onclick="fnReSearch(<%=i%>)" ><%=i%></a></li>
 				<%} %>
 			</ul>
 			<ul class="pager">
@@ -98,6 +100,12 @@ $(document).ready(function(){
 	});
 });
 
+function fnReSearch(pageNo ){
+	$('#pageNo').val(pageNo);
+	$("#listForm").attr("action", "List.do");
+	$("#listForm").submit();
+}
+
 // 후원 중지 
 function fnStopFundingClick( strId ){
 	// strId -> 펀딩Id 취소 대상
@@ -115,7 +123,7 @@ function fnCancelDonateClick( strId ){
 	// strId -> 펀딩Id 취소 대상
 	if( confirm("후원을 취소하시겠습니까?") ){
 		$('#cancelFundingId').val(strId);
-		$("#listForm").attr("action", "/ONproject/donate/Cancel.do");
+		$("#listForm").attr("action", "/ONProject/donate/Cancel.do");
 		$("#listForm").submit();
 	}else{
 		return false;
@@ -125,7 +133,7 @@ function fnCancelDonateClick( strId ){
 // 상세보기 
 function fnDetail( strId ){
 	$('#detailFundingId').val(strId);
-	$("#listForm").attr("action", "Detail.do");
+	$("#listForm").attr("action", "Detail.do?donateId=");
 	$("#listForm").submit();
 	// javascript 방식
 	// document.forms["listForm"].submit();

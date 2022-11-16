@@ -36,6 +36,7 @@
 				       A.funding_account_holder as fundingAccountHolder,
 				       A.FUNDING_DETAIL AS fundingDetail,
 				       A.FUNDING_BANK_NAME as fundingBankName,
+				       A.FUNDING_THUMBNAIL as fundingThumbnail,
 				       nvl(C.INST_NAME, '기관명 없음') AS instName,			  /* 기관명 */
 		               DECODE(B.CNT, 0, 'N', NULL, 'N', 'Y') AS donateYn   /* 후원 여부 */
 				  FROM FUNDING A
@@ -45,7 +46,6 @@
 		          WHERE A.funding_id = b.funding_id(+)
 		          AND b.mem_id(+) = #{memId}
 		          AND A.MEM_ID = C.MEM_ID(+)
-          		  ORDER BY A.funding_end_date
           	) MO
         ) WHERE RUM BETWEEN (#{pageNo} - 1) * #{pageRowCnt} + 1 AND ((#{pageNo} - 1) * #{pageRowCnt}) + #{pageRowCnt} 
 	</select>
@@ -102,6 +102,7 @@
 		       A.funding_account as fundingAccount,
 		       A.funding_account_holder as fundingAccountHolder,
 		       A.FUNDING_DETAIL AS fundingDetail,
+		       A.FUNDING_THUMBNAIL AS fundingThumbnail,
 		       A.FUNDING_BANK_NAME as fundingBankName,
                DECODE(B.CNT, 0, 'N', NULL, 'N', 'Y') AS donateYn   /* 후원 여부 */
 		  FROM FUNDING A

@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="funding.vo.FundingVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	FundingVO fundingDetail = (FundingVO)request.getAttribute("detail");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +13,11 @@
     <link rel="stylesheet" href="/ONProject/css/funding.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> 
+ 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  	<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
 <script>
 
 </script>
@@ -20,7 +27,7 @@
         <h2 class="f_title">후원 내역 등록
         	<p>RegistFunding</p>
         </h2>
-       <div class="row">
+        <div class="row">
 			<form action="Insert.do" method="post" enctype="multipart/form-data">
 				<table class="col-sm-8">
 					<tr>
@@ -65,14 +72,18 @@
 					</tr>
 					<tr>
 						<td>상세설명:</td>
-						<td><input class="form-control" type="text" name="fundingDetail" value=""></td>
+						<td>
+							<textarea id="summernote" name="fundingDetail"></textarea>
+						</td>
 					</tr>
 					<tr>
 						<td>썸네일:</td>
 						<td><input type="file" name="atchFile" multiple/></td>
 					</tr>
+					<tr style="width:100%;border-top:1px solid black;display:block">
+						<td><input class="btn btn-info" type="submit" value="후원 등록"></td>
+					</tr>
 				</table>
-				<input class="btn btn-info" type="submit" value="후원 등록">
 			</form>
 		</div>
      	<a href="<%=request.getContextPath() %>/funding/List.do" class="btn btn-success" style="float:right;">목록</a>
@@ -80,6 +91,12 @@
     </div>
 		
  <script>
+//펀딩 내역 에디터
+ $(document).ready(function() {
+ 	$('#summernote').summernote();
+ });
+
+
  
  </script>
 </body>

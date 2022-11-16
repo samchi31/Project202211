@@ -30,7 +30,7 @@
 		DONATE_ACCOUNT_HOLDER,
 		DONATE_BANK_NAME
 	) values (
-		'DNT'||seq_donate.nextval,
+		'DNT'||LPAD(seq_donate.nextval, 5, '0'),
 		#{memId},
 		#{fundingId},
 		#{donateAmount},
