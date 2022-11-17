@@ -14,6 +14,7 @@ import funding.service.FundingServiceImpl;
 import funding.service.IFundingService;
 import funding.vo.FundingVO;
 
+
 @WebServlet("/funding/Update.do")
 public class UpdateFundingController extends HttpServlet {
 	
@@ -22,13 +23,17 @@ public class UpdateFundingController extends HttpServlet {
 		String fundingId = req.getParameter("fundingId");
 		resp.sendRedirect(req.getContextPath()+"/funding/Detail.do?detailFundingId="+fundingId);
 	}
+
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		// 기관명 조회
 		String fundingId = req.getParameter("fundingId");
 		String memId = req.getParameter("memId");
-		
+
 		String fundingTitle = req.getParameter("fundingTitle");
 		String fundingStartDate = req.getParameter("fundingStartDate");
 		String fundingEndDate = req.getParameter("fundingEndDate");
@@ -36,14 +41,14 @@ public class UpdateFundingController extends HttpServlet {
 		String fundingAccountHolder = req.getParameter("fundingAccountHolder");
 		String fundingBankName = req.getParameter("fundingBankName");
 		String fundingDetail = req.getParameter("fundingDetail");
-		
+
 		int targetAmount = 0;
-		if( req.getParameter("targetAmount") != null && req.getParameter("targetAmount") != ""  ) {
+		if (req.getParameter("targetAmount") != null && req.getParameter("targetAmount") != "") {
 			targetAmount = Integer.parseInt(req.getParameter("targetAmount").trim());
 		}
-		
+
 		IFundingService fundingService = FundingServiceImpl.getInstance();
-		
+
 		FundingVO fv = new FundingVO();
 		fv.setFundingId(fundingId);
 		fv.setMemId(memId);
@@ -55,27 +60,27 @@ public class UpdateFundingController extends HttpServlet {
 		fv.setFundingAccountHolder(fundingAccountHolder);
 		fv.setFundingBankName(fundingBankName);
 		fv.setFundingDetail(fundingDetail);
-		
-		if(req.getParameter("isChange").equals("click")) {
+
+		if (req.getParameter("isChange").equals("click")) {
 			IFileService fileService = new FileService();
-	        fileService.saveImage(req, fv.getFundingThumbnail());
-	        fv.setFundingThumbnail(fileService.getSavePath());
+			fileService.saveImage(req, fv.getFundingThumbnail());
+			fv.setFundingThumbnail(fileService.getSavePath());
 		} else {
 			fv.setFundingThumbnail(req.getParameter("isChange"));
 		}
-		
+
 		int cnt = fundingService.modifyFunding(fv);
-		
+
 		String msg = "";
-		
-		if(cnt>0) {
-			msg="성공";
+
+		if (cnt > 0) {
+			msg = "성공";
 		} else {
-			msg="실패";
+			msg = "실패";
 		}
-		
+
 		req.getSession().setAttribute("msg", msg);
-		resp.sendRedirect(req.getContextPath()+"/funding/list.do");
+		resp.sendRedirect(req.getContextPath() + "/funding/List.do");
 	}
 
 }

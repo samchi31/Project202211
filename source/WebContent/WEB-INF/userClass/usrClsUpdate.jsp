@@ -35,8 +35,9 @@ File file = new File(usrClsVO.getClassThumbnail());
 		<input type="hidden" name="classId" value="<%=usrClsVO.getClassId() %>">
 		<div>
 			<h2>썸네일설정</h2>
-			<%=file.getName() %>
-			<input type="file" name="thumbnail" >
+			<%=file.getName()%>
+			<input type="hidden" name="old" value="<%=usrClsVO.getClassThumbnail()%>">
+			<input type="file" name="thumbnail" value="<%=file.getName()%>">
 		</div>
 
 		<div>
@@ -70,7 +71,7 @@ File file = new File(usrClsVO.getClassThumbnail());
 			<h2>내용테스트</h2>
 		</div>
 
-		<textarea id="summernote" name="detail"><%=usrClsVO.getClassContent() %></textarea>
+		<textarea id="summernote" name="content"><%=usrClsVO.getClassContent() %></textarea>
 
 		<button>수정</button>
 	</form>
@@ -100,6 +101,10 @@ File file = new File(usrClsVO.getClassThumbnail());
 	 		  $("#btn_dropdown").html($(this).text()+' <span class="caret"></span>');
 	 		 $("input[name=category]").val($(this).text());
 		});
+		
+		$('input[name=thumbnail]').on('click',function(){
+			$('input[name=old]').val("click");
+		})
 	</script>
 
 </body>

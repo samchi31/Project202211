@@ -29,14 +29,19 @@ public class FundingVO {
 	private String fundingBankName;
 	private String fundingDetail;
 	private String fundingStop;
+	private String instName;
 	
 	private String defaultImage = "images/default/basic.jpg";
 	
 	// 펀딩테이블썸네일컬럼
 	private String fundingThumbnail;
 	
+	private String fileName;
+	private String filePath;
+	
+	
 	public FundingVO() {
-		setFundingThumbnail(defaultImage);
+		// setFundingThumbnail(defaultImage);
 	}
 	
 	public String getDefaultImage() {
@@ -142,8 +147,8 @@ public class FundingVO {
 				 ", fundingAccountHolder=" + this.fundingAccountHolder + 
 				 ", fundingBankName=" + this.fundingBankName + 
 				 ", fundingDetail=" + this.fundingDetail + 
-				 ", fundingThumbName=" + this.fundingThumbnail +
-				 ", fundingStop=" + this.fundingStop  
+				 ", fundingStop=" + this.fundingStop +
+				 ", fundingThumbnail= " + this.fundingThumbnail 
 				 ;
 		return msg;
 	}
@@ -195,5 +200,29 @@ public class FundingVO {
 	}
 	public void setPageTotRowCnt(int pageTotRowCnt) {
 		this.pageTotRowCnt = pageTotRowCnt;
+	}
+
+	public String getInstName() {
+		return instName;
+	}
+
+	public void setInstName(String instName) {
+		this.instName = instName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }

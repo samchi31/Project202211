@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
+<%
+	String msg = session.getAttribute("msg") == null ? "" : session.getAttribute("msg").toString();
+	session.removeAttribute("msg");
+%>
 <!DOCTYPE html>
 <html>
-
+<style>
+	#box {width:40%;margin:0 auto !important;}
+</style>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -10,18 +16,20 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <%-- 다음주소API --%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+	
+</style>
 </head>
 <body>
-	<div class="col-sm-8">
+	<div class="col-sm-8" id="box">
 		<h1>온(溫:ON)</h1>
 		<hr>
 		<form action="Insert.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="gbn" value="02">
-		
 			<div >
 				<label for="id" >아이디</label> <span class="disp"></span>
 				<div >
-					<input type="text" id="id" placeholder="4자 이상(대ㆍ소문자,숫자)" name="memId" required
+					<input class="form-control" type="text" id="id" placeholder="4자 이상(대ㆍ소문자,숫자)" name="memId" required
 						pattern="[a-zA-Z][a-zA-Z0-9]{4,}">
 				</div>
 				<div style="text-align: left;">
@@ -33,7 +41,7 @@
 			<div >
 				<label for="pass">비밀번호</label>
 				<div >
-					<input type="text" id="pass" name="memPass" placeholder="8자 이상(대ㆍ소문자,숫자,특수문자)" required
+					<input class="form-control" type="text" id="pass" name="memPass" placeholder="8자 이상(대ㆍ소문자,숫자,특수문자)" required
 						   pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>
 			</div>
@@ -42,7 +50,7 @@
 				<label for="pass">비밀번호 확인</label>
 				<%-- 	      임의문자(.)를 대상으로 최소 갯수(*?)의 패턴을 찾음 --%>
 				<div >
-					<input type="text" id="pass_chk" required
+					<input class="form-control" type="text" id="pass_chk" required
 					    	pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>
 				<div style="text-align: left;">
@@ -54,7 +62,7 @@
 			<div>
 				<label for="ins_name">기관명</label> <span class="sp"></span>
 				<div >
-					<input type="text" id="ins_name" name="insName"
+					<input class="form-control" type="text" id="ins_name" name="insName"
 						   required parttern="[가-힣][A-Z]{1,8}">
 				</div>
 			</div>
@@ -65,7 +73,7 @@
 			<div>
 				<label for="name">이름</label> <span class="sp"></span>
 				<div>
-					<input type="text" id="name" name="memName"
+					<input class="form-control" type="text" id="name" name="memName"
 						   required parttern="[가-힣a-zA-z0-9]{2,8}">
 				</div>
 			</div>
@@ -73,12 +81,12 @@
 			<div>
 				<label for="reg1">주민번호</label>
 				<div>
-					<input type="text" id="reg_no1" name="regno1" maxlength="6" required> 
+					<input class="form-control" type="text" id="reg_no1" name="regno1" maxlength="6" required> 
 					<span class="sp"></span>
 				</div>
 				<label for="reg2">ㅡ</label>
 				<div>
-					<input type="text" id="reg_no2" name="regno2" maxlength="1" required> 
+					<input class="form-control" type="text" id="reg_no2" name="regno2" maxlength="1" required> 
 					<span class="sp"></span>
 				</div>
 				<div style="text-align: left;">
@@ -90,7 +98,7 @@
 			<div>
 				<label for="hp">연락처</label>
 				<div >
-					<input type="text" id="hp" name="memTel" placeholder="010-0000-0000"
+					<input class="form-control" type="text" id="hp" name="memTel" placeholder="010-0000-0000"
 							pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}">
 				</div>
 				<span class="sp"></span>
@@ -99,7 +107,7 @@
 			<div>
 				<label for="mail">이메일</label>
 				<div>
-					<input type="email" id="mail" name="mail"
+					<input class="form-control" type="email" id="mail" name="mail"
 							pattern="[0-9a-zA-z]+@[0-9a-zA-Z]+(\.[a-z]+){1,2}">
 				</div>
 				<span class="sp"></span>
@@ -108,17 +116,17 @@
 			<div>
 				<label for="add1">우편번호</label>
 				<div >
-					<input type="text"  id="postAddr" name="memZip" required>
+					<input class="form-control" type="text"  id="postAddr" name="memZip" required>
 				</div>
 				<div>
-					<button type="button" id="addrBtn">주소검색</button>
+					<button class="form-control" type="button" id="addrBtn">주소검색</button>
 				</div>
 			</div>
 
 			<div>
 				<label for="add1">주소</label>
 				<div>
-					<input type="text" id="addr1" name="memAddr1"
+					<input class="form-control" type="text" id="addr1" name="memAddr1"
 						required>
 				</div>
 			</div>
@@ -126,7 +134,7 @@
 			<div >
 				<label for="add2" >상세주소</label>
 				<div>
-					<input type="text"id="addr2" name="memAddr2" required>
+					<input class="form-control" type="text"id="addr2" name="memAddr2" required>
 				</div>
 			</div>
 
@@ -138,9 +146,17 @@
 			</div>
 		</form>
 	</div>
-
 <script>
 
+if("<%=msg%>" == "성공"){
+	// 성공시 페이지 이동
+	alert("회원가입 성공");
+	location.replace("./LoginForm.jsp");
+}else if("<%=msg%>" == "실패") {
+	// 실패시 경고문 출력
+	alert("회원가입 실패");
+}
+	
 // 아이디 중복확인
 $('#idChk').on('click',function(){ 
 	var v_id = $('#id').val();

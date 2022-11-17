@@ -21,6 +21,20 @@ public class VolunteerVO {
 	private String qualification;
 	private String detail;
 	private String thumbnail;
+	
+	private String defaultImage = "images/default/default.jpg";
+
+	public String getDefaultImage() {
+		return defaultImage;
+	}
+
+	public void setDefaultImage(String defaultImage) {
+		this.defaultImage = defaultImage;
+	}
+
+	public VolunteerVO() {
+		setThumbnail(defaultImage);
+	}
 
 	public String getVolId() {
 		return volId;

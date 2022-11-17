@@ -91,7 +91,7 @@ public class QueryDao {
 		try {
 			cnt = sqlSession.selectOne(statement);
 		} catch (PersistenceException e) {
-			throw new RuntimeException("selectList 에러", e);
+			throw new RuntimeException("countList 에러", e);
 		} finally {
 			sqlSession.close();
 		}

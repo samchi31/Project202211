@@ -28,21 +28,26 @@ public class LoginMemberController extends HttpServlet{
 		
 		MemberVO memVo = new MemberVO();
 		memVo.setMemId(memId);
-		memVo.setMemPass(memPass);
+		memVo.setMemPass(memPass); 
 		
 		MemberVO mv = memberService.checkMember(memVo);
 		
 		if(mv != null) { // 존재하면
+			if(mv.getMemStatus().equals("N")) {
 			req.getSession().setAttribute("loginUser", mv);
 			req.getSession().setAttribute("rst", "ok");	
+			
 			// JSP에게 포워딩 처리
-			req.getRequestDispatcher("/WEB-INF/loggedIn/login_page.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+			
+			}else {
+				req.getSession().setAttribute("rst", "no");	
+				resp.sendRedirect("/member/LoginForm.jsp");
+			}
 		}else {
 			req.getSession().setAttribute("rst", "no");	
 			resp.sendRedirect("/member/LoginForm.jsp");
 		}
-		
-		
 	}
 	
 	@Override

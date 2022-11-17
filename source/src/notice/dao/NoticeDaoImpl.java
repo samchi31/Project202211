@@ -53,9 +53,9 @@ public class NoticeDaoImpl extends QueryDao implements INoticeDao{
 	
 	//수정
 	@Override
-	public NoticeVO getNoticeId(String noticeId) {
+	public NoticeVO selectNotice(String noticeId) {
 		
-		return selectOne("notice.getNoticeId", noticeId);
+		return selectOne("notice.selectNotice", noticeId);
 	}
 
 
@@ -65,9 +65,25 @@ public class NoticeDaoImpl extends QueryDao implements INoticeDao{
 		return update("notice.updateNotice", nv);
 		
 	}
+
+
+	@Override
+	public NoticeVO getNotice(String noticeId) {
+
+		return selectOne("notice.selectNotice", noticeId);
+		
+	}
+
+
+	@Override
+	public int countList() {
+		return countList("notice.countList");
+	}
 	
-	
-	
+	@Override
+	public int updateNoticeAndAtch(NoticeVO noticeVO) {
+		return update("updateNoticeAndAtch",noticeVO);
+	}
 
 
 }

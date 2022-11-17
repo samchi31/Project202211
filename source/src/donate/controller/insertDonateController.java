@@ -25,7 +25,7 @@ public class insertDonateController extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		
-		String donateId = req.getParameter("donateId");
+		//String donateId = req.getParameter("donateId");
 		String memId = req.getParameter("memId");
 		String fundingId = req.getParameter("fundingId");
 		int donateAmount = Integer.parseInt(req.getParameter("donateAmount"));
@@ -36,7 +36,7 @@ public class insertDonateController extends HttpServlet {
 		IDonateService donateService = DonateServiceImpl.getInstance();
 		
 		DonateVO dv = new DonateVO();
-		dv.setDonateId(donateId);
+		//dv.setDonateId(donateId);
 		dv.setMemId(memId);
 		dv.setFundingId(fundingId);
 		dv.setDonateAmount(donateAmount);

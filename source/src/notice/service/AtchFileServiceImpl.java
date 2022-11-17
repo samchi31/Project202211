@@ -1,9 +1,11 @@
 package notice.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
@@ -14,12 +16,12 @@ import notice.vo.AtchFileVO;
 
 
 public class AtchFileServiceImpl implements IAtchFileService {
+	private String path = "C:\\Users\\PC-07\\eclipse-workspace\\MidTeamProject\\MidTeamProject\\WebContent";
+	private static final String SAVE_DIR = "/atchfile";
 	
 	private static IAtchFileService fileService;
 	
-	private IAtchFileDao fileDao;
-	
-	private static final String UPLOAD_DIR = "upload_files";
+	private IAtchFileDao fileDao;	
 	
 	private AtchFileServiceImpl() {
 		fileDao = AtchFileDaoImpl.getInstance();  //이제 언제든지 어태치파일다오 가져올 수 있다!
@@ -32,17 +34,15 @@ public class AtchFileServiceImpl implements IAtchFileService {
 		return fileService;
 	}
 	
-
+	
 	@Override
-	public AtchFileVO saveAtchFileList(HttpServletRequest req) {
-		
-		//업로드경로 설정하기
-		String uploadPath = "d:/D_Other/" + UPLOAD_DIR;
-		File uploadDir = new File(uploadPath);
+	public List<AtchFileVO> saveAtchFileList(HttpServletRequest req) {
+		File uploadDir = new File(path+SAVE_DIR);
 		if(!uploadDir.exists()) {
 			uploadDir.mkdir();
 		}
 		
+		List<AtchFileVO> list = null;
 		AtchFileVO atchFileVO = null;
 		
 		try {
@@ -58,42 +58,23 @@ public class AtchFileServiceImpl implements IAtchFileService {
 				if(fileName != null && !fileName.equals("")) {
 					//파일인 경우...
 					if(isFirstFile) { //첫번째 파일이 맞다면...
-						isFirstFile = false;
-						
+						isFirstFile = false;						
 						
 						// 기본파일정보 저장하기 
-						atchFileVO = new AtchFileVO();
-						
-						// 기본파일정보 저장 (VO에 atchFileId가 저장된다.) from 마이바티스
-//						fileDao.insertAtchFile(atchFileVO);
-						
-					}
+						list = new ArrayList<AtchFileVO>();	
+					}			
+					String saveFilePath = path+SAVE_DIR + File.separator + fileName;
 					
-					String orignFileName = fileName; //원본파일명
-					long fileSize = part.getSize(); //파일크기
-					String saveFileName = ""; //저장파일명
-					String saveFilePath = ""; //저장파일경로
-
-					saveFileName = UUID.randomUUID().toString().replace("-", "");
-					saveFilePath = uploadPath + File.pathSeparator + saveFileName;
-					
-					
-					//확장자명 추출
-					String fileExtension = orignFileName.lastIndexOf(".") < 0 ?
-							"" : orignFileName.substring(orignFileName.lastIndexOf(".") + 1);
 					
 					//업로드 파일(원본파일) 저장
 					part.write(saveFilePath);
 					
-					atchFileVO.setStreFileNm(saveFileName);
-					atchFileVO.setFileSize(fileSize);
-					atchFileVO.setOrignlFileNm(orignFileName);
-					atchFileVO.setFileStreCours(saveFilePath);
-					atchFileVO.setFileExtsn(fileExtension);
+					atchFileVO = new AtchFileVO();
+					atchFileVO.setAtchName(saveFilePath);
+					list.add(atchFileVO);
 					
-					//파일세부정보 저장
-					fileDao.insertAtchFileDetail(atchFileVO);
-					
+//					//파일세부정보 저장
+//					int cnt = fileDao.insertAtchFileDetail(atchFileVO);		
 					part.delete(); //임시업로드 파일 삭제하기
 				}
 			}
@@ -101,13 +82,17 @@ public class AtchFileServiceImpl implements IAtchFileService {
 			ex.printStackTrace();
 		}
 		
-		return atchFileVO;
+		return list;
+	}	
+	
+	/**
+	 * 파일 저장
+	 * @param atchFileVOList
+	 * @return
+	 */
+	public int insertNoticeAtch(List<AtchFileVO> atchFileVOList) {
+		return fileDao.insertAtchFileDetail(atchFileVOList);
 	}
-
-	
-	
-	
-	
 	
 	/**
 	 * Part 객체를 파싱하여 파일이름 추출하기
@@ -152,9 +137,14 @@ public class AtchFileServiceImpl implements IAtchFileService {
 	
 	
 	@Override
-	public List<AtchFileVO> getAtchFileList(AtchFileVO atchFileVO) {
+	public List<AtchFileVO> getAtchFileList(String noticeId) {
 		
-		return fileDao.getAtchFileList(atchFileVO);
+		return fileDao.getAtchFileList(noticeId);
+	}
+
+	@Override
+	public int selectAtchId() {
+		return fileDao.selectAtchId();
 	}
 
 

@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+* {margin:0; padding:0;}
+body,html {width:100%; height: 100%; margin: 0; padding: 0;}
+@font-face {
+   font-family: 'GmarketSansMedium';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+.hd_wrap { width:100%;height:90px; background-color:rgba(255,255,255,0.6); 
+position:fixed; top:0; left:0;z-index:999;}
+
+.logo {display:inline-block;width:200px;margin:1%}
+.logo img {width:100%;display:block}
+
+.gnb {float:right;width:70%;height:80px;margin-top:1.5%;font-weight: bold; 
+   font-family:'GmarketSansMedium', sans-serif;}
+.gnbmenu li {width:13%;float:left;list-style:none;text-align:center;font-size:18px;font-weight:600}
+.gnb .loginbt {margin-left:10%; border:1px solid #31c3b1; font-size:18px; text-decoration:none;
+border-radius:5px; padding:5% 20%;color:#31c3b1;transition:0.2s}
+.gnb .loginbt:hover {background-color:#31c3b1;color:#fff}
+
+.menu_wrap {width:100%; background-color:rgba(255,255,255,0.6);position:fixed;top:90px;
+z-index:99}
+.menu_wrap ul {width:70%;float:right;}
+.menu_wrap li {width:13%;list-style:none;float:left;padding:1% 0;
+text-align:center;font-size:14px;line-height:300%}
+.menu_wrap li a {display:block;text-decoration:none;font-weight: bold; 
+   font-family:'GmarketSansMedium', sans-serif;color:#000}
+
+.visual {
+	max-width:1600px;margin:0 auto;height:100vh;width:1600px;position:relative; }
+
+.obg_area {overflow:hidden;width:90%;height:100%; position:relative; z-index:border:1px solid green}
+.obj_area img {display:block;position:absolute;z-index:1;transition:0.3s}
+.obj_area img:hover {transform:rotate(4deg)}
+#ob1 {left:25%;top:15%} /*on*/
+#ob2 {left:10%;top:33%} /*하트*/
+#ob3 {right:25%;bottom:2%} /*t*/
+#ob4 {right:10%;top:20%} /*jpre*/
+#ob5 {right:5%;bottom:0} /*여자*/
+#ob6 {left:15%;bottom:0} /*남자*/
+#ob7 {left:5%;bottom:10%} /*c*/
+#ob8 {left:40%;bottom:0} /*연탄여러개*/
+#ob9 {right:25%;top:25%} /*식판*/
+#ob10 {left:32%;top:48%}
+
+.vc_title {font-weight: bold; 
+   font-family:'GmarketSansMedium', sans-serif;font-size:38px;
+   margin:2% 0;}
+
+.scrollbox {width:100%;margin:100px 0 50px; 0;}
+.scrollbox img {width:30px;opacity:0.5}
+.scrollbox p {font-size:14px;color:#777;text-align:center}
+
+/* */
+.c_content {
+	width: 100%;
+	background-color:#f1f1f1;
+}
+
+.c_content_inner {
+	dispaly: block;
+	margin: 0 auto; 
+	position: relative;
+	overflow: hidden;
+	list-style: none;
+	width: 75%;
+	padding:5% 0
+}
+
+.c_content_inner ul {
+	border:1px solid red
+	overflow:hidden;
+	list-style:none;
+}
+
+.c_content_inner li.last {margin-right:0;}
+.c_content_inner li {width:22%;float:left;margin-right:4%}
+.c_content_inner li a {width:100%;text-decoration:none;transition:0.2s}
+.c_content_inner li a:hover {opacity:0.7}
+
+.c_content_inner a img {
+	display: block;
+	width: 100%;
+	height:200px
+}
+.c_content_inner a span {display:block;background:#50dca4;
+margin:2% 0;border-radius:5px;color:#fff;font-weight:bold;padding:1%;text-indent:5%}
+.c_content_inner a h4 {font-size:20px;margin:3% 0;color:#444}
+.c_content_inner a p {font-size:14px;color:#444}
+
+/*.container {width:100%; height:auto;overflow:hidden; margin-top:10%}*/
+
+.v_content {width:100%;height:auto;overflow:hidden;margin-top:7%;}
+
+.v_row {margin:0 20%; width:1000px; overflow:hidden;position:relative;}
+.v_row .left {clear:both;width:47.5%;margin-right:5%;float:left;}
+.v_row .right {margin-top:10%; width:47.5%;margin-right:0%;float:left;padding-bottom:7%}
+.v_row img {width:100%; display:block}
+
+.v_row span {color:#fff;font-weight:bold;display:block;font-size:14px; padding:1%; background:#50dca4;margin:2% 0;border-radius:5px;
+padding:1%;text-indent:4%;font-weight:bold}
+.v_row h3 {font-size:30px;font-weight: bold; 
+   font-family:'GmarketSansMedium', sans-serif;}
+.v_row p {font-size:16px;line-height:150%;margin:2% 0}
+
+
+
+
+footer {width:100%; height:100px; background-color:black;}
+footer span { display:block; width:100%;color:#fff;text-align:center;font-size:12px;line-height:700%}

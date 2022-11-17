@@ -16,10 +16,14 @@ public interface INoticeDao {
 	
 	public int insertNotice(NoticeVO nv);
 	
-	public NoticeVO getNoticeId(String noticeId);
+	public NoticeVO selectNotice(String noticeId);
 	
 	public int updateNotice(NoticeVO nv);
 	
-
+	public NoticeVO getNotice(String noticeId);
+	
+	public int countList();
+	
+	public int updateNoticeAndAtch(NoticeVO noticeVO);
 	
 }

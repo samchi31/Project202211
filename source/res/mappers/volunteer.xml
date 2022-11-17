@@ -16,16 +16,105 @@
 	<select id="getReviewList" parameterType="String" resultType="ReviewVO">
 		select *
 		from review 
-		where reserv_id = (select reserv_id from reservation where vol_id = #{volId})
+		where reserv_id in (select reserv_id from reservation where vol_id = #{volId})
 	</select>
 	
-	<insert id="registerVol" parameterType="VolunteerVO">
-	insert into volunteer
-	values ('V'||LPAD(SEQ_VOLUNTEER.NEXTVAL, 5, '0'), #{volTitle}, #{memId}, #{startDate}, #{endDate},
-	#{startTime}, #{endTime}, #{personnel}, #{total}, #{volCtId}, #{location}, #{status}, #{target},
-	#{qualification}, #{detail}, #{thumbnail})
+	<select id="getReview" parameterType="hashMap" resultType="int">
+		select count(*)
+		from review
+		where reserv_id = ( select distinct reserv_id
+                            from reservation
+                            where vol_id = #{volId}
+                            and mem_id = #{memId}
+                            and r_st_id = 'EXPIRED')
+	</select>
+	
+<!-- 	<select id="countMyReview" parameterType="hashMap" resultType="int"> -->
+<!-- 		select count(*) -->
+<!-- 		from review -->
+<!-- 		where vol_id = #{volId} -->
+<!-- 		and mem_id = #{memId} -->
+<!-- 	</select> -->
+	
+	<insert id="registerReview" parameterType="ReviewVO">
+		insert into review
+		values (#{reservId}, #{start}, #{content})
 	</insert>
 	
+	<insert id="registerVol" parameterType="VolunteerVO">
+		insert into volunteer
+		values ('V'||LPAD(SEQ_VOLUNTEER.NEXTVAL, 5, '0'), #{volTitle}, #{memId}, #{startDate}, #{endDate},
+		#{startTime}, #{endTime}, #{personnel}, #{total}, #{volCtId}, #{location}, #{status}, #{target},
+		#{qualification}, #{detail}, #{thumbnail})
+	</insert>
 	
+	<insert id="reservVol" parameterType="ReservationVO">
+		insert into reservation
+		values ('R'||LPAD(SEQ_RESERVATION.NEXTVAL, 5, '0'), #{volId}, #{memId}, #{reservDate}, #{reservTime},
+		SYSDATE, null, #{rStId})
+	</insert>
+	
+	<select id="getReservDetail" parameterType="String" resultType="ReservationVO">
+		select *
+		from reservation
+		where reserv_id = #{reservId}
+	</select>
+	
+	<select id="getReservList" parameterType="String" resultType="ReservationVO">
+		select *
+		from reservation
+		where mem_id = #{memId}
+	</select>
+	
+	<select id="getDetailForReserv" parameterType="String" resultType="VolunteerVO">
+		select *
+		from volunteer
+		where vol_id = ( select vol_id
+                         from reservation
+                         where reserv_Id = #{reservId})
+	</select>
+	
+	<update id="cancelReserv" parameterType="ReservationVO">
+		update reservation
+		set r_st_id = #{rStId}, cancel_date = SYSDATE
+		where reserv_id = #{reservId}
+	</update>
+	
+	<delete id="deleteVol" parameterType="String">
+	
+		delete from volunteer where vol_Id = #{volId}
+		
+	</delete>
+	
+	<update id="updateVol">
+		update volunteer
+		set vol_title = #{volTitle, jdbcType=VARCHAR}, mem_id = #{memId, jdbcType=VARCHAR}, start_date = #{startDate, jdbcType=DATE}, end_date = #{endDate, jdbcType=DATE},
+			start_time = #{startTime, jdbcType=VARCHAR}, end_time = #{endTime, jdbcType=VARCHAR}, personnel = #{personnel, jdbcType=INTEGER}, total = #{total, jdbcType=INTEGER}, 
+			vol_ct_id = #{volCtId, jdbcType=VARCHAR}, location = #{location, jdbcType=VARCHAR}, status = #{status, jdbcType=VARCHAR}, target = #{target, jdbcType=VARCHAR},
+			qualification = #{qualification, jdbcType=VARCHAR}, detail = #{detail, jdbcType=CLOB}, thumbnail = #{thumbnail, jdbcType=VARCHAR}
+		where vol_id = #{volId}
+	</update>
+	
+	<update id="updateReserv" parameterType="String">
+		update reservation
+		set reserv_date = #{reservDate}, reserv_time = #{reservTime}, apply_date = SYSDATE
+		where reserv_id = #{reservId}
+	</update>
+	
+	<insert id="wishVol" parameterType="WishVO">
+		insert into wish
+		values (#{memId}, #{volId})
+	</insert>
+	
+	<delete id="unWishVol" parameterType="WishVO">
+		delete from wish
+		where mem_id = #{memId}
+		and vol_id = #{volId}
+	</delete>
+	
+	<select id="getWishList" resultType="WishVO">
+		select *
+		from wish
+	</select>
 	
 </mapper>

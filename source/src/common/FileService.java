@@ -5,10 +5,9 @@ import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-import userClass.vo.UsrClsVO;
 
 public class FileService implements IFileService{
-	private String path = "C:\\Users\\PC-07\\eclipse-workspace\\MidTeamProject\\MidTeamProject\\WebContent";
+	private String path = "D:\\A_TeachingMaterial\\03_HighJAVA\\workspace\\ONProject\\WebContent";
 	//private String path = "";
 	private static final String SAVE_DIR = "/images/thumbnail";
 		

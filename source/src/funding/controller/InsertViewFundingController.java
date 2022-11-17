@@ -14,7 +14,7 @@ public class InsertViewFundingController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("=============InsertViewFundingController==============");
-		req.getRequestDispatcher("/WEB-INF/views/funding/fundingInsert.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/funding/fundingInsert.jsp").forward(req, resp);
 		// doPost(req, resp);
 	}
 	

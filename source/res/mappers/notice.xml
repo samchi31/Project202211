@@ -1,174 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
-	
-	
-<!-- 	<resultMap type="NoticeVO" id="noticeMap"> -->
-<!-- 	<id column="notice_id" property="noticeId"/> -->
-<!-- 	<result column="mem_id" property="memId"/> -->
-<!-- 	<result column="notice_content" property="noticeContent"/> -->
-<!-- 	<result column="atch_id" property="atchId"/> -->
-<!-- 	<result column="notice_date" property="noticeDate"/> -->
-	
-<!-- 	</resultMap> -->
 
-<!-- 	<select id="selectAllMember"  parameterType="map" resultMap="noticeMap"> -->
+
+	<select id="countList" resultType="int">
+
+		SELECT COUNT(*) FROM NOTICE
+
+	</select>
 
 
 
-	<select id="selectAllMember"  parameterType="map" resultType="NoticeVO">
-	
-		SELECT A.* 
-		 FROM(
-		      SELECT ROWNUM AS RNUM,
-		      B.* 
-		      FROM (
-		               SELECT * FROM NOTICE
-		               ORDER BY NOTICE_ID DESC) B
+	<select id="selectAllMember" parameterType="map" resultType="NoticeVO">
+
+		SELECT A.*
+		FROM(
+		SELECT ROWNUM AS RNUM,
+		B.*
+		FROM (
+		SELECT * FROM NOTICE
+		ORDER BY NOTICE_DATE DESC) B
 <![CDATA[		               
 		      WHERE ROWNUM <= #{end}) A
 		 WHERE A.RNUM >= #{start}
-]]>		
+]]>
 	</select>
-	
-	
-	
-	
-	
-	<delete id="DeleteNotice" parameterType="String"> <!-- public int DeleteNotice(String noticeId) doa의 파라미터 타입 String 적기. select만 result값 가짐 -->
-	
+
+	<select id="selectNotice" parameterType="String" resultType="NoticeVO">
+
+		SELECT *
+		FROM NOTICE
+		WHERE NOTICE_ID = #{noticeId}
+
+	</select>
+
+
+	<delete id="DeleteNotice" parameterType="String"> <!-- public int DeleteNotice(String noticeId) doa의 파라미터 타입 String 적기. select만 
+			result값 가짐 -->
+
 		DELETE FROM NOTICE WHERE NOTICE_ID = #{noticeId}
-	
+
 	</delete>
+
+
+	<insert id="insertNotice" parameterType="NoticeVO">
 	
+		<selectKey order="BEFORE" keyProperty="atchId" resultType="String">
+			SELECT SEQ_NOTICE_ATCH.NEXTVAL FROM DUAL
+		</selectKey>
 	
-	
-	
-	
-	<insert id="insertNotice" parameterType="notice.vo.NoticeVO">
-	
-		insert into notice
-		values (#{noticeId}, #{memId}, #{noticeTitle}, #{noticeContent}, #{atchId}, sysdate)
-	
+
+		INSERT INTO NOTICE(
+			NOTICE_ID,
+			MEM_ID,
+			NOTICE_TITLE,
+			NOTICE_CONTENT,
+			NOTICE_DATE,
+			ATCH_ID
+		) VALUES (
+			'N'||LPAD(SEQ_NOTICEID.NEXTVAL, 5, '0'),
+			#{memId}, 
+			#{noticeTitle},
+			#{noticeContent}, 
+			SYSDATE,
+			#{atchId}
+		)
+
 	</insert>
 	
+	<insert id="insertAtchFileDetail" parameterType="java.util.List">
+		
+<!-- 		<selectKey order="BEFORE" keyProperty="atchId" resultType="String"> -->
+<!-- 			SELECT SEQ_NOTICE_ATCH.NEXTVAL FROM DUAL -->
+<!-- 		</selectKey> -->
 	
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+		    INTO NOTICE_ATCH(
+		          ATCH_ID
+		        , ATCH_SN
+		        , ATCH_NAME
+		    ) VALUES (
+		          #{item.atchId}
+		        , #{item.atchSn}
+		        , #{item.atchName}
+		    )
+    	</foreach>
+
+	</insert>
 	
-	<select id="getNoticeId" parameterType="String" resultType="NoticeVO">
+	<select id="selectAtchId" resultType="int">
 	
-		select notice_id as noticeId, 
-			   mem_id as memId, 
-			   notice_title as noticeTitle, 
-			   notice_content as noticeContent, 
-			   atch_id as atchId, 
-			   notice_date as noticeDate
-		  from notice 
-		 where notice_id = #{noticeId} 
+		select max(atch_id) from notice_atch 
 	
 	</select>
-	
-	
-	
+
+
 	<update id="updateNotice" parameterType="notice.vo.NoticeVO">
-	
-	     UPDATE NOTICE
-            SET NOTICE_ID = #{noticeId}, 
-                MEM_ID = #{memId}, 
-                NOTICE_TITLE = #{noticeTitle}, 
-                NOTICE_CONTENT = #{noticeContent}, 
-                ATCH_ID = #{atchId}, 
-                NOTICE_DATE = SYSDATE
-          WHERE NOTICE_ID = #{noticeId}
-	
+
+		UPDATE NOTICE
+		SET NOTICE_TITLE = #{noticeTitle},
+			NOTICE_CONTENT = #{noticeContent},
+			NOTICE_DATE = SYSDATE
+		WHERE NOTICE_ID = #{noticeId}
+
 	</update>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-<!-- 	<insert id="insertAtchFile" parameterType="AtchFileVO"> -->
-		
-<!-- 		아래의 실행된 쿼리를  AtchFileVO 오브젝트에 넣어줌. 그리고 insert 쿼리 시작함 -->
-<!-- 		<selectKey keyProperty="atchFileId" resultType="long" order="BEFORE">  -->
-<!-- 			select ATCH_FILE_SEQ.nextval from dual -->
-<!-- 		</selectKey> -->
-		
-<!-- 		insert into atch_file -->
-<!-- 		(ATCH_FILE_ID -->
-<!-- 		,CREAT_DT -->
-<!-- 		,USE_AT) -->
-<!-- 		VALUES -->
-<!-- 		( -->
-<!-- 		#{atchFileId} -->
-<!-- 		,sysdate -->
-<!-- 		,'Y' -->
-<!-- 		) -->
-		
-		
-<!-- 	</insert> -->
-	
-	
-	
-	<insert id="insertAtchFileDetail">
-		
-		INSERT INTO notice_atch
-        (ATCH_ID, ATCH_SN, ATCH_NAME, ATCH_SIZE) 
-        VALUES (
-	        #{atchId}, 
-	        #{atchSn}, 
-	        #{atchName}, 
-	        #{atchSize}
-        )
+	<update id="updateNoticeAndAtch" parameterType="notice.vo.NoticeVO">
 
-		
-	</insert>
+		<selectKey order="BEFORE" keyProperty="atchId" resultType="String">
+			SELECT SEQ_NOTICE_ATCH.NEXTVAL FROM DUAL
+		</selectKey>
+
+		UPDATE NOTICE
+		SET NOTICE_TITLE = #{noticeTitle},
+			NOTICE_CONTENT = #{noticeContent},
+			NOTICE_DATE = SYSDATE,
+			ATCH_ID = #{atchId}
+		WHERE NOTICE_ID = #{noticeId}
+
+	</update>
 	
+<!-- 	<update id="updateAtch" parameterType=""> -->
 	
-	<select id="getAtchFileList" resultType="AtchFileVO"> 
+<!-- 		update notice_atch -->
+<!-- 		set notice -->
 	
+<!-- 	</update> -->
+ 
+
+	<select id="getAtchFileList" parameterType="String" resultType="AtchFileVO">
+
 		select * from NOTICE_ATCH
 		where ATCH_ID = #{atchId}
-	
+
 	</select>
-	
-	
-	
-	<select id="getAtchFileDetail" resultType="AtchFileVO">
-		
-		select * from NOTICE_ATCH
-		where ATCH_ID = #{atchId}
-		  and ATCH_SN = #{atchSn}
-	
-	</select>
-	
-	
-	
-	
-	
-	
+
 
 </mapper>
 

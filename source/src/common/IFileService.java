@@ -2,8 +2,6 @@ package common;
 
 import javax.servlet.http.HttpServletRequest;
 
-import userClass.vo.UsrClsVO;
-
 public interface IFileService {
 	public void setFileService(String path);
 	

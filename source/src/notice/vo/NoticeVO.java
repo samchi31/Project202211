@@ -1,15 +1,18 @@
 package notice.vo;
 
+import java.util.List;
+
 public class NoticeVO {
 
 	private String noticeId;
 	private String memId;
 	private String noticeTitle;
 	private String noticeContent;
+	private String noticeDate;	
 	private String atchId;
-	private String noticeDate;
 	
-	
+//	//1:N
+//	private List<AtchFileVO> atchFileVOList;
 	
 	public String getNoticeId() {
 		return noticeId;
@@ -36,18 +39,27 @@ public class NoticeVO {
 		this.noticeContent = noticeContent;
 	}
 	
-	public String getAtchId() {
-		return atchId;
-	}
-	public void setAtchId(String atchId) {
-		this.atchId = atchId;
-	}
 	public String getNoticeDate() {
 		return noticeDate;
 	}
 	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate;
 	}
+	public String getAtchId() {
+		return atchId;
+	}
+	public void setAtchId(String atchId) {
+		this.atchId = atchId;
+	}
+	
+	
+//	public List<AtchFileVO> getAtchFileVOList() {
+//		return atchFileVOList;
+//	}
+//	public void setAtchFileVOList(List<AtchFileVO> atchFileVOList) {
+//		this.atchFileVOList = atchFileVOList;
+//	}
+	
 	
 
 }

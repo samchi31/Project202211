@@ -41,23 +41,26 @@ public class UsrClsUpdate extends HttpServlet {
 		usrClsVO.setClassTitle(request.getParameter("title"));
 		usrClsVO.setClassContent(request.getParameter("content"));
 		usrClsVO.setClsCtId(ClsCategory.valueOfKor(request.getParameter("category")));
-		usrClsVO.setClassContent(request.getParameter("detail"));
 
 		// 파일 WebContent/images/thumbnail/에 저장
-		IFileService fileService = new FileService();
-		fileService.saveImage(request, usrClsVO.getClassThumbnail());
-		usrClsVO.setClassThumbnail(fileService.getSavePath()); 
+		if (request.getParameter("old").equals("click")) {
+			IFileService fileService = new FileService();
+			fileService.saveImage(request, usrClsVO.getClassThumbnail());
+			usrClsVO.setClassThumbnail(fileService.getSavePath());
+		} else {
+			usrClsVO.setClassThumbnail(request.getParameter("old"));
+		}
 
 		int cnt = clsService.updatePost(usrClsVO);
 
 		String msg = "실패";
-		if(cnt > 0 ) {
-			msg="성공";
-		} 
+		if (cnt > 0) {
+			msg = "성공";
+		}
 		// req 객체는 리다이렉트로 인해서 insert 후 소멸함 list.do 까지 정보를 유지하기위해 세션사용
 		request.getSession().setAttribute("msg", msg);
-		
-		response.sendRedirect(request.getContextPath()+ "/UsrClsDetail.do?classId="+usrClsVO.getClassId());	
+
+		response.sendRedirect(request.getContextPath() + "/UsrClsDetail.do?classId=" + usrClsVO.getClassId());
 	}
 
 }

@@ -1,0 +1,9 @@
+$(document).ready(function(){
+	$('.menu_wrap').hide();
+	$('.gnbmenu').mouseover(function(){
+		$('.menu_wrap').slideDown();
+	});
+	$('.visual').mouseover(function(){
+		$('.menu_wrap').hide();
+	});
+});

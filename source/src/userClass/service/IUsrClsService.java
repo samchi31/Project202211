@@ -62,4 +62,18 @@ public interface IUsrClsService {
 	 * @return
 	 */
 	public List<ReplyVO> selectReplyAll(String classId);
+	
+	/**
+	 * 댓글 작성
+	 * @param replyVO
+	 * @return
+	 */
+	public int insertReply(ReplyVO replyVO);
+	
+	/**
+	 * 댓글 삭제
+	 * @param replyId
+	 * @return
+	 */
+	public int updateReplyRemove(String replyId);
 }

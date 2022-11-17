@@ -23,7 +23,7 @@ public interface IAtchFileDao {
 	 * @param atchFileVO
 	 * @return
 	 */
-	public int insertAtchFileDetail(AtchFileVO atchFileVO);
+	public int insertAtchFileDetail(List<AtchFileVO> atchFileVO);
 	
 	
 
@@ -43,8 +43,8 @@ public interface IAtchFileDao {
 	 * @param atchFileVO
 	 * @return
 	 */
-	public List<AtchFileVO> getAtchFileList(AtchFileVO atchFileVO);
+	public List<AtchFileVO> getAtchFileList(String noticeId);
 	
 	
-	
+	public int selectAtchId();
 }

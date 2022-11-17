@@ -22,7 +22,7 @@ public class ListFundingController extends HttpServlet {
 		IFundingService fundingService = FundingServiceImpl.getInstance();
 		 
 		String memId = "b001"; // 로그인 사용자   *** 세션으로 처리 
-		String memGb = "1"; // 회원구분  일반/관리자/기관  **I* 세션으로 처리  (일반 회원 1, 기관 2, 관리자 99 )
+		String memGb = "99"; // 회원구분  일반/관리자/기관  **I* 세션으로 처리  (일반 회원 1, 기관 2, 관리자 99 )
 		
 		// 조회 조건 
 		int pageNo = 1;
@@ -46,7 +46,7 @@ public class ListFundingController extends HttpServlet {
 		}*/
 		
 		req.setAttribute("param", vo);	// 조회용 내역
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/funding/fundingList.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/funding/fundingList.jsp");
 		dispatcher.forward(req, resp);
 	}
 	

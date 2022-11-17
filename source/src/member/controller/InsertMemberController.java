@@ -24,6 +24,8 @@ public class InsertMemberController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		req.setCharacterEncoding("UTF-8");
+		
 		// 파라미터값 가져오기
 		String gbn = req.getParameter("gbn");
 		String memId = req.getParameter("memId");
@@ -62,8 +64,6 @@ public class InsertMemberController extends HttpServlet{
 		int cnt = memService.registMember(mv);
 		
 		if(gbn.equals("02")) {
-			
-			
 			String insName = req.getParameter("insName");
 			
 			// 업로드 경로 설정하기
@@ -111,8 +111,11 @@ public class InsertMemberController extends HttpServlet{
 		}
 		
 		req.getSession().setAttribute("msg", msg);
-//		resp.sendRedirect("LoginForm.jsp");
-		req.getRequestDispatcher("join_gen.jsp").forward(req, resp);
+		if(gbn.equals("02")) {
+			req.getRequestDispatcher("/mypage/mem_update.jsp").forward(req, resp);
+		}else {
+			req.getRequestDispatcher("join_gen.jsp").forward(req, resp);
+		}
 	}
 	
 	

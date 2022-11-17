@@ -45,14 +45,12 @@ p {
 </head>
 <body>
 	<form action="/member/searchId.do" method="post">
-	
 		<div id=option class="search">
 			<a href="/member/search_id.jsp">ID 찾기</a>
 		</div>
 		<div id=option class="search">
 			<a href="/member/search_pw.jsp">PW 찾기</a>
 		</div>
-		
 		<div class="container">
 			<div class="row">
 				<div class="content">
@@ -81,7 +79,7 @@ p {
 	if(rst == "ok"){
 	%>
 			// 성공시 페이지 이동
-			alert("회원 아이디는 " + "<%=user %>");
+			alert("회원 아이디는 " + "<%=user%>");
  			location.replace("/member/login.do");
 	<%
 	}else if(rst == "no") {

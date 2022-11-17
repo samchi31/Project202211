@@ -1,0 +1,94 @@
+@charset "UTF-8";
+body{
+	 overflow: hidden;
+}
+.*{
+	 font-family:'GmarketSansMedium', sans-serif ;
+}
+.container {
+	width: 40%;
+	margin: 13% 28%;
+	position : relative;
+	display: table;
+    content: " ";
+    clear: both;
+
+}
+h1{
+	font-weight: bold; 
+    font-family:'GmarketSansMedium', sans-serif ;
+    margin:auto;
+    text-align: center;
+}
+
+.row {
+    height:auto;
+	border-radius: 10px;
+	border-collapse: separate;
+	margin-bottom: 10px;
+	margin:8% auto 0 auto;
+    padding:5%; 
+    border:1px solid #f1f1f1;
+    width: 450px;
+    box-shadow : 0px 0px 20px #f1f1f1
+}
+.content {
+	border: 5px solid white;
+	border-radius: 4px;
+	margin: 20px 0px;
+}
+
+p{
+	display: none;
+	padding: 10px;
+	color: red;
+	line-height: 1.42857143;
+}
+.input{
+	display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    block-size: 45px;
+}
+#loginBtn{
+	color: #444;
+	font-weight: bold; 
+	border: 1px solid #f1f1f1;
+    padding: 6px 12px;
+    border-radius: 4px;
+    width: 100%;
+    float: left;  
+    height: 50px;
+    transition:0.4s 
+}
+
+#loginBtn:hover {
+	background-color:#444;
+	color:#fff
+}
+
+a{
+	font-size: 16px;
+	color: #999;
+	font-weight: bolder
+}
+#option{
+	display: inline;
+	padding : 15px 25px;
+}
+div{
+    content: " ";
+    clear: both;
+}
+#select{
+	display: flex;
+    justify-content: center;
+}
