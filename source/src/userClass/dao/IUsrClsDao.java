@@ -22,4 +22,8 @@ public interface IUsrClsDao {
 	public int updatePost(UsrClsVO usrClsVO);
 	
 	public List<ReplyVO> selectReplyAll(String classId); 
+	
+	public int insertReply(ReplyVO replyVO);
+	
+	public int updateReplyRemove(String replyId);
 }

@@ -7,6 +7,7 @@ public class ReplyVO {
 	private String replyContent;
 	private String parentReplyId;
 	private int depth;
+	private String replyDelete;
 	
 	public String getReplyId() {
 		return replyId;
@@ -43,6 +44,12 @@ public class ReplyVO {
 	}
 	public void setDepth(int depth) {
 		this.depth = depth;
+	}
+	public String getReplyDelete() {
+		return replyDelete;
+	}
+	public void setReplyDelete(String replyDelete) {
+		this.replyDelete = replyDelete;
 	}
 	
 }

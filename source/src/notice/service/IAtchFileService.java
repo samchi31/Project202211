@@ -14,11 +14,11 @@ import notice.vo.AtchFileVO;
 public interface IAtchFileService {
 	
 	/**
-	 * 첨부파일 목록을 저장하기 위한 메소드
+	 * 첨부파일 목록 경로 저장한 리스트
 	 * @param req - Part객체를 꺼내기 위한 요청객체
 	 * @return
 	 */
-	public AtchFileVO saveAtchFileList(HttpServletRequest req);
+	public List<AtchFileVO> saveAtchFileList(HttpServletRequest req);
 	
 
 	
@@ -37,10 +37,20 @@ public interface IAtchFileService {
 	 * @param atchFileVO
 	 * @return
 	 */
-	public List<AtchFileVO> getAtchFileList(AtchFileVO atchFileVO);
+	public List<AtchFileVO> getAtchFileList(String noticeId);
 	
 	
+	/**
+	 * 파일 저장
+	 * @param atchFileVOList
+	 * @return
+	 */
+	public int insertNoticeAtch(List<AtchFileVO> atchFileVOList);
 	
-	
+	/**
+	 * 가장 최근 저장 첨부파일 가져오기
+	 * @return
+	 */
+	public int selectAtchId();
 	
 }

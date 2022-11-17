@@ -13,9 +13,29 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>신규회원 등록</title>
 <style>
-	.table {
-		border= 1px;
+	.btn {
+		float: right;
 	}
+	.container {
+		width: 100%;
+	}
+	.row {
+		width:90%; margin:0 auto;
+	}
+	
+	.f_title {
+	   font-weight: bold; 
+	   font-family:'GmarketSansMedium', sans-serif ;font-weight:bold;
+	}
+
+	.f_title p {
+	   position:absolute;
+	   opacity:0.1;
+	   font-size:100px;
+	   top:-5%;
+	   color:#ccc
+	 }
+	
 </style>
 <script>
 	
@@ -24,35 +44,26 @@
 <body>
 
 
-
-	<h3 style="border-bottom: 1px solid lightgray;" > 공지사항 등록 </h3>
 		<div class="container">
-			<form action="/InsertNoticeController.do" method="post">
-				  <div class="form-group">
-				    <label for="noticeId">글번호</label>
-				    <input type="text" class="form-control" name="noticeId" id="noticeId">
-				  </div>
-				  <div class="form-group">
-				    <label for="memId">회원ID</label>
-				    <input type="text" class="form-control" name="memId" id="memId">
-				  </div>
-				  <div class="form-group">
-				    <label for="date">날 짜</label>
-				    <input type="text" class="form-control" name="noticeDate" id="date">
-				  </div>
-				  <div class="form-group">
-				    <label for="title">제 목</label>
-				    <input type="text" class="form-control" name="noticeTitle" id="title">
-				  </div>
-				  <div class="form-group">
-				    <label for="content">내 용</label>
-				    <input type="text" class="form-control" name="noticeContent" id="content">
-				  </div>
-				  <div class="form-group">
-				    <label for="pwd">첨부파일</label>
-				    <input type="file" name="atchFile" multiple="multiple">
-				  </div>
-		  		<button type="submit" class="btn btn-default">Submit</button>
+		<h1 class="f_title">공지사항 등록
+			<p>Notice</p>
+		</h1>			
+			<form action="/InsertNoticeController.do" method="post" enctype="multipart/form-data">
+				<div class="row">  
+					  <div class="form-group">
+					    <label for="title">제 목</label>
+					    <input type="text" class="form-control" name="noticeTitle" id="title">
+					  </div>
+					  <div class="form-group">
+					    <label for="content">내 용</label>
+					    <input type="text" class="form-control" name="noticeContent" id="content" style="height:200px">
+					  </div>
+					  <div class="form-group">
+					    <label for="pwd">첨부파일</label>
+					    <input type="file" name="atchFile" multiple>
+					  </div>
+			  		<button type="submit" class="btn btn-default">등록</button>
+				</div>
 			</form>
 	    </div>	  
 	    

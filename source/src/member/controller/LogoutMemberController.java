@@ -21,7 +21,8 @@ public class LogoutMemberController extends HttpServlet{
 		
 		req.getSession().invalidate();
 		
-		resp.sendRedirect("/member/start.jsp");
+		resp.sendRedirect("/index.jsp");
+		// 원래 주소 resp.sendRedirect("/member/start.jsp");
 	}
 	
 	@Override

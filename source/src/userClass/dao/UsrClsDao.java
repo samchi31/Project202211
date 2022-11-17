@@ -56,5 +56,13 @@ public class UsrClsDao extends QueryDao implements IUsrClsDao {
 	public List<ReplyVO> selectReplyAll(String classId) {
 		return selectList("userClass.selectReplyAll",classId);
 	}
+	@Override
+	public int insertReply(ReplyVO replyVO) {
+		return insert("userClass.insertReply", replyVO);
+	}
+	@Override
+	public int updateReplyRemove(String replyId) {
+		return update("userClass.updateReplyRemove", replyId);
+	}
 	
 }

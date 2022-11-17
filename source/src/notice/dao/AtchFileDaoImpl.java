@@ -33,14 +33,14 @@ public class AtchFileDaoImpl extends QueryDao implements IAtchFileDao {
 	
 
 	@Override
-	public List<AtchFileVO> getAtchFileList(AtchFileVO atchFileVO) {
+	public List<AtchFileVO> getAtchFileList(String noticeId) {
 		
-		return selectList("notice.getAtchFileList", atchFileVO);
+		return selectList("notice.getAtchFileList", noticeId);
 	}
 	
 	
 	@Override
-	public int insertAtchFileDetail(AtchFileVO atchFileVO) {
+	public int insertAtchFileDetail(List<AtchFileVO> atchFileVO) {
 
 		return insert("notice.insertAtchFileDetail", atchFileVO);
 	}
@@ -50,6 +50,11 @@ public class AtchFileDaoImpl extends QueryDao implements IAtchFileDao {
 	public AtchFileVO getAtchFileDetail(AtchFileVO atchFileVO) {
 		
 		return selectOne("notice.getAtchFileDetail", atchFileVO); 
+	}
+
+	@Override
+	public int selectAtchId() {
+		return countList("notice.selectAtchId");
 	}
 
 }

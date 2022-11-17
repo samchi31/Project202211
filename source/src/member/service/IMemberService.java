@@ -55,7 +55,7 @@ public interface IMemberService {
 	 * @param mv update할 회원정보가 들어있는 MemberVO객체
 	 * @return 작업성공 : 1, 작업실패 : 0
 	 */
-	public int modifyMember(MemberVO mv);
+	public int updateMember(MemberVO mv);
 	
 	/**
 	 * 회원ID를 매개변수로 받아서 해당 회원 정보를 삭제하는 메서드

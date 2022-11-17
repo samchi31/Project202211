@@ -1,7 +1,9 @@
 package volunteer.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,24 +21,38 @@ public class VolDetailController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// ÆÄ¶ó¹ÌÅÍ °ª Á¶È¸(DB¿¡ volId¸¦ ¾î¶² °ªÀ¸·Î 
+		String memId = request.getParameter("memId"); // session
 		String volId = request.getParameter("volId");
 		
-		// ¼­ºñ½º °´Ã¼ »ý¼º
+		Map reviewMap = new HashMap();
+		reviewMap.put("memId", memId);// session
+		reviewMap.put("volId", volId);
+		
 		IVolService service = VolService.getInstance();
 		
-		// ºÀ»ç ÇÁ·Î±×·¥ ¼¼ºÎ ³»¿ë °¡Á®¿À±â
 		VolunteerVO vv = service.getDetail(volId);
 		
-		// ÇØ´ç ¸®ºä ¸ñ·Ï °¡Á®¿À±â
 		List<ReviewVO> reviewList = service.getReviewList(volId);
+//		for(ReviewVO rv : reviewList) {
+//			rv.getReservId()
+//		}
 		
-		// º¸³¾ ÁØºñ ÇÏ±â
+		// ìˆ˜ì •í•˜ê¸°
+		int existNum = service.getReview(reviewMap);
+		boolean exist;
+		if(existNum == 0) {
+			exist = false;
+		} else {
+			exist = true;
+		}
+		
+		
+		request.setAttribute("memId", memId);  // session
 		request.setAttribute("vv", vv);
 		request.setAttribute("reviewList", reviewList);
+		request.setAttribute("exist", exist);
 		
-		// jspÆÄÀÏ¿¡ º¸³»±â
-		request.getRequestDispatcher("/volDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/volunteer/volDetail.jsp").forward(request, response); // session ?????
 		
 	}	
 		

@@ -2,10 +2,10 @@ package donate.dao;
 
 import java.util.List;
 
-import common.QueryDao;
+import batis.MyBatisDao;
 import donate.vo.DonateVO;
 
-public class DonateDaoImpl extends QueryDao implements IDonateDao{
+public class DonateDaoImpl extends MyBatisDao implements IDonateDao{
 	
 	private static IDonateDao donateDao;
 	

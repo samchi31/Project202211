@@ -53,7 +53,7 @@ public class InsertFundingController extends HttpServlet {
 		String fundingAccountHolder = req.getParameter("fundingAccountHolder");
 		String fundingBankName = req.getParameter("fundingBankName");
 		String fundingDetail = req.getParameter("fundingDetail");
-//		String fundingThumbnail = req.getParameter("fundingThumbnail");
+     	String fundingThumbnail = req.getParameter("fundingThumbnail");
 		
 		IFundingService fundingService = FundingServiceImpl.getInstance();
 		
@@ -90,7 +90,7 @@ public class InsertFundingController extends HttpServlet {
 		
 		System.out.println("== " + req.getContextPath()  +" ==");		
 		req.getSession().setAttribute("msg", msg);
-		resp.sendRedirect(req.getContextPath()+"/funding/List.do");
+		resp.sendRedirect("/funding/List.do");
 	}
 
 }

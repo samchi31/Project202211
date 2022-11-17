@@ -102,4 +102,40 @@
 
 </select>
 
+<update id="updateReplyRemove" parameterType="String">
+
+	update reply
+	set reply_delete = 'Y'
+	where reply_id = #{replyId}
+
+</update>
+
+<update id="updateReplyContent" parameterType="ReplyVO">
+
+	update reply
+	set updateReplyContent = #{replyContent}
+	where reply_id = #{replyId}
+
+</update>
+
+<insert id="insertReply" parameterType="ReplyVO">
+
+	INSERT INTO REPLY 
+	(REPLY_ID,
+	CLASS_ID,
+	MEM_ID,
+	REPLY_CONTENT,
+	PARENT_REPLY_ID,
+	DEPTH) 
+	VALUES (
+	    'P'||LPAD(SEQ_REPLY.NEXTVAL, 5, '0'),
+	    #{classId},
+	    #{memId},
+	    #{replyContent},
+	    #{parentReplyId},
+	    #{depth}
+	)
+
+</insert>
+
 </mapper>

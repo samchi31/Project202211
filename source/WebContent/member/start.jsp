@@ -4,4 +4,6 @@
 <p> *****************시작화면***************** <br> 
     ****************로그인 ㄴㄴ****************</p>
 
-<li><a href="<%=request.getContextPath()%>/member/LoginForm.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+<li><a href="<%=request.getContextPath()%>/member/LoginForm.jsp">Login</a></li>
+
+ 

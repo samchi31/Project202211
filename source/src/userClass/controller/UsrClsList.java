@@ -35,11 +35,11 @@ public class UsrClsList extends HttpServlet {
 		int currentPage = 1;
 		currentPage = request.getParameter("pageNo")==null? 
 				1 : Integer.parseInt(request.getParameter("pageNo"));
-		// 한 화면에 몇페이지
-		int perPage = 9;
+		// 한 화면에 몇페이지 아래버튼
+		int perPage = 5;
 		
-		// 페이지 아래 버튼 몇개
-		int perList = 5;
+		// 한 페이지에 출력할 글 갯수
+		int perList = 9;
 
 		int totalPage = (int) Math.ceil((double) count / (double) perList);
 //		System.out.println(totalPage);

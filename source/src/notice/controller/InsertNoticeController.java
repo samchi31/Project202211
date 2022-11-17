@@ -1,6 +1,7 @@
 package notice.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -20,8 +21,6 @@ import notice.vo.NoticeVO;
 
 @MultipartConfig 
 @WebServlet("/InsertNoticeController.do")
-
-
 public class InsertNoticeController extends HttpServlet {
 	
 	@Override
@@ -29,59 +28,35 @@ public class InsertNoticeController extends HttpServlet {
 		
 		req.getRequestDispatcher("/WEB-INF/adminNotice/insertForm.jsp").forward(req, resp);
 		
-	}
-	
-	
-	
-	
+	}	
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-//	        한글로 인코딩 해주는 코드!
-//		req.setCharacterEncoding("UTF-8"); 
-		
 		// 파라미터값 가져오기
-		String noticeId = req.getParameter("noticeId");
-		String memId = req.getParameter("memId");
-		String noticeDate = req.getParameter("noticeDate");
+		String memId = "admin";//String memId = req.getParameter("memId");	//admin 세션있다치고
 		String noticeTitle = req.getParameter("noticeTitle");
-		String noticeContent = req.getParameter("noticeContent");
-//		String atchId = req.getParameter("atchId");
+		String noticeContent = req.getParameter("noticeContent");	
 		
+		INoticeService noticeService = NoticeServiceImpl.getInstance();	
+		NoticeVO nv = new NoticeVO();
+		nv.setMemId(memId);
+		nv.setNoticeTitle(noticeTitle);
+		nv.setNoticeContent(noticeContent);		
 		
 		// 서비스 객체 생성하기
-		IAtchFileService fileService = AtchFileServiceImpl.getInstance();
-				
-		INoticeService noticeService = NoticeServiceImpl.getInstance();
-		
-		
-		AtchFileVO atchFileVO = new AtchFileVO();
+		IAtchFileService fileService = AtchFileServiceImpl.getInstance();			
 		
 		//첨부파일 목록 저장하기 (공통기능)
-		atchFileVO = fileService.saveAtchFileList(req);
-		
-		
-		NoticeVO nv = new NoticeVO();
-		nv.setNoticeId(noticeId);
-		nv.setMemId(memId);
-		nv.setNoticeDate(noticeDate);
-		nv.setNoticeTitle(noticeTitle);
-		nv.setNoticeContent(noticeContent);
-		nv.setAtchId(atchFileVO.getAtchFileId());
-		
-		
-		int cnt = noticeService.registerNotice(nv);
+		List<AtchFileVO> atchFileVOList = fileService.saveAtchFileList(req);
+		int cnt = noticeService.registerNotice(nv, atchFileVOList);
 		
 		String msg="";
-		if(cnt > 0) {
+		if(cnt > 0)  {
 			msg = "성공";
-			//성공
 		} else {
 			msg = "실패";
-			//실패
-		}
-		
+		}		
 		
 		req.getSession().setAttribute("msg", msg);
 		

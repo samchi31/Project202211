@@ -55,7 +55,7 @@ private static IMemberService memService;
 	}
 
 	@Override
-	public int modifyMember(MemberVO mv) {
+	public int updateMember(MemberVO mv) {
 		int cnt = memDao.updateMember(mv);
 		return cnt;
 	}

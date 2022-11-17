@@ -41,7 +41,29 @@ public class UsrClsDetail extends HttpServlet {
 	}
 
 	
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		IUsrClsService clsService = UsrClsService.getInstance();
+		
+		ReplyVO replyVO = new ReplyVO();
+		replyVO.setReplyContent(request.getParameter("replyContent"));
+		replyVO.setMemId("asdf"); //replyVO.setMemId(session.get); //세션 있다 치고
+		replyVO.setClassId(request.getParameter("classId"));
+		if(request.getParameter("parentId") != null) {
+			replyVO.setParentReplyId(request.getParameter("parentId"));
+		}
+		replyVO.setDepth(Integer.parseInt(request.getParameter("depth")));
+		
+		int cnt = clsService.insertReply(replyVO);
+		
+		String msg = "";
+		if(cnt>0) {
+			msg = "성공";
+		} else {
+			msg = "실패";
+		}
+//		request.getSession().setAttribute("msg", msg);
+		
+		response.sendRedirect(request.getContextPath()+ "/UsrClsDetail.do?classId="+replyVO.getClassId());	
+	}
 }

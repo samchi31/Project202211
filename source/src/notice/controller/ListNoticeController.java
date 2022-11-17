@@ -28,15 +28,42 @@ public class ListNoticeController extends HttpServlet {
 		//서비스 객체 생성하기
 		INoticeService noticeService = NoticeServiceImpl.getInstance(); 
 		
+		int count = noticeService.countList();
+
+		int currentPage = 1;
+		currentPage = req.getParameter("pageNo")==null? 
+				1 : Integer.parseInt(req.getParameter("pageNo"));
+		// 한 화면에 몇페이지
+		int perPage = 5;
+		
+		// 페이지 글 개수
+		int perList = 10;
+
+		int totalPage = (int) Math.ceil((double) count / (double) perList);
+//		System.out.println(totalPage);
+
+		int start = (currentPage - 1) * perList + 1; 
+		int end = start + perList - 1; 
+		if(end>count) end = count;	
+
+		int startPage = (currentPage - 1) / perPage * perPage + 1;		
+		int endPage = startPage + perPage - 1;
+		if(endPage>totalPage) endPage = totalPage;
+		
 //		Map<String,String> map = new HashMap<String, String>();
 		Map<String,Object> map = new HashMap<>();
-		map.put("start", "1");
-		map.put("end", "100");
+		map.put("start", start);
+		map.put("end", end);
 		
 		//회원 목록 조회
 		List<NoticeVO> noticeList = noticeService.selectAllMember(map); //전체 조회하는 것
 		
 		req.setAttribute("noticeList", noticeList);
+		req.setAttribute("perPage", perPage);
+		req.setAttribute("sPage", startPage);
+		req.setAttribute("ePage", endPage);
+		req.setAttribute("ttPage", totalPage);
+		req.setAttribute("cPage", currentPage);
 		
 		//회원목록 화면 처리하기
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/adminNotice/list.jsp");

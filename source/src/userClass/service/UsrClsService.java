@@ -61,6 +61,15 @@ public class UsrClsService implements IUsrClsService{
 	@Override
 	public List<ReplyVO> selectReplyAll(String classId) {
 		return dao.selectReplyAll(classId);
+	}
+	
+	@Override
+	public int insertReply(ReplyVO replyVO) {
+		return dao.insertReply(replyVO);
+	}
+	@Override
+	public int updateReplyRemove(String replyId) {
+		return dao.updateReplyRemove(replyId);
 	}	
 	
 	

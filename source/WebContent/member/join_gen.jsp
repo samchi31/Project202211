@@ -6,22 +6,53 @@
 %>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%-- 다음주소API --%>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+.container {
+	width: 750px;
+	font-size: 14px;
+	display: table;
+	content: " ";
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 100px;
+   font-family:'GmarketSansMedium', sans-serif ;
+}
+h1 {
+	text-align: center;
+    font-weight: bold;  
+}
+form{
+	margin-top: 50px;
+}
+.input{
+	width: 100%;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+   input:focus {
+    outline: none;
+	border: 1px solid #999;
+    box-shadow : 0px 0px 20px #f1f1f1;
+   } 
+
+</style>
 </head>
 <body>
-	<div class="col-sm-8">
+	<div class="container">
 		<h1>온(溫:ON)</h1>
 		<hr>
 		<form class="form-horizontal" action="Insert.do" method="post" enctype="multipart/form-data">
@@ -30,7 +61,7 @@
 				<label for="id" class="control-label col-sm-2">아이디</label> <span
 					class="sp"></span>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="id"
+					<input type="text" class="input" id="id"
 						placeholder="4자 이상(대ㆍ소문자,숫자)" name="memId" required
 						pattern="[a-zA-Z][a-zA-Z0-9]{3,}">
 				</div>

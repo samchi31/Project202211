@@ -2,15 +2,6 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	
-<!-- 
-		1) id속성 : 해당 태그를 호출할 때 <mapper> 태그의 namespace와 연결하여 사용하는 이름.
-		2) parameterType 속성 : SQL문에 사용될 데이터가 들어있는 객체타입 지정(보통 VO클래스, 자바의 자료형이름 등이 사용됨.)
-		                                                        (typeAlias로 지정한 alias명을 사용할 수 있다.)
-		3) resultType 속성 : select문을 실행한 결과를 담을 객체타입을 지정한다.(보통 VO클래스, 자바의 자료형이름 등이 사용됨.)
-		                                                         (typeAlias로 지정한 alias명을 사용할 수 있다.)
-		4) resultMap 속성 : 결과 레코드 컬럼명과 VO객체의 property명이 다를 경우 적절한 매핑을 위해 사용한다.
- -->
-	
 	<insert id="insertMember" parameterType="MemberVO">
 		insert into member 
 					(MEM_ID, MEM_PASS, MEM_NAME, MEM_TEL, MEM_ZIP, MEM_ADDR1, MEM_ADDR2, MAIL, REGNO, JOIN_DATE, MEM_STATUS, ADMIN) 
@@ -25,15 +16,29 @@
 	
 	<update id="updateMember" parameterType="MemberVO">
 		update member 
- 			set mem_name = #{memName},
-					mem_tel = #{memTel},
-					mem_addr = #{memAddr},
-					atch_file_id = #{atchFileId}
+ 			set MEM_PASS = #{memPass},
+				MEM_NAME = #{memName},
+				MEM_TEL = #{memTel},
+				MEM_ZIP = #{memZip},
+				MEM_ADDR1 = #{memAddr1},
+				MEM_ADDR2 = #{memAddr2},
+				MAIL = #{mail},
+				regno = #{regno1}||#{regno2}
+				where mem_id = #{memId}
+	</update>
+	
+	<update id="updateIns" parameterType="InsVO">
+		update institution 
+ 			set atch_course = #{atchCourse},
+					inst_name = #{instName},
+					inst_approve = 'N'
 					where mem_id = #{memId}
 	</update>
 	
-	<delete id="deleteMember" parameterType="String">
-		delete from member where mem_id = #{memId}
+	<delete id="deleteMember" parameterType="MemberVO">
+		update member 
+		set mem_status = 'Y'
+		where mem_id = #{memId}
 	</delete>
 	
 	<select id="searchId" parameterType="String" resultType="MemberVO">
@@ -61,6 +66,18 @@
 		from member
 		where mem_id = #{memId}
 		and mem_pass = #{memPass}
+	</select>
+	
+	<select id="selectMember" parameterType="String" resultType="MemberVO">
+		select mem_id, mem_pass, mem_name, mem_tel, mem_zip, mem_addr1, mem_addr2, substr(regno, 1,6) as regno1, substr(regno, -1) as regno2, mail
+		from member
+		where mem_id = #{memId}
+	</select>
+	
+	<select id="selectIns" parameterType="String" resultType="InsVO">
+		select *
+		from institution
+		where mem_id = #{memId}
 	</select>
 	
 </mapper>
