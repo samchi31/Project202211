@@ -123,7 +123,8 @@
 		       funding_account=#{fundingAccount},
 		       funding_account_holder=#{fundingAccountHolder},
 		       funding_bank_name=#{fundingBankName},
-		       funding_detail=#{fundingDetail}
+		       funding_detail=#{fundingDetail},
+		       funding_thumbnail=#{fundingThumbnail}
 		 WHERE FUNDING_ID = #{fundingId}
 		   AND MEM_ID = #{memId}
 	</update>

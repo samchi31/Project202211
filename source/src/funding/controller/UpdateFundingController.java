@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.FileService;
+import common.IFileService;
 import funding.service.FundingServiceImpl;
 import funding.service.IFundingService;
 import funding.vo.FundingVO;
@@ -17,9 +19,12 @@ public class UpdateFundingController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		req.setCharacterEncoding("UTF-8");
-		
+		String fundingId = req.getParameter("fundingId");
+		resp.sendRedirect(req.getContextPath()+"/funding/Detail.do?detailFundingId="+fundingId);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 기관명 조회
 		String fundingId = req.getParameter("fundingId");
 		String memId = req.getParameter("memId");
@@ -51,7 +56,14 @@ public class UpdateFundingController extends HttpServlet {
 		fv.setFundingBankName(fundingBankName);
 		fv.setFundingDetail(fundingDetail);
 		
-		System.out.println("fv = " + fv.toString() );
+		if(req.getParameter("isChange").equals("click")) {
+			IFileService fileService = new FileService();
+	        fileService.saveImage(req, fv.getFundingThumbnail());
+	        fv.setFundingThumbnail(fileService.getSavePath());
+		} else {
+			fv.setFundingThumbnail(req.getParameter("isChange"));
+		}
+		
 		int cnt = fundingService.modifyFunding(fv);
 		
 		String msg = "";
@@ -63,13 +75,7 @@ public class UpdateFundingController extends HttpServlet {
 		}
 		
 		req.getSession().setAttribute("msg", msg);
-		resp.sendRedirect(req.getContextPath()+"/funding/Detail.do?detailFundingId="+fundingId);
-		
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
+		resp.sendRedirect(req.getContextPath()+"/funding/list.do");
 	}
 
 }

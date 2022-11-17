@@ -39,7 +39,8 @@
         			<tr>
 		     			<td>
 		     				<img src="http://localhost:8889/<%=request.getContextPath() %>/WebContent/images/thumbnail/br5.jpg" alt="">
-		     				<input class="form-control input-sm" style="width:80%;margin:20px auto;" type="file" name="atchFile">
+		     				<input type="hidden" name="isChange" value="<%=fundingDetail.getFundingThumbnail() %>">
+		     				<input class="form-control input-sm" style="width:80%;margin:20px auto;" type="file" name="thumbnail">
 		     			</td>
 					</tr>
 		     		</tr>
@@ -149,12 +150,6 @@ $(document).ready(function() {
 	$('#summernote').summernote();
 });
 
-
-
-
-
-
-
 // 펀딩 내역 수정
 function fnUpdateFunding(){
 	if( confirm("수정하시겠습니까?") ){
@@ -164,7 +159,9 @@ function fnUpdateFunding(){
 	}
 }
 
-
+$('input[name=thumbnail]').on('click', function(){
+	$('input[name=isChange]').val("click");
+});
 
 
 </script>
