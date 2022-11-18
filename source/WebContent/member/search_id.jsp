@@ -22,42 +22,89 @@
 
 </script>
 <style>
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+body{
+	 overflow: hidden;
+}
+.*{
+	 font-family:'GmarketSansMedium', sans-serif ;
+}
 .container {
 	width: 40%;
-	margin: 30%;
-}
+	margin: 13% 28%;
+	position : relative;
+	display: table;
+    content: " ";
+    clear: both;
 
+}
 .row {
-	border: 4px solid lightgray;
-	padding: 10px;
+	margin:8% auto 0 auto;
+	padding:8%;
+	border:1px solid #f1f1f1;
+	border-radius:10px;
+	box-shadow : 0px 0px 20px #f1f1f1;
+	transition:0.2s
 }
 
+.title {
+	font-weight: bold; 
+    font-family:'GmarketSansMedium', sans-serif ;
+    margin:auto;
+    text-align: center;
+    margin-top:5%
+}
 .content {
-	border: 5px solid white;
+width:80%; 
+margin:10px auto;
 }
 
-p {
-	display: none;
-	padding: 10px;
-	color: red;
+.warning {
+ clear:both; 
+ display:block;
+ text-align:center;
+ color:red;
+}
+
+.backbt {
+	width:150px;
+	height:150px;
+	border-radius:150px; 
+	position:absolute;
+	left:3%;
+	top:5%
 }
 </style>
 </head>
 <body>
 	<form action="/member/searchId.do" method="post">
-		<div id=option class="search">
+		<%-- <div id=option class="search">
 			<a href="/member/search_id.jsp">ID 찾기</a>
 		</div>
 		<div id=option class="search">
 			<a href="/member/search_pw.jsp">PW 찾기</a>
 		</div>
+		--%>
+		<div class="backbt">
+			<a href="/member/LoginForm.jsp" class="btn btn-success">뒤로 가기</a>
+		</div>
+		
+		
 		<div class="container">
 			<div class="row">
+				<h1 class="title">아이디 찾기</h1>
 				<div class="content">
-					<input id="userName" name="memName" placeholder="이름">
+					<input id="userName" name="memName" class="form-control" placeholder="이름">
 				</div>
 				<div class="content">
-					<input id="userTel" name="memTel" placeholder="전화번호">
+					<input id="userTel" name="memTel" class="form-control" placeholder="전화번호">
 				</div>
 				<div class="warning">
 					<p>
@@ -65,7 +112,7 @@ p {
 					</p>
 				</div>
 				<div class="content">
-					<button id="Btn">완료</button>
+					<button id="Btn" class="col-sm-12 btn btn-success">완료</button>
 				</div>
 			</div>
 		</div>

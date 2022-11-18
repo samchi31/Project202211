@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+	
+	
+	<select id="selectAllAdmin"  parameterType="map" resultType="QnaVO">
+	
+		SELECT A.* 
+		 FROM(
+		      SELECT ROWNUM AS RNUM,
+		      B.* 
+		      FROM (
+		               SELECT * FROM INQUIRY
+		               ORDER BY INQUIRY_ID DESC) B
+<![CDATA[		               
+		      WHERE ROWNUM <= #{end}) A
+		 WHERE A.RNUM >= #{start}
+]]>	
+
+	</select>
+	
+	
+	
+	<select id="selectAllMember"  parameterType="map" resultType="QnaVO">
+	
+         
+		SELECT A.* 
+		 FROM(
+		      SELECT ROWNUM AS RNUM,
+		      B.* 
+		      FROM (
+		               SELECT * FROM INQUIRY
+		               ORDER BY INQUIRY_ID DESC) B
+<![CDATA[		               
+		      WHERE ROWNUM <= #{end}) A
+		 WHERE A.RNUM >= #{start}
+]]>	
+	</select>
+	
+	
+	
+	
+	
+	
+	<select id="selectAdminQna" parameterType="String" resultType="QnaVO">
+	
+		select INQUIRY_ID as inquiryId,
+               MEM_ID as memId, 
+               INQUIRY_TITLE as inquiryTitle, 
+               INQUIRY_CONTENT as inquiryContent, 
+               INQUIRY_DATE as inquiryDate, 
+               ANSWER_CONTENT as answerContent, 
+               ANSWER_DATE as answerDate
+          from INQUIRY
+         where INQUIRY_ID = #{inquiryId}
+	
+	</select>
+	
+	
+		
+		
+	<select id="getAdminQnaId" parameterType="String" resultType="QnaVO">
+	
+		select INQUIRY_ID as inquiryId, 
+               MEM_ID as memId, 
+               INQUIRY_TITLE as inquiryTitle,
+               INQUIRY_CONTENT as inquiryContent, 
+               INQUIRY_DATE as inquiryDate
+               ANSWER_CONTENT as answerContent, 
+               ANSWER_DATE as answerDate
+          from INQUIRY
+         where INQUIRY_ID = #{inquiryId}
+	
+	</select>
+	
+	
+	
+	
+	
+	
+	<update id="updateAnswer" parameterType="qna.vo.QnaVO">
+	
+        UPDATE INQUIRY
+           SET ANSWER_CONTENT = #{answerContent},
+               ANSWER_DATE = sysdate
+         WHERE INQUIRY_ID = #{inquiryId}
+		
+	</update>
+	
+	
+	
+	
+	<insert id="registerMemberQna" parameterType="qna.vo.QnaVO">
+		
+        insert into INQUIRY
+        (INQUIRY_ID, MEM_ID, INQUIRY_TITLE, INQUIRY_CONTENT, INQUIRY_DATE)
+ 		values (
+        ('Q'||LPAD(SEQ_INQUIRY.NEXTVAL, 5, '0')),
+        #{memId},
+        #{inquiryTitle},
+        #{inquiryContent},
+        SYSDATE)
+		
+	</insert>
+	
+	
+	
+	<!-- PAGINATION -->
+	<select id="countList" resultType="int">
+		SELECT COUNT(*) FROM INQUIRY
+	</select>
+	
+	
+
+</mapper>
+

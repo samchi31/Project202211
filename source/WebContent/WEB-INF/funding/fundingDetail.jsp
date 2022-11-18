@@ -40,7 +40,7 @@
 				<table class="col-sm-6 fdetail_tb thum">
 					<tr>
 						<td>
-							<img src="http://localhost:8889/<%=request.getContextPath() %><%=fundingDetail.getFundingThumbnail() %>" alt="">
+							<img src="<%=request.getContextPath() %><%=fundingDetail.getFundingThumbnail() %>" alt="">
 		     				<input type="hidden" name="isChange" value="<%=fundingDetail.getFundingThumbnail() %>">
 		     				<input class="form-control input-sm" style="width:80%;margin:20px auto;" type="file" name="thumbnail">
 						</td>

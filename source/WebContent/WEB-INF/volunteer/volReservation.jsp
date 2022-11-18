@@ -134,9 +134,9 @@ img {
       
       <div id="section2"> 
         <h1>날짜 선택</h1>
-            <select><input type="date" name="reservDate"></select>
+            <input type="date" name="reservDate">
         <h1>시간 선택</h1>
-        	<select><input type="number" name="reservTime"></select>
+        	<input type="number" name="reservTime">
       </div>
       
       <hr>

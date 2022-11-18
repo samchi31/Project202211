@@ -41,9 +41,15 @@ public class VolDao extends QueryDao implements IVolDao {
 	}
 	
 	@Override
-	public int getReview(Map reviewMap) {
+	public String getReservId(Map reviewMap) {
 		
-		return selectOne("volunteer.getReview", reviewMap);
+		return selectOne("volunteer.getReservId", reviewMap);
+	}
+	
+	@Override
+	public int canIReview(String reservId) {
+
+		return selectOne("volunteer.canIReview", reservId);
 	}
 	
 	@Override
@@ -133,5 +139,19 @@ public class VolDao extends QueryDao implements IVolDao {
 		
 		return selectList("volunteer.getWishList", null);
 	}
+
+	@Override
+	public List<ReservationVO> getApproveList(String memId) {
+		
+		return selectList("volunteer.getApproveList", memId);
+	}
+
+	@Override
+	public List<VolunteerVO> getListMyVol(String memId) {
+		
+		return selectList("volunteer.getListMyVol", memId);
+	}
+
+
 
 }

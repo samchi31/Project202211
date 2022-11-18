@@ -50,9 +50,15 @@ public class VolService implements IVolService {
 	}
 
 	@Override
-	public int getReview(Map reviewMap) {
+	public String getReservId(Map reviewMap) {
 		
-		return dao.getReview(reviewMap);
+		return dao.getReservId(reviewMap);
+	}
+	
+	@Override
+	public int canIReview(String reservId) {
+
+		return dao.canIReview(reservId);
 	}
 	
 	@Override
@@ -163,6 +169,18 @@ public class VolService implements IVolService {
 	public List<WishVO> getWishList() {
 
 		return dao.getWishList();
+	}
+
+	@Override
+	public List<ReservationVO> getApproveList(String memId) {
+
+		return dao.getApproveList(memId);
+	}
+
+	@Override
+	public List<VolunteerVO> getListMyVol(String memId) {
+		
+		return dao.getListMyVol(memId);
 	}
 
 }

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import donate.service.DonateServiceImpl;
 import donate.service.IDonateService;
 import donate.vo.DonateVO;
+import funding.service.FundingServiceImpl;
+import funding.service.IFundingService;
 
 @WebServlet("/donate/Donate.do")
 public class insertDonateController extends HttpServlet {
@@ -34,6 +36,7 @@ public class insertDonateController extends HttpServlet {
 		String donateBankName = req.getParameter("donateBankName");
 		
 		IDonateService donateService = DonateServiceImpl.getInstance();
+		IFundingService fundingService = FundingServiceImpl.getInstance();
 		
 		DonateVO dv = new DonateVO();
 		//dv.setDonateId(donateId);
@@ -47,6 +50,8 @@ public class insertDonateController extends HttpServlet {
 		System.out.println(dv.toString());
 		
 		int cnt = donateService.setDonate(dv);
+		fundingService.modifyRecentAmount(fundingId);
+		
 		
 		String msg = "";
 		

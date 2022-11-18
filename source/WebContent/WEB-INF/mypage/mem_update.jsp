@@ -36,22 +36,31 @@ div {
 	<h1>온(溫:ON)</h1>
 	<div id="side">
 		<div id="memDetail" class="memDetail">
-			<a href="/mypage/memdetail.do">회원정보</a>
+			<a href="/mypage/memDetail.do">회원정보</a>
 		</div>
 		<div id=class="">
-			<a href="/">봉사내역</a>
+			<a href="/myVolReserv.do">봉사 내역</a>
 		</div>
 		<div id=class="">
-			<a href="/">재능기부현황</a>
+			<a href="/volWish.do">관심 봉사</a>
 		</div>
 		<div id=class="">
-			<a href="/">후원내역</a>
+			<a href="/approve.do">봉사 승인</a>
 		</div>
 		<div id=class="">
-			<a href="/">공지사항</a>
+			<a href="/myVolList.do">봉사글 작성 내역</a>
 		</div>
 		<div id=class="">
-			<a href="/">Q&A</a>
+			<a href="/myUserClass.do">재능기부 현황</a>
+		</div>
+		<div id=class="">
+			<a href="/myDonate.do">후원 내역</a>
+		</div>
+		<div id=class="">
+			<a href="/myQna.do">Q&A</a>
+		</div>
+		<div id=class="">
+			<a href="/myNotice.do">공지사항</a>
 		</div>
 	</div>
 

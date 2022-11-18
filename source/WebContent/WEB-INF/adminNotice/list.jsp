@@ -25,11 +25,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>공지사항(관리자)</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
 
 
 <style>
@@ -56,23 +57,28 @@
 	   color:#ccc
 	 }
  
- .notice_table thead th{text-align:center}
- .col-xs-4{text-align:center}
- 
- #div_page{
-	clear:both;
-}
+	 .notice_table thead th{text-align:center}
+	 .col-xs-4{text-align:center}
+	 
+	 #div_page{
+		clear:both;
+	}
+	
+	#pagelist {
+		display: flex;
+		justify-content: center;
+	}
 
-#pagelist {
-	display: flex;
-	justify-content: center;
-}
- 
+    .container {
+    	margin-top: 70px;
+    }
  
 </style>
 
 </head>
+
 <body>
+<%@ include file="../header.jsp"%>
 	<div class="container">
 		<h1 class="f_title">공지사항
 			<p>Notice</p>
@@ -150,6 +156,17 @@
 	</div>
 	
 	<script>
+	
+	$(document).ready(function(){
+		$('.menu_wrap').hide();
+		$('.gnbmenu').mouseover(function(){
+			$('.menu_wrap').slideDown();
+		});
+		$('.menu_wrap').mouseout(function(){
+			$('.menu_wrap').hide();
+		});
+	});
+	
 	
 	<% if(msg.equals("성공")) { //msg가 성공이 맞다면 만들어지는 구조 %>
 		alert("정상적으로 처리되었습니다");

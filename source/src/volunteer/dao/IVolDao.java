@@ -13,7 +13,8 @@ public interface IVolDao {
 	public List<VolunteerVO> getList();
 	public VolunteerVO getDetail(String volId);
 	public List<ReviewVO> getReviewList(String volId);
-	public int getReview(Map reviewMap);
+	public String getReservId(Map reviewMap);
+	public int canIReview(String reservId);
 	public int countMyReview(Map reviewMap);
 	public int registerReview(ReviewVO reviewVo);
 	public int registerVol(VolunteerVO vv);
@@ -28,5 +29,7 @@ public interface IVolDao {
 	public int wishVol(WishVO wv);
 	public int unWishVol(WishVO wv);
 	public List<WishVO> getWishList();
+	public List<ReservationVO> getApproveList(String memId);
+	public List<VolunteerVO> getListMyVol(String memId);
 
 }

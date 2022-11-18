@@ -1,3 +1,4 @@
+<%@page import="member.vo.MemberVO"%>
 <%@page import="volunteer.vo.VolunteerVO"%>
 <%@page import="common.VolStatus"%>
 <%@page import="common.VolCategory"%>
@@ -6,6 +7,8 @@
 <%
 
 	VolunteerVO vv = (VolunteerVO)request.getAttribute("vv");
+	String memId = ((MemberVO)session.getAttribute("loginUser")).getMemId(); // session
+
 %>
 <!DOCTYPE html>
 <html lang="en">

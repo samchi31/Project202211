@@ -39,5 +39,10 @@ public class DonateDaoImpl extends MyBatisDao implements IDonateDao{
 		return selectOne("donate.selectDonateDetail", dv);
 	}
 
+	@Override
+	public int selectDonateCount(DonateVO dv) {
+		return selectOne("donate.selectDonateCount", dv);
+	}
+
 
 }

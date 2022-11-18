@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import donate.vo.DonateVO;
+import funding.service.FundingServiceImpl;
+import funding.service.IFundingService;
 import donate.service.DonateServiceImpl;
 import donate.service.IDonateService;
 
@@ -28,12 +30,14 @@ public class CancelDonateController extends HttpServlet {
 		String memGb = "2";			// 사용자 구분  세선 처리
 		
 		IDonateService donateService = DonateServiceImpl.getInstance();
+		IFundingService fundingService = FundingServiceImpl.getInstance();
 		
 		DonateVO dv = new DonateVO();
 		dv.setFundingId(fundingId);
 		dv.setMemId(memId);
 		
 		int cnt = donateService.cancelDonate(dv);
+		fundingService.modifyRecentAmount(fundingId);
 		
 		String msg = "";
 		

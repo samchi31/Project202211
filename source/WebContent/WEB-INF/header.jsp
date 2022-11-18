@@ -3,7 +3,7 @@
 <%@page import="member.vo.MemberVO"%>
 
 <%
-	MemberVO memVo = (MemberVO) session.getAttribute("loginUser");
+	MemberVO mv = (MemberVO) session.getAttribute("loginUser");
 %>
 <!-- header -->
 <header>
@@ -32,11 +32,11 @@
 <div class="menu_wrap">
 	<ul>
 		<li><a href="/funding/List.do">온프로젝트 소개</a></li>
-		<li><a href="/funding/List.do">봉사 프로그램</a><a href="">봉사프로그램 후기</a></li>
-		<li><a href="/funding/List.do">후원 목록</a> <a href="">메뉴1</a> <a href="">메뉴1</a></li>
-		<li><a href="/funding/List.do">재능기부 클래스</a> <a href="">메뉴1</a> <a href="">메뉴1</a></li>
-		<li><a href="">공지사항</a> <a href="">문의사항</a></li>
-		<li><a href="<%=request.getContextPath()%>/mypage/detail.do?<%=memVo.getMemId()%>">마이페이지</a></li>
+		<li><a href="/volList.do">봉사 프로그램</a><a href="">봉사프로그램 후기</a></li>
+		<li><a href="/funding/List.do">후원 목록</a> </li>
+		<li><a href="/UsrClsList.do">재능기부 클래스</a></li>
+		<li><a href="/ListNoticeController.do">공지사항</a> <a href="/ListQnaController.do">문의사항</a></li>
+		<li><a href="/mypageMain.do?<%=mv.getMemId()%>">마이페이지</a></li>
 	</ul>
 </div>
 <!-- inside -->

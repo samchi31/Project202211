@@ -20,34 +20,42 @@ List<AtchFileVO> atchFileList = (List<AtchFileVO>) request.getAttribute("atchFil
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+
+
 <title>회원정보 변경</title>
 <style>
-.container {
-	width: 100%;
-}
+	.container {
+		width: 100%;
+	}
+	
+	.row {
+		width: 90%;
+		margin: 0 auto;
+	}
+	
+	.f_title {
+		font-weight: bold;
+		font-family: 'GmarketSansMedium', sans-serif;
+		font-weight: bold;
+	}
+	
+	.f_title p {
+		position: absolute;
+		opacity: 0.1;
+		font-size: 100px;
+		top: -5%;
+		color: #ccc
+	}
 
-.row {
-	width: 90%;
-	margin: 0 auto;
-}
+	.container {
+    	margin-top: 70px;
+    }
 
-.f_title {
-	font-weight: bold;
-	font-family: 'GmarketSansMedium', sans-serif;
-	font-weight: bold;
-}
-
-.f_title p {
-	position: absolute;
-	opacity: 0.1;
-	font-size: 100px;
-	top: -5%;
-	color: #ccc
-}
 </style>
 </head>
 <body>
-
+<%@ include file="../header.jsp"%>
 
 	<%-- 	<input type="hidden" name="atchFileId" value="<%=mv.getAtchFileId() %>"> --%>
 
@@ -110,6 +118,15 @@ List<AtchFileVO> atchFileList = (List<AtchFileVO>) request.getAttribute("atchFil
 	});
 	
 	
+	$(document).ready(function(){
+		$('.menu_wrap').hide();
+		$('.gnbmenu').mouseover(function(){
+			$('.menu_wrap').slideDown();
+		});
+		$('.menu_wrap').mouseout(function(){
+			$('.menu_wrap').hide();
+		});
+	});	
 	</script>
 </body>
 </html>

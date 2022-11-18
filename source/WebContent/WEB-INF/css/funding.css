@@ -1,4 +1,14 @@
 @charset "UTF-8";
+
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 .bigWrap {
 	margin-top:7%
 }
@@ -62,15 +72,6 @@
 	border:1px solid #f1f1f1;
 }
 
-
-@font-face {
-	font-family: 'GmarketSansMedium';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 #morebt, #cancelbt, #stopbt {width:100%; margin:1% 0; font-size:18px !important; font-family:'GmarketSansMedium', sans-serif; font-weight:bold !important; line-height:200%}
 

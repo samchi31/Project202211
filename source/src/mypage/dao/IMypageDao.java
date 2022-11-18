@@ -1,6 +1,9 @@
 package mypage.dao;
 
 
+import java.util.List;
+
+import donate.vo.DonateVO;
 import member.vo.InsVO;
 import member.vo.MemberVO;
 
@@ -21,4 +24,6 @@ public interface IMypageDao {
 	
 	public InsVO getIns(String memId);
 	
+	public List<DonateVO> getMyDonate(String memId);
+
 }

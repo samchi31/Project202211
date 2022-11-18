@@ -19,15 +19,29 @@
 		where reserv_id in (select reserv_id from reservation where vol_id = #{volId})
 	</select>
 	
-	<select id="getReview" parameterType="hashMap" resultType="int">
+	<select id="getReservId" parameterType="hashMap" resultType="String">
+		select distinct reserv_id
+		from reservation
+		where mem_id = #{memId}
+		and vol_id = #{volId}
+		and r_st_id = 'EXPIRED'
+	</select>
+	
+	<select id="canIReview" parameterType="String" resultType="int">	
 		select count(*)
 		from review
-		where reserv_id = ( select distinct reserv_id
-                            from reservation
-                            where vol_id = #{volId}
-                            and mem_id = #{memId}
-                            and r_st_id = 'EXPIRED')
+		where reserv_id = #{reservId}
 	</select>
+	
+<!-- 	<select id="getReview" parameterType="hashMap" resultType="int"> -->
+<!-- 		select count(*) -->
+<!-- 		from review -->
+<!-- 		where reserv_id = ( select distinct reserv_id -->
+<!--                             from reservation -->
+<!--                             where vol_id = #{volId} -->
+<!--                             and mem_id = #{memId} -->
+<!--                             and r_st_id = 'EXPIRED') -->
+<!-- 	</select> -->
 	
 <!-- 	<select id="countMyReview" parameterType="hashMap" resultType="int"> -->
 <!-- 		select count(*) -->
@@ -38,7 +52,7 @@
 	
 	<insert id="registerReview" parameterType="ReviewVO">
 		insert into review
-		values (#{reservId}, #{start}, #{content})
+		values (#{reservId}, #{star}, #{content}, SYSDATE, 'N')
 	</insert>
 	
 	<insert id="registerVol" parameterType="VolunteerVO">
@@ -64,6 +78,13 @@
 		select *
 		from reservation
 		where mem_id = #{memId}
+	</select>
+	
+	<select id="getApproveList" parameterType="String" resultType="ReservationVO">
+		select *
+		from reservation a, volunteer b
+		where a.vol_id = b.vol_id
+		and b.mem_id = #{memID}
 	</select>
 	
 	<select id="getDetailForReserv" parameterType="String" resultType="VolunteerVO">
@@ -115,6 +136,12 @@
 	<select id="getWishList" resultType="WishVO">
 		select *
 		from wish
+	</select>
+	
+	<select id="getListMyVol" parameterType="String" resultType="VolunteerVO">
+		select *
+		from volunteer
+		where mem_id = #{memId}
 	</select>
 	
 </mapper>

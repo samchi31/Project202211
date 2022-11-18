@@ -4,6 +4,9 @@
 <%
 	List<FundingVO> fundingList = (List<FundingVO>) request.getAttribute("list");
 	FundingVO param = (FundingVO) request.getAttribute("param");
+	String isIns = (String)request.getAttribute("isIns");
+	
+	MemberVO memVo = (MemberVO)request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,17 +32,21 @@
       		<input type="hidden" id="cancelFundingId" name="cancelFundingId" value="" />
       		<input type="hidden" id="detailFundingId" name="detailFundingId" value="" />
       		<input type="hidden" id="pageNo" name="pageNo" value="<%=param.getPageNo()%>" />
+      		<input type="hidden" id="totalPageNo" name="totalPageNo" value="<%=param.getTotalPageNo()%>" />
+      		
+      		<input type="hidden" id="pageTotRowCnt" name="pageTotRowCnt" value="<%=param.getPageTotRowCnt()%>" />
+      		
+
 		<h1 class="f_title">후원목록
 			<p>DONATE</p>
 		</h1>
         <%
         // 기관 사용자 인 경우 
-        if( "2".equals( param.getMemGb() ) ){
+        if( isIns.equals("true") ){
         %>
         <a href="InsertView.do" class="btn btn-info" style="float:right;">신규 후원글 등록</a>
-        <%  } %>
-        <%
-        
+        <% 
+        }         
         if(fundingList.size() > 0){
         	for(int i=0; i<fundingList.size(); i++ ){
         %>
@@ -64,7 +71,7 @@
           	<%  if( "Y".equals( fundingList.get(i).getDonateYn() ) ){ // 기관 사용자 인 경우   상세 보기  %>
           		<a href="#" id="cancelbt" class="btn btn-success" onClick="fnCancelDonateClick('<%=fundingList.get(i).getFundingId() %>')" >후원 취소</a>
           	<% } %>
-	      <% } else if( "99".equals( param.getMemGb()) ) { // 관리자  후원중지  %>
+	      <% } else if( "9".equals( param.getMemGb()) ) { // 관리자  후원중지  %>
 	      	<a href="#" id="stopbt" class="btn btn-success" onClick="fnStopFundingClick('<%=fundingList.get(i).getFundingId() %>')" >후원 중지</a>
 	      <% } %>
          </div>
@@ -76,15 +83,15 @@
 		현재페이지 : <%=param.getPageNo()%>
 		<div id="pagelist">
 			<ul class="pager">
-				<li><a class="prev" href="#">Prev</a></li>
+				<li><a class="prev" href="#" onclick="fnPrev(<%=param.getFirstPageNo() %>);">Prev</a></li>
 			</ul>
 			<ul class="pagination pager">
 				<%for(int i=param.getFirstPageNo(); i <= param.getLastPageNo(); i++ ){ %>					
-					<li><a class="paging" href="#" onclick="fnReSearch(<%=i%>)" ><%=i%></a></li>
+					<li><a class="paging" href="#" onclick="fnReSearch(<%=i%>);" ><%=i%></a></li>
 				<%} %>
 			</ul>
 			<ul class="pager">
-				<li><a class="next" href="#">Next</a></li>
+				<li><a class="next" href="#" onclick="fnNext(<%=param.getLastPageNo() %>);">Next</a></li>
 			</ul>
 		</div>
         </form>
@@ -102,6 +109,23 @@ $(document).ready(function(){
 	});
 });
 
+// 이전 목록 
+function fnPrev(firstPage){
+	if(firstPage > 1){
+		fnReSearch(firstPage - 1);
+	}
+}
+
+//다음 목록
+function fnNext(lastPage){
+	var totPageNo = $('#totalPageNo').val();
+	
+	if(lastPage < totPageNo){
+		fnReSearch(lastPage + 1);
+	}
+}
+
+
 function fnReSearch(pageNo){
 	$('#pageNo').val(pageNo);
 	$("#listForm").attr("action", "List.do");
@@ -115,7 +139,6 @@ function fnStopFundingClick( strId ){
 		$('#stopFundingId').val(strId);
 		$("#listForm").attr("action", "Stop.do");
 		$("#listForm").submit();
-		$('#stopbt').css({visibility:'visible'});
 	}else{
 		return false;
 	}

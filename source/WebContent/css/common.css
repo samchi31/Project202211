@@ -10,6 +10,8 @@ body,html {width:100%; height: 100%; margin: 0; padding: 0;}
    font-weight: normal;
    font-style: normal;
 }
+
+/* header CSS */
 .hd_wrap { width:100%;height:90px; background-color:rgba(255,255,255,0.6); 
 position:fixed; top:0; left:0;z-index:999;}
 
@@ -31,8 +33,9 @@ text-align:center;font-size:14px;line-height:300%}
 .menu_wrap li a {display:block;text-decoration:none;font-weight: bold; 
    font-family:'GmarketSansMedium', sans-serif;color:#000}
 
-.visual {
-	max-width:1600px;margin:0 auto;height:100vh;width:1600px;position:relative; }
+
+/* visual CSS */
+.visual {max-width:1600px;margin:0 auto;height:100vh;width:1600px;position:relative; }
 
 .obg_area {overflow:hidden;width:90%;height:100%; position:relative; z-index:border:1px solid green}
 .obj_area img {display:block;position:absolute;z-index:1;transition:0.3s}
@@ -56,7 +59,7 @@ text-align:center;font-size:14px;line-height:300%}
 .scrollbox img {width:30px;opacity:0.5}
 .scrollbox p {font-size:14px;color:#777;text-align:center}
 
-/* */
+/* Class CSS */
 .c_content {
 	width: 100%;
 	background-color:#f1f1f1;
@@ -94,8 +97,8 @@ margin:2% 0;border-radius:5px;color:#fff;font-weight:bold;padding:1%;text-indent
    font-family:'GmarketSansMedium', sans-serif;}
 .c_content_inner a p {font-size:14px;color:#444}
 
-/*.container {width:100%; height:auto;overflow:hidden; margin-top:10%}*/
 
+/* Volunteer CSS */
 .v_content {width:100%;height:auto;overflow:hidden;margin-top:7%;}
 
 .v_row {margin:0 20%; overflow:hidden;position:relative;}
@@ -110,7 +113,6 @@ padding:1%;text-indent:4%;font-weight:bold}
 .v_row p {font-size:16px;line-height:150%;margin:2% 0}
 
 
-
-
+/* footer CSS */
 footer {width:100%; height:100px; background-color:black;}
 footer span { display:block; width:100%;color:#fff;text-align:center;font-size:12px;line-height:700%}

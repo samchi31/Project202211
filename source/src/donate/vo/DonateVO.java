@@ -5,9 +5,15 @@ public class DonateVO {
 	// 조회조건 
 	private String memGb;		// 사용자 구분 (기관, 일반, 관리자)
 	
-	//페이징 처리하는 조회
-	//
-	//
+	// 페이징 처리라는게 조회 
+	private int pageNo;  		// 현재 페이지 번호
+	private int pageRowCnt = 5;		// 페이지에 표시되는 글에 수
+	private int pageTotRowCnt;		// 전체 카운트
+	
+	private int perPage = 5;
+	private int lastPageNo;		// 마지막 페이지 번호
+	private int firstPageNo;	// 시작 페이지 번호
+	private int totalPageNo; 		// 전체 페이지 수
 	
 	public String getMemGb() {
 		return memGb;
@@ -26,6 +32,23 @@ public class DonateVO {
 	private String donateAccount; 
 	private String donateAccountHolder;
 	private String donateBankName;
+	
+	//추가된 다른테이블 컬럼
+	private String fundingTitle;
+	private String instName;
+	
+	public String getFundingTitle() {
+		return fundingTitle;
+	}
+	public void setFundingTitle(String fundingTitle) {
+		this.fundingTitle = fundingTitle;
+	}
+	public String getInstName() {
+		return instName;
+	}
+	public void setInstName(String instName) {
+		this.instName = instName;
+	}
 	public String getDonateId() {
 		return donateId;
 	}
@@ -89,6 +112,41 @@ public class DonateVO {
 				+ "]";
 	}
 	
+	/** 페이징 처리 */
+	public int getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+	public int getPageRowCnt() {
+		return pageRowCnt;
+	}
+	
+	public int getFirstPageNo() {
+		// 페이지 첫번째 번호
+		firstPageNo = ((this.pageNo - 1) / this.perPage * this.perPage) + 1 ; 
+		return firstPageNo;
+	}
+	
+	public int getLastPageNo() {
+		lastPageNo = getFirstPageNo() + this.perPage - 1;
+		if( lastPageNo > getTotalPageNo() ) lastPageNo =  getTotalPageNo();
+		return lastPageNo;
+	}
+	
+	public int getTotalPageNo() {
+		// 전체 페이지 계산
+		totalPageNo = (int)Math.ceil((double)getPageTotRowCnt() / (double)this.pageRowCnt); 
+		return totalPageNo;
+	}
+	
+	public int getPageTotRowCnt() {
+		return pageTotRowCnt;
+	}
+	public void setPageTotRowCnt(int pageTotRowCnt) {
+		this.pageTotRowCnt = pageTotRowCnt;
+	}
 	
 	
 

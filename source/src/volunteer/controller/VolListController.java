@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import member.vo.MemberVO;
 import volunteer.service.IVolService;
 import volunteer.service.VolService;
 import volunteer.vo.VolunteerVO;
@@ -20,7 +22,8 @@ public class VolListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memId = request.getParameter("memId"); // session
+		String memId = ((MemberVO)request.getSession().getAttribute("loginUser")).getMemId();
+
 		
 		IVolService service = VolService.getInstance();
 		List<VolunteerVO> volList = service.getList();
@@ -28,9 +31,9 @@ public class VolListController extends HttpServlet {
 		
 		request.setAttribute("volList", volList);
 		request.setAttribute("wishList", wishList);
-		request.setAttribute("memId", memId); // session
+		request.setAttribute("memId", memId);
 		
-		request.getRequestDispatcher("/WEB-INF/volunteer/volList.jsp").forward(request, response); // session???
+		request.getRequestDispatcher("/WEB-INF/volunteer/volList.jsp").forward(request, response);
 		
 	}
 	

@@ -68,23 +68,54 @@
 
 	</insert>
 	
+	<insert id="insertOnlyNotice" parameterType="NoticeVO">	
+
+		INSERT INTO NOTICE(
+			NOTICE_ID,
+			MEM_ID,
+			NOTICE_TITLE,
+			NOTICE_CONTENT,
+			NOTICE_DATE
+		) VALUES (
+			'N'||LPAD(SEQ_NOTICEID.NEXTVAL, 5, '0'),
+			#{memId}, 
+			#{noticeTitle},
+			#{noticeContent}, 
+			SYSDATE
+		)
+
+	</insert>
+	
 	<insert id="insertAtchFileDetail" parameterType="java.util.List">
 		
 <!-- 		<selectKey order="BEFORE" keyProperty="atchId" resultType="String"> -->
 <!-- 			SELECT SEQ_NOTICE_ATCH.NEXTVAL FROM DUAL -->
 <!-- 		</selectKey> -->
 	
-		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
-		    INTO NOTICE_ATCH(
+<!-- 		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" "> -->
+<!-- 		    INTO NOTICE_ATCH( -->
+<!-- 		          ATCH_ID -->
+<!-- 		        , ATCH_SN -->
+<!-- 		        , ATCH_NAME -->
+<!-- 		    ) VALUES ( -->
+<!-- 		          #{item.atchId} -->
+<!-- 		        , #{item.atchSn} -->
+<!-- 		        , #{item.atchName} -->
+<!-- 		    ) -->
+<!--     	</foreach> -->
+    	
+    	
+    	INSERT INTO NOTICE_ATCH(
 		          ATCH_ID
 		        , ATCH_SN
 		        , ATCH_NAME
 		    ) VALUES (
-		          #{item.atchId}
-		        , #{item.atchSn}
-		        , #{item.atchName}
+		          #{atchId}
+		        ,(select nvl(max(ATCH_SN), 0) + 1
+		        from NOTICE_ATCH
+		        where ATCH_ID = #{atchId})
+		        , #{atchName}
 		    )
-    	</foreach>
 
 	</insert>
 	
@@ -120,12 +151,12 @@
 
 	</update>
 	
-<!-- 	<update id="updateAtch" parameterType=""> -->
-	
-<!-- 		update notice_atch -->
-<!-- 		set notice -->
-	
-<!-- 	</update> -->
+	<select id="getAtchFileDetail" parameterType="AtchFileVO" resultType="AtchFileVO">
+		select *
+		from NOTICE_ATCH
+		where ATCH_SN=#{atchSn}
+		and ATCH_ID=#{atchId}
+	</select>
  
 
 	<select id="getAtchFileList" parameterType="String" resultType="AtchFileVO">

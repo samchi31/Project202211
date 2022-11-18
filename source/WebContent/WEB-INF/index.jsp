@@ -148,7 +148,7 @@
 		$('.gnbmenu').mouseover(function(){
 			$('.menu_wrap').slideDown();
 		});
-		$('.menu_wrap').mouseout(function(){
+		$('.visual').mouseover(function(){
 			$('.menu_wrap').hide();
 		});
 	});

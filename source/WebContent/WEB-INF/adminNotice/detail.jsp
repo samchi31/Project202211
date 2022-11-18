@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
 
 <style>
     th {
@@ -45,9 +46,23 @@
 	   top:-5%;
 	   color:#ccc
 	 }
+	 
+	.btn btn-default {
+		float: right;
+	}
+	 
+	.container {
+    	margin-top: 70px;
+    }
+    th{
+    	width: 20%;
+    }
+	 
+	 
 </style>
 </head>
 <body>
+<%@ include file="../header.jsp"%>
 	<div class="container">
 	<h1 class="f_title">공지사항 내용
 		<p>Notice</p>
@@ -98,5 +113,17 @@
 		
 		<button class="btn btn-default" ><a href="<%=request.getContextPath() %>/ListNoticeController.do">목록</a></button>
 	</div>
+<script>
+$(document).ready(function(){
+	$('.menu_wrap').hide();
+	$('.gnbmenu').mouseover(function(){
+		$('.menu_wrap').slideDown();
+	});
+	$('.menu_wrap').mouseout(function(){
+		$('.menu_wrap').hide();
+	});
+});
+
+</script>	
 </body>
 </html>
