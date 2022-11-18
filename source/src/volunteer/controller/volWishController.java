@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.vo.MemberVO;
 import volunteer.service.IVolService;
 import volunteer.service.VolService;
 import volunteer.vo.WishVO;
@@ -15,22 +16,13 @@ import volunteer.vo.WishVO;
 public class volWishController extends HttpServlet {
 	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		
-		
-	
-	}
-      
-	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		String memId = request.getParameter("memId"); // session
+
+		String memId = ((MemberVO)request.getSession().getAttribute("loginUser")).getMemId();
 		String volId = request.getParameter("volId");
 		String isWished = request.getParameter("isWished");
 		
@@ -38,24 +30,23 @@ public class volWishController extends HttpServlet {
 		
 		WishVO wv = new WishVO();
 		
-		wv.setMemId("b005"); // session
+		wv.setMemId(memId);
 		wv.setVolId(volId);
 		
-		String msg = "";
+		String yesOrNo = "";
 		if(isWished.equals("n")) {
 			service.wishVol(wv);
-			msg = "y";
+			yesOrNo = "y";
 		} else if(isWished.equals("y")) {
 			service.unWishVol(wv);
-			msg ="n";
+			yesOrNo ="n";
 		} else {
-			msg = "하트가 제대로 안 눌려요..";
+			yesOrNo = "하트가 제대로 안 눌려요..";
 		}
 		
-		request.setAttribute("memId", memId);  // session
-		request.setAttribute("msg", msg);
+		request.setAttribute("yesOrNo", yesOrNo);
 		
-		response.sendRedirect(request.getContextPath() + "/volList.do?memId=" + memId);  // session
+		request.getRequestDispatcher("/volList.do").forward(request, response);
 		
 	}
 

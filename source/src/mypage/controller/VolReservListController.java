@@ -1,4 +1,4 @@
-package volunteer.controller;
+package mypage.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,37 +8,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.vo.MemberVO;
 import volunteer.service.IVolService;
 import volunteer.service.VolService;
+import volunteer.vo.ReservationVO;
 import volunteer.vo.VolunteerVO;
-import volunteer.vo.WishVO;
 
-@WebServlet("/volList.do")
-public class VolListController extends HttpServlet {
+@WebServlet("/myVolReserv.do")
+public class VolReservListController extends HttpServlet {
 
-	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memId = ((MemberVO)request.getSession().getAttribute("loginUser")).getMemId();
-
+		MemberVO memVo = (MemberVO)request.getSession().getAttribute("loginUser");
+		String memId = memVo.getMemId(); // session
 		
 		IVolService service = VolService.getInstance();
-		List<VolunteerVO> volList = service.getList();
-		List<WishVO> wishList = service.getWishList();
 		
-		request.setAttribute("volList", volList);
-		request.setAttribute("wishList", wishList);
-		request.setAttribute("memId", memId);
+		List<ReservationVO> reservList = service.getReservList(memId);
+		request.setAttribute("reservList", reservList);
 		
-		request.getRequestDispatcher("/WEB-INF/volunteer/volList.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/mypage/myVolReservList.jsp").forward(request, response);
 		
 	}
-	
-	@Override
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+
+		
+	
 	}
+
 }

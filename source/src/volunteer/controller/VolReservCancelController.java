@@ -59,7 +59,7 @@ public class VolReservCancelController extends HttpServlet {
 		if (cnt > 0) {
 			msg = "성공";
 			request.getSession().setAttribute("msg", msg);
-			response.sendRedirect(request.getContextPath() + "/volReservList.do?memId=" + request.getParameter("memId"));
+			response.sendRedirect(request.getContextPath() + "/myVolReserv.do");
 		} else {
 			msg = "실패";
 		}

@@ -58,7 +58,7 @@ public class VolReservUpdateController extends HttpServlet {
 			msg = "성공";
 
 			request.getSession().setAttribute("msg", msg);
-			response.sendRedirect(request.getContextPath() + "/volReservList.do?memId=" + memId);
+			response.sendRedirect(request.getContextPath() + "/myVolReserv.do");
 		} else {
 			msg = "실패";
 		}

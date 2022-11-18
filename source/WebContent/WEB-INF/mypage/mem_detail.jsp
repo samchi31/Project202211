@@ -46,16 +46,13 @@ div {
 			<a href="/mypage/memDetail.do">회원정보</a>
 		</div>
 		<div id=class="">
-			<a href="/">봉사내역</a>
+			<a href="/myVolReserv.do">봉사내역</a>
 		</div>
 		<div id=class="">
-			<a href="/">재능기부현황</a>
+			<a href="/myUserClass.do">재능기부현황</a>
 		</div>
 		<div id=class="">
-			<a href="/">후원내역</a>
-		</div>
-		<div id=class="">
-			<a href="/">공지사항</a>
+			<a href="/myDonate.do">후원내역</a>
 		</div>
 		<div id=class="">
 			<a href="/">Q&A</a>

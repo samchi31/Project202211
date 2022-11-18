@@ -1,3 +1,4 @@
+<%@page import="member.vo.MemberVO"%>
 <%@page import="volunteer.vo.WishVO"%>
 <%@page import="common.VolStatus"%>
 <%@page import="common.VolCategory"%>
@@ -8,7 +9,8 @@
 <%
 	List<VolunteerVO> volList = (List<VolunteerVO>) request.getAttribute("volList");
 	List<WishVO> wishList = (List<WishVO>)request.getAttribute("wishList");
-	String memId = (String)request.getAttribute("memId"); // session
+	String memId = ((MemberVO)session.getAttribute("loginUser")).getMemId(); // session
+	String yon = (String)request.getAttribute("yesOrNo");
 
 String msg = session.getAttribute("msg") == null ? "" : (String) session.getAttribute("msg");
 session.removeAttribute("msg");
@@ -128,7 +130,7 @@ div {
 			<div class="volList-group">
 				<div class="media">	
 					<div class="media-left">
-						<img src="http://localhost:9999/<%=(volList.get(i).getThumbnail())%>"  class="media-object" style="width:100%"/>
+						<img src="<%=(volList.get(i).getThumbnail())%>"  class="media-object" style="width:100%"/>
 					</div>
 					<div class="media-body">
 						<!-- session -->
@@ -192,39 +194,65 @@ div {
     <script>
 
 // 하트
-      	
+      	var yon = <%=yon%>;      	
 
         $('i').on('click',function(){
         	
-          	var isWished = $('#isWished').val();
-          	var volId = $('#volId').val();
-          	var memId = $('#memId').val(); // session
-          	
-          	var jsonObj = {
-    		"isWished" : isWished,
-    		"volId" : volId,
-    		"memId" : memId // session
-  			 };
           	
 			$.ajax({
                 type: 'post',
 				url: '/volWish.do',
-				dataType: 'json',
-                data: JSON.stringify(jsonObj),
-                contentType: "application/json; charset=utf-8",
+                data: {
+            		"isWished" : $('#isWished').val(),
+            		"volId" : $('#volId').val(),
+            		"memId" : $('#memId').val()
+          			 },
                 success: 
-                	 if(data.msg == 'y'){
+                	 if(yon == 'y'){
 				     	$(this).attr('class','bi-heart-fill');
 				     	$('#isWished').val('y');
-		             } else if($(data.msg == 'n'){
+		             } else if($(yon == 'n'){
 				        $(this).attr('class','bi-heart');
 				     	$('#isWished').val('n');
+				     	
 		             },
                  error: function(chr){
                      alert("상태 : " + xhr.status)
                  };
        		})
         });
+
+//         $('i').on('click',function(){
+        	
+//           	var isWished = $('#isWished').val();
+//           	var volId = $('#volId').val();
+//           	var memId = $('#memId').val(); // session
+          	
+//           	var jsonObj = {
+//     		"isWished" : isWished,
+//     		"volId" : volId,
+//     		"memId" : memId // session
+//   			 };
+          	
+// 			$.ajax({
+//                 type: 'post',
+// 				url: '/volWish.do',
+// 				dataType: 'json',
+//                 data: JSON.stringify(jsonObj),
+//                 contentType: "application/json; charset=utf-8",
+//                 success: 
+//                 	 if(data.msg == 'y'){
+// 				     	$(this).attr('class','bi-heart-fill');
+// 				     	$('#isWished').val('y');
+// 		             } else if($(data.msg == 'n'){
+// 				        $(this).attr('class','bi-heart');
+// 				     	$('#isWished').val('n');
+// 		             },
+//                  error: function(chr){
+//                      alert("상태 : " + xhr.status)
+//                  };
+//        		})
+//         });
 
 
         

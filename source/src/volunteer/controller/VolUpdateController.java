@@ -13,6 +13,7 @@ import common.FileService;
 import common.IFileService;
 import common.VolCategory;
 import common.VolStatus;
+import member.vo.MemberVO;
 import volunteer.service.IVolService;
 import volunteer.service.VolService;
 import volunteer.vo.ReservationVO;
@@ -49,7 +50,7 @@ public class VolUpdateController extends HttpServlet {
 		// 파라미터 값 가져오기
 		String volId = request.getParameter("volId");
 		String volTitle = request.getParameter("volTitle");
-		String memId = request.getParameter("memId"); // 바꿔줘야 함
+		String memId = ((MemberVO)request.getSession().getAttribute("loginUser")).getMemId();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String startTime = request.getParameter("startTime");
@@ -72,7 +73,7 @@ public class VolUpdateController extends HttpServlet {
 
 		vv.setVolId(volId); //시퀀스 사용하여 자동으로 들어감
 		vv.setVolTitle(volTitle);
-		vv.setMemId(memId); // 세션에서 아이디값 받아와서 바꿔주기 
+		vv.setMemId(memId); 
 		vv.setStartDate(startDate);
 		vv.setEndDate(endDate);
 		vv.setStartTime(startTime);

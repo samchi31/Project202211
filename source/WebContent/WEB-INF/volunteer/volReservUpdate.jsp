@@ -150,7 +150,7 @@ img {
       
 	 	<div>
 	 		<button type="submit" formaction="volReservUpdate.do?reservId=<%=(rv.getReservId())%>" formmethod="post">등록</button>
-			<button type="submit" formaction="volReservList?memId=<%=(rv.getMemId())%> formmethod="get">취소</button>
+			<button type="submit" formaction="volReservList" formmethod="get">취소</button>
 	  	</div>
       </div>
     </form>

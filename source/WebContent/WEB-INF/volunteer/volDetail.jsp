@@ -52,7 +52,6 @@ div.col-sm-9 div {
 
 #section3 {
 	color: #444;
-	background-color: #ff9800;
 	border: 5px dotted pink;
 }
 
@@ -85,6 +84,29 @@ img {
 	width: 100%;
 	height: 100%;
 	z-index: 99;
+}
+.star {
+  position: relative;
+  font-size: 2rem;
+  color: #ddd;
+}
+
+.star input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.star span {
+  width: 0;
+  position: absolute; 
+  left: 0;
+  color: red;
+  overflow: hidden;
+  pointer-events: none;
 }
 </style>
 </head>
@@ -162,9 +184,9 @@ img {
 	    <div id="reviewDiv" style="display: none;">
 	        <form action="volRegisterRewview.do" method="post">
 	        	<input type="text" name="volId" value="<%=(vv.getVolId())%>" hidden>
-	        	<input type="text" name="reservId" value="">
-				<input class="form-control" type="text" name="star">
-				<input class="form-control" type="text" name="content">
+	        	<input type="text" name="reservId" value="" hidden>
+
+				내용<input class="form-control" type="text" name="content">
 				<input type="submit" value="등록">
 			</form>
 		</div>
@@ -199,6 +221,7 @@ img {
     </div>
   </div>
 </div>
+
 </body>
 <script>
 function reviewRegister(){
@@ -208,6 +231,5 @@ function reviewRegister(){
 		$('#reviewDiv').hide();
 	}
 }
-
 </script>
 </html>

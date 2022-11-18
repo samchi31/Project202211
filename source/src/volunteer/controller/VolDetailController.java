@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.vo.MemberVO;
 import volunteer.service.IVolService;
 import volunteer.service.VolService;
 import volunteer.vo.ReviewVO;
@@ -21,11 +22,11 @@ public class VolDetailController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String memId = request.getParameter("memId"); // session
+		String memId = ((MemberVO)request.getSession().getAttribute("loginUser")).getMemId();
 		String volId = request.getParameter("volId");
 		
 		Map reviewMap = new HashMap();
-		reviewMap.put("memId", memId);// session
+		reviewMap.put("memId", memId);
 		reviewMap.put("volId", volId);
 		
 		IVolService service = VolService.getInstance();
@@ -33,9 +34,6 @@ public class VolDetailController extends HttpServlet {
 		VolunteerVO vv = service.getDetail(volId);
 		
 		List<ReviewVO> reviewList = service.getReviewList(volId);
-//		for(ReviewVO rv : reviewList) {
-//			rv.getReservId()
-//		}
 		
 		// 수정하기
 		int existNum = service.getReview(reviewMap);
@@ -47,12 +45,12 @@ public class VolDetailController extends HttpServlet {
 		}
 		
 		
-		request.setAttribute("memId", memId);  // session
+		request.setAttribute("memId", memId);
 		request.setAttribute("vv", vv);
 		request.setAttribute("reviewList", reviewList);
 		request.setAttribute("exist", exist);
 		
-		request.getRequestDispatcher("/WEB-INF/volunteer/volDetail.jsp").forward(request, response); // session ?????
+		request.getRequestDispatcher("/WEB-INF/volunteer/volDetail.jsp").forward(request, response);
 		
 	}	
 		
