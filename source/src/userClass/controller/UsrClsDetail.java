@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.vo.MemberVO;
 import userClass.service.IUsrClsService;
 import userClass.service.UsrClsService;
 import userClass.vo.ReplyVO;
@@ -42,12 +43,13 @@ public class UsrClsDetail extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
 		IUsrClsService clsService = UsrClsService.getInstance();
+		MemberVO memberVO = (MemberVO) request.getSession().getAttribute("loginUser");
 		
 		ReplyVO replyVO = new ReplyVO();
 		replyVO.setReplyContent(request.getParameter("replyContent"));
-		replyVO.setMemId("asdf"); //replyVO.setMemId(session.get); //세션 있다 치고
+		replyVO.setMemId(memberVO.getMemId()); //replyVO.setMemId(session.get); //세션 있다 치고
 		replyVO.setClassId(request.getParameter("classId"));
 		if(request.getParameter("parentId") != null) {
 			replyVO.setParentReplyId(request.getParameter("parentId"));

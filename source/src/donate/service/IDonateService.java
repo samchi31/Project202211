@@ -20,6 +20,11 @@ public interface IDonateService {
 	 */
 	public int setDonate(DonateVO dv);
 
+	/**
+	 * 후원을 취소하는 메서드
+	 * @param dv
+	 * @return
+	 */
 	public int cancelDonate(DonateVO dv);
 
 	/**

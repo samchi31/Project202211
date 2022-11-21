@@ -48,8 +48,8 @@ public class InsertNoticeController extends HttpServlet {
 		IAtchFileService fileService = AtchFileServiceImpl.getInstance();			
 		
 		//첨부파일 목록 저장하기 (공통기능)
-		List<AtchFileVO> atchFileVOList = fileService.saveAtchFileList(req);
-		int cnt = noticeService.registerNotice(nv, atchFileVOList);
+		int cnt = fileService.saveAtchFileList(req, nv);
+//		int cnt = noticeService.registerNotice(nv/* , atchFileVOList */);
 		
 		String msg="";
 		if(cnt > 0)  {

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.ClsCategory;
 import common.FileService;
 import common.IFileService;
+import member.vo.MemberVO;
 import userClass.service.IUsrClsService;
 import userClass.service.UsrClsService;
 import userClass.vo.UsrClsVO;
@@ -33,11 +34,11 @@ public class UsrClsEdit extends HttpServlet {
 	// 저장버튼 눌렀을 시
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("UTF-8");
 		IUsrClsService clsService = UsrClsService.getInstance();
 
 		UsrClsVO usrClsVO = new UsrClsVO();
-		usrClsVO.setMemId("asdf"); // usrClsVO.setMemId(memId); // 세션 잇다치고
+		usrClsVO.setMemId(((MemberVO) request.getSession().getAttribute("loginUser")).getMemId()); // usrClsVO.setMemId(memId); // 세션 잇다치고
 		usrClsVO.setClassTitle(request.getParameter("title"));
 		usrClsVO.setClassContent(request.getParameter("content"));
 		usrClsVO.setClsCtId(ClsCategory.valueOfKor(request.getParameter("category")));

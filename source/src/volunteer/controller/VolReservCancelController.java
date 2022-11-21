@@ -43,23 +43,18 @@ public class VolReservCancelController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		ReservationVO rv = new ReservationVO();
 		
 		String reservId = request.getParameter("reservId");
-		String rStId = "CANCELED";
 		
 		IVolService service = VolService.getInstance();
 		
-		rv.setrStId(rStId);
-		rv.setReservId(reservId);
-		
-		int cnt = service.cancelReserv(rv);
+		int cnt = service.cancelReserv(reservId);
 		
 		String msg = "";
 		if (cnt > 0) {
 			msg = "성공";
 			request.getSession().setAttribute("msg", msg);
-			response.sendRedirect(request.getContextPath() + "/volReservList.do?memId=" + request.getParameter("memId"));
+			response.sendRedirect(request.getContextPath() + "/myVolReserv.do");
 		} else {
 			msg = "실패";
 		}

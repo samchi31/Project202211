@@ -30,7 +30,12 @@ public class UsrClsList extends HttpServlet {
 
 		IUsrClsService clsService = UsrClsService.getInstance();
 
-		int count = clsService.countList();
+		int count = 0;// = clsService.countList();
+		if(request.getParameter("category")!=null && !request.getParameter("category").equals("전체")) {
+			count = clsService.countList(ClsCategory.valueOfKor(request.getParameter("category")).name());
+		} else {
+			count = clsService.countList(null);
+		}
 
 		int currentPage = 1;
 		currentPage = request.getParameter("pageNo")==null? 
@@ -39,7 +44,7 @@ public class UsrClsList extends HttpServlet {
 		int perPage = 5;
 		
 		// 한 페이지에 출력할 글 갯수
-		int perList = 9;
+		int perList = 16;
 
 		int totalPage = (int) Math.ceil((double) count / (double) perList);
 //		System.out.println(totalPage);
@@ -56,7 +61,7 @@ public class UsrClsList extends HttpServlet {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("search",request.getParameter("search"));
-		if(request.getParameter("category") != "전체") {
+		if(request.getParameter("category")!=null && !request.getParameter("category").contentEquals("전체")) {
 			map.put("category", ClsCategory.valueOfKor(request.getParameter("category")));
 		} else {
 			map.put("category", null);

@@ -39,7 +39,7 @@ public class AtchFileDownload extends HttpServlet {
 		response.setHeader("Content-Disposition", "attachment; filename=\""+
 				URLEncoder.encode(new File(atchFileVO.getAtchName()).getName(), "UTF-8").replaceAll("\\+", "%20")+"\"");
 		
-		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(atchFileVO.getAtchName()));
+		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(request.getServletContext().getRealPath(atchFileVO.getAtchName())));
 		BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
 		
 		int data = 0;

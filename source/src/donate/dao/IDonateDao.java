@@ -7,6 +7,13 @@ import donate.vo.DonateVO;
 public interface IDonateDao {
 	
 	/**
+	 * 기부내역 갯수를 페이징처리하기 위한 메서드
+	 * @param dv
+	 * @return
+	 */
+	public int selectDonateCount(DonateVO dv);
+	
+	/**
 	 * DB에 테이블에 존재하는 전체 기부내역을 조회하기 위한 메서드
 	 * @return 후원글을 담고있는 List타입의 객체
 	 */

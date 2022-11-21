@@ -25,6 +25,8 @@ public class DonateServiceImpl implements IDonateService {
 	
 	@Override
 	public List<DonateVO> getDonateList(DonateVO dv) {
+		int totCnt = donateDao.selectDonateCount(dv);
+		dv.setPageTotRowCnt(totCnt);
 		return donateDao.selectDonateList(dv);
 	}
 	
@@ -38,7 +40,6 @@ public class DonateServiceImpl implements IDonateService {
 		return donateDao.updateCancelDonate(dv);
 	}
 
-	
 	@Override
 	public DonateVO getDonateDetail(DonateVO dv) {
 		return donateDao.selectDonateDetail(dv);

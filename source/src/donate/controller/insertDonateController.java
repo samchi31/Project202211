@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import donate.service.DonateServiceImpl;
 import donate.service.IDonateService;
 import donate.vo.DonateVO;
+import funding.service.FundingServiceImpl;
+import funding.service.IFundingService;
+import member.vo.MemberVO;
 
 @WebServlet("/donate/Donate.do")
 public class insertDonateController extends HttpServlet {
@@ -26,7 +29,7 @@ public class insertDonateController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		//String donateId = req.getParameter("donateId");
-		String memId = req.getParameter("memId");
+		String memId = ((MemberVO)req.getSession().getAttribute("loginUser")).getMemId();
 		String fundingId = req.getParameter("fundingId");
 		int donateAmount = Integer.parseInt(req.getParameter("donateAmount"));
 		String donateAccount = req.getParameter("donateAccount");
@@ -34,6 +37,7 @@ public class insertDonateController extends HttpServlet {
 		String donateBankName = req.getParameter("donateBankName");
 		
 		IDonateService donateService = DonateServiceImpl.getInstance();
+		IFundingService fundingService = FundingServiceImpl.getInstance();
 		
 		DonateVO dv = new DonateVO();
 		//dv.setDonateId(donateId);
@@ -44,9 +48,9 @@ public class insertDonateController extends HttpServlet {
 		dv.setDonateAccountHolder(donateAccountHolder);
 		dv.setDonateBankName(donateBankName);
 		
-		System.out.println(dv.toString());
-		
 		int cnt = donateService.setDonate(dv);
+		fundingService.modifyRecentAmount(fundingId);
+		
 		
 		String msg = "";
 		

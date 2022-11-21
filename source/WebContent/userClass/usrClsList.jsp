@@ -1,9 +1,11 @@
+<%@page import="member.vo.MemberVO"%>
 <%@page import="userClass.vo.UsrClsVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%
+MemberVO memberVO = (MemberVO) request.getSession().getAttribute("loginUser");
+
 List<UsrClsVO> clsList = (List<UsrClsVO>) request.getAttribute("list");
-int perPage = (int) request.getAttribute("perPage");
 int startPage = (int) request.getAttribute("sPage");
 int endPage = (int) request.getAttribute("ePage");
 int totalPage = (int) request.getAttribute("ttPage");
@@ -17,7 +19,7 @@ String category= request.getParameter("category") == null? "카테고리 선택"
 <!DOCTYPE html>
 <html>
 <head>
-<title>Document</title>
+<title>재능기부 목록</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
@@ -25,69 +27,69 @@ String category= request.getParameter("category") == null? "카테고리 선택"
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/usrCls.css">
+
 <style>
-.wrapper {
-	width: 100%;
-}
-
-img {
-	width: 100%;
-}
-
-#div_page{
-	clear:both;
-}
-
-#pagelist {
-	display: flex;
-	justify-content: center;
-}
-
-#search{
-	display: flex;
-	justify-content:center;
-}
 
 </style>
 
 
 </head>
 <body>
-	<div class="container">
-		<div class="jumbotron">
+<%
+if(memberVO==null){
+%>
+	<%@ include file="../header.jsp"%>
+<%
+}else{
+%>
+	<%@ include file="../WEB-INF/header.jsp"%>
+<%
+}
+%>
+	<div class="bigWrap container">
+		<div class="f_title row">
 			<h1>재능기부</h1>
-			<p>여러분들의 재능을 뽐내보세요</p>
+			<p>CLASS</p>
 		</div>
-		<p></p>
-		<div id="search">
-			<div class="dropdown">
-				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-					<%=category %> 
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<li><a href="#">전체</a></li>
-					<li class="divider"></li>
-					<li><a href="#">교육</a></li>
-					<li><a href="#">체육</a></li>
-					<li><a href="#">음악</a></li>
-					<li><a href="#">디자인</a></li>
-					<li><a href="#">언어</a></li>
-				</ul>
-			</div>
-			<div>
-				<input class="form-control" id="textSearch" type="text" placeholder="Search..">
-				<button id="btn_search"><span class="glyphicon glyphicon-search"></span></button>
-			</div>
+		<p><br></p>
+		<div id="search row" style="margin-left:50%; margin-top:30px; float:right">
+			<ul style="display: inline-block;">
+				<li style="display: inline-block;">
+					<div class="dropdown">
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+							<%=category %> 
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#">전체</a></li>
+							<li class="divider"></li>
+							<li><a href="#">교육</a></li>
+							<li><a href="#">체육</a></li>
+							<li><a href="#">음악</a></li>
+							<li><a href="#">디자인</a></li>
+							<li><a href="#">언어</a></li>
+						</ul>
+					</div>
+				</li>
+				<li style="display: inline-block;">
+					<input class="form-control col-sm" id="textSearch" type="text" placeholder="Search..">
+				</li>
+				<li style="display: inline-block;">
+					<button id="btn_search" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+				</li>	
+			</ul>
+			<button id="btn_write" style="display: inline-block; margin-left:5px" class="btn">글쓰기</button>
 		</div>
 
-		<div class="wrapper">
+		<div class="wrapper row">
 			<%
-				for (int i = 0; i < clsList.size(); i=i+3) {
+				for (int i = 0; i < clsList.size(); i=i+4) {
 			%>
 			<div class="row">
 				<%
- 					for (int j = 0;(i+j < clsList.size()) &&  j < 3; j++) {
+ 					for (int j = 0;(i+j < clsList.size()) &&  j < 4; j++) {
  						if(clsList.get(i+j) != null) {
 				%>
 				<div class="col-xs-3">
@@ -95,10 +97,11 @@ img {
 						<a href="<%=request.getContextPath()%>/UsrClsDetail.do?classId=<%=clsList.get(i+j).getClassId()%>">
 							<img src="<%=clsList.get(i+j).getClassThumbnail()%>" alt="">
 							<div class="caption">
-								<h4 class="list-group-item-heading"><%=clsList.get(i+j).getClassTitle()%></h4>
-								<p class="list-group-item-text">
-									<span class="glyphicon glyphicon-tag"><%=clsList.get(i+j).getClsCtId()%> </span> <span
-										class="glyphicon glyphicon-eye-open"><%=clsList.get(i+j).getClassViews()%></span>
+								<h4 class="list-group-item-heading f_title"><%=clsList.get(i+j).getClassTitle()%></h4>
+								<p>
+									<span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;<%=clsList.get(i+j).getClsCtId()%>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;<%=clsList.get(i+j).getClassViews()%>
 								</p>
 								<!--<p class="list-group-item-text glyphicon "> -->
 								<!--<span class="label label-primary">category1</span>  -->
@@ -120,16 +123,13 @@ img {
 
 		<div id="div_page">
 			<!-- 		페이지영역 -->
-			<div>
-				현재페이지:<%=currentPage%>
-			</div>
 			<div id="pagelist">
 				<ul class="pager">
 					<li><a class="prev" href="#">Prev</a></li>
 				</ul>
 				<ul class="pagination pager">
 					<%
-						for (int i = startPage; i < endPage; i++) {
+						for (int i = startPage; i <= endPage; i++) {
 
 						if (currentPage == i) {
 					%>
@@ -148,14 +148,23 @@ img {
 				</ul>
 			</div>
 		</div>
-
-		<button id="btn_write">글쓰기</button>
 	</div>
 	
 	<script>
 	
 	$("#btn_write").on('click',function(){
-		location.href="<%=request.getContextPath()%>/UsrClsEdit.do";
+		<%
+		if(memberVO != null){
+		%>
+			location.href="<%=request.getContextPath()%>/UsrClsEdit.do";
+		<%
+		} else {
+		%>
+			alert("로그인 후 이용 가능합니다");
+			location.href="<%=request.getContextPath()%>/member/LoginForm.jsp";
+		<%
+		} 
+		%>
 	});
 	
 	<%if (msg.equals("성공")) {%>
@@ -170,6 +179,42 @@ img {
 	$('#btn_search').on('click', function(){
 		location.href="<%=request.getContextPath()%>/UsrClsList.do?category="+"<%=category %>"
 				+"&search="+$('#textSearch').val();
+	});
+	
+	//페이지 번호 클릭이벤트
+	$(".paging").on('click',function(){
+	   // alert($(this).text());
+	   location.href="/UsrClsList.do?pageNo=" + $(this).text();
+	});
+
+	let currentPage;
+	// 이전버튼 클릭이벤트
+	$(".prev").on('click', function(){
+	   if(<%=currentPage%> == 1){
+	      currentPage = <%=currentPage%>;
+	   } else{
+	      currentPage = <%=currentPage%> - 1;
+	   } location.href="/UsrClsList.do?pageNo=" + currentPage;
+	}); 
+
+	// 다음버튼 클릭이벤트
+	$(".next").on('click', function(){
+	   if(<%=currentPage%> == <%=totalPage%>){
+	      currentPage = <%=currentPage%>;
+	   } else{
+	      currentPage = <%=currentPage%> + 1;
+	   } location.href="/UsrClsList.do?pageNo=" + currentPage;
+	}); 
+	
+	
+	$(document).ready(function(){
+		$('.menu_wrap').hide();
+		$('.gnbmenu').mouseover(function(){
+			$('.menu_wrap').slideDown();
+		});
+		$('.container').mouseover(function(){
+			$('.menu_wrap').hide();
+		});
 	});
 
 		

@@ -6,7 +6,7 @@
 		<result property="fundingDetail" column="fundingDetail" jdbcType="CLOB" javaType="java.lang.String"/>
 	</resultMap>
 	
-	<!-- 펀딩 목록 카운트 -->
+	<!-- 페이징 목록 카운트 -->
 	<select id="selectFundingCount" resultType="int">
 		SELECT count(1)
 		  FROM FUNDING A
@@ -16,6 +16,7 @@
           WHERE A.funding_id = b.funding_id(+)
           AND b.mem_id(+) = #{memId}
           AND A.MEM_ID = C.MEM_ID(+)
+          AND A.FUNDING_STOP = 'N'
 	</select>
 
 	<!-- 펀딩 목록 조회 -->
@@ -46,6 +47,8 @@
 		          WHERE A.funding_id = b.funding_id(+)
 		          AND b.mem_id(+) = #{memId}
 		          AND A.MEM_ID = C.MEM_ID(+)
+		          AND A.FUNDING_STOP = 'N' 
+		          ORDER BY A.funding_start_date DESC
           	) MO
         ) WHERE RUM BETWEEN (#{pageNo} - 1) * #{pageRowCnt} + 1 AND ((#{pageNo} - 1) * #{pageRowCnt}) + #{pageRowCnt} 
 	</select>
@@ -67,7 +70,7 @@
 			FUNDING_DETAIL,
 			FUNDING_THUMBNAIL
 		) values (
-			#{fundingId},
+			'FUD' || LPAD( SEQ_FUNDING.nextval, 5, '0'),
 			#{memId},
 			#{fundingTitle},
 			#{targetAmount},
@@ -83,7 +86,7 @@
 	</insert>
 	
 	<!-- 관리자 -->
-	<!-- 펀딩 취소 처리 -->
+	<!-- 펀딩 중지 처리 -->
 	<update id="stopFunding" parameterType="FundingVO">
 		UPDATE funding 
 		   SET FUNDING_STOP = 'Y' 
@@ -114,6 +117,14 @@
 	</select>
 	
 	<!-- 기관회원 -->
+	<!-- 기관을 조회해야함 -->
+	<select id="getMemberGb" resultType="String">
+		SELECT DECODE(A.ADMIN, 'Y', '99', DECODE( B.MEM_ID, NULL, '1', '2')) AS memGb
+        FROM MEMBER A
+        LEFT OUTER JOIN INSTITUTION B ON A.MEM_ID = B.MEM_ID 
+        WHERE A.MEM_ID = #{memId}
+	</select>
+	
 	<!-- 펀딩 글 수정 -->
 	<update id="updateFunding" parameterType="FundingVO">
 		UPDATE funding
@@ -124,10 +135,19 @@
 		       funding_account=#{fundingAccount},
 		       funding_account_holder=#{fundingAccountHolder},
 		       funding_bank_name=#{fundingBankName},
-		       funding_detail=#{fundingDetail},
-		       funding_thumbnail=#{fundingThumbnail}
+		       funding_detail=#{fundingDetail}
 		 WHERE FUNDING_ID = #{fundingId}
 		   AND MEM_ID = #{memId}
+	</update>
+	
+	<!-- 펀딩 현재 금액 업데이트 -->
+	<update id="updateRecentAmount" parameterType="String">
+		UPDATE funding
+		SET recent_amount = nvl((SELECT sum(donate_amount) 
+							   FROM donate
+		                      WHERE funding_id = #{fundingId}
+		                        AND refund = 'N'), 0)
+		WHERE funding_id = #{fundingId}
 	</update>
 
 </mapper>

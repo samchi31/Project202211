@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import notice.vo.AtchFileVO;
+import notice.vo.NoticeVO;
 
 
 
@@ -18,7 +19,7 @@ public interface IAtchFileService {
 	 * @param req - Part객체를 꺼내기 위한 요청객체
 	 * @return
 	 */
-	public List<AtchFileVO> saveAtchFileList(HttpServletRequest req);
+	public int saveAtchFileList(HttpServletRequest req,NoticeVO noticeVO);
 	
 
 	
@@ -39,18 +40,20 @@ public interface IAtchFileService {
 	 */
 	public List<AtchFileVO> getAtchFileList(String noticeId);
 	
-	
-	/**
-	 * 파일 저장
-	 * @param atchFileVOList
-	 * @return
-	 */
-	public int insertNoticeAtch(List<AtchFileVO> atchFileVOList);
+//	
+//	/**
+//	 * 파일 저장
+//	 * @param atchFileVOList
+//	 * @return
+//	 */
+//	public int insertNoticeAtch(List<AtchFileVO> atchFileVOList);
 	
 	/**
 	 * 가장 최근 저장 첨부파일 가져오기
 	 * @return
 	 */
 	public int selectAtchId();
+	
+	public NoticeVO updateNoticeNAtchFileList(HttpServletRequest req, NoticeVO noticeVO);
 	
 }

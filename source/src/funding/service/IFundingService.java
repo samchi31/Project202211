@@ -33,16 +33,24 @@ public interface IFundingService {
 	 * @param fv update할 펀딩정보가 들어있는 FundingVO객체
 	 * @return
 	 */
-	// 상세 보기
 	public FundingVO getFundingDetail(FundingVO fv);
-	
-	
+		
 	/**
 	 * 펀딩글을 수정하기 위한 메서드
 	 * @param fv update할 펀딩정보가 들어있는 FundingVO객체
 	 * @return
 	 */
-	// 펀딩 수정하기 
 	public int modifyFunding(FundingVO fv);
+	
+	/**
+	 * 펀딩 모금액 수정하기 위한 메소드
+	 * @param fv update할 펀딩정보가 들어있는 FundingVO객체
+	 * @return
+	 */
+	public void modifyRecentAmount(String fundingId);
+	
+	/**
+	 *  세션 구분하는 메소드*/
+	public String getMemberGb(String memId);
 
 }

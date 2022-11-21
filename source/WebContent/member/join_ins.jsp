@@ -17,130 +17,163 @@
 <%-- 다음주소API --%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
-	
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+.container {
+	width: 750px;
+	font-size: 14px;
+	display: table;
+	content: " ";
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 100px;
+   font-family:'GmarketSansMedium', sans-serif ;
+}
+h1 {
+	text-align: center;
+    font-weight: bold;  
+}
+form{
+	margin-top: 50px;
+}
+.input{
+	width: 100%;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+   input:focus {
+    outline: none;
+	border: 1px solid #999;
+    box-shadow : 0px 0px 20px #f1f1f1;
+   } 
+
+
 </style>
 </head>
 <body>
-	<div class="col-sm-8" id="box">
-		<h1>온(溫:ON)</h1>
+	<div class="container">
+		<h1 class="title">온(溫:ON)</h1>
 		<hr>
-		<form action="Insert.do" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="gbn" value="02">
-			<div >
-				<label for="id" >아이디</label> <span class="disp"></span>
-				<div >
-					<input class="form-control" type="text" id="id" placeholder="4자 이상(대ㆍ소문자,숫자)" name="memId" required
-						pattern="[a-zA-Z][a-zA-Z0-9]{4,}">
+		<form class="form-horizontal" action="Insert.do" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="gbn" value="02" >
+			<div class="form-group">
+				<label for="id" class="control-label col-sm-2">아이디</label> <span class="disp"></span>
+				<div class="col-sm-4">
+					<input class="form-control" type="text" id="id" placeholder="3자 이상" name="memId" required
+						pattern="[a-zA-Z0-9가-힣]{3,}">
 				</div>
-				<div style="text-align: left;">
+				<div class="col-sm-6" style="text-align: left;">
 					<button type="button" id="idChk">중복검사</button>
 					<span id="disp"></span>
 				</div>
 			</div>
 
-			<div >
-				<label for="pass">비밀번호</label>
-				<div >
+			<div class="form-group">
+				<label for="pass" class="control-label col-sm-2">비밀번호</label>
+				<div class="col-sm-4">
 					<input class="form-control" type="text" id="pass" name="memPass" placeholder="8자 이상(대ㆍ소문자,숫자,특수문자)" required
 						   pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>
 			</div>
 
-			<div>
-				<label for="pass">비밀번호 확인</label>
+			<div class="form-group">
+				<label for="pass" class="control-label col-sm-2">비밀번호 확인</label>
 				<%-- 	      임의문자(.)를 대상으로 최소 갯수(*?)의 패턴을 찾음 --%>
-				<div >
+				<div  class="col-sm-4">
 					<input class="form-control" type="text" id="pass_chk" required
 					    	pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>
-				<div style="text-align: left;">
+				<div class="col-sm-6" style="text-align: left;">
 					<div id="pwChk"></div>
 					<span id="pw"></span>
 				</div>
 			</div>
 
-			<div>
-				<label for="ins_name">기관명</label> <span class="sp"></span>
-				<div >
-					<input class="form-control" type="text" id="ins_name" name="insName"
+			<div class="form-group">
+				<label for="ins_name" class="control-label col-sm-2">기관명</label> <span class="sp"></span>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="ins_name" name="insName"
 						   required parttern="[가-힣][A-Z]{1,8}">
 				</div>
 			</div>
-			<div style="text-align: left;">
+			<div class="col-sm-12" style="text-align: left;">
 				<input type="file" id="upload" name="atchFile">
 			</div>
 
-			<div>
-				<label for="name">이름</label> <span class="sp"></span>
-				<div>
+			<div class="form-group">
+				<label for="name" class="control-label col-sm-2">이름</label> <span class="sp"></span>
+				<div class="col-sm-4" >
 					<input class="form-control" type="text" id="name" name="memName"
 						   required parttern="[가-힣a-zA-z0-9]{2,8}">
 				</div>
 			</div>
 
-			<div>
-				<label for="reg1">주민번호</label>
-				<div>
+			<div class="form-group">
+				<label for="reg1" class="control-label col-sm-2">주민번호</label>
+				<div class="col-sm-4">
 					<input class="form-control" type="text" id="reg_no1" name="regno1" maxlength="6" required> 
 					<span class="sp"></span>
 				</div>
-				<label for="reg2">ㅡ</label>
-				<div>
+				<label for="reg2" class="control-label col-sm-2">ㅡ</label>
+				<div class="col-sm-4">
 					<input class="form-control" type="text" id="reg_no2" name="regno2" maxlength="1" required> 
 					<span class="sp"></span>
 				</div>
-				<div style="text-align: left;">
+				<div class="col-sm-6" style="text-align: left;">
 					<div id="regchk"></div>
 					<span id="reg"></span>
 				</div>
 			</div>
 
-			<div>
-				<label for="hp">연락처</label>
-				<div >
+			<div class="form-group">
+				<label for="hp" class="control-label col-sm-2">연락처</label>
+				<div class="col-sm-4">
 					<input class="form-control" type="text" id="hp" name="memTel" placeholder="010-0000-0000"
 							pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}">
 				</div>
 				<span class="sp"></span>
 			</div>
 
-			<div>
-				<label for="mail">이메일</label>
-				<div>
+			<div class="form-group">
+				<label for="mail" class="control-label col-sm-2">이메일</label>
+				<div class="col-sm-4">
 					<input class="form-control" type="email" id="mail" name="mail"
 							pattern="[0-9a-zA-z]+@[0-9a-zA-Z]+(\.[a-z]+){1,2}">
 				</div>
 				<span class="sp"></span>
 			</div>
 
-			<div>
-				<label for="add1">우편번호</label>
-				<div >
+			<div class="form-group">
+				<label for="add1" class="control-label col-sm-2">우편번호</label>
+				<div class="col-sm-4">
 					<input class="form-control" type="text"  id="postAddr" name="memZip" required>
 				</div>
-				<div>
+				<div class="col-sm-2">
 					<button class="form-control" type="button" id="addrBtn">주소검색</button>
 				</div>
 			</div>
 
-			<div>
-				<label for="add1">주소</label>
-				<div>
+			<div class="form-group">
+				<label for="add1" class="control-label col-sm-2">주소</label>
+				<div class="col-sm-6">
 					<input class="form-control" type="text" id="addr1" name="memAddr1"
 						required>
 				</div>
 			</div>
-
-			<div >
-				<label for="add2" >상세주소</label>
-				<div>
-					<input class="form-control" type="text"id="addr2" name="memAddr2" required>
+			<div class="form-group">
+				<label for="add2" class="control-label col-sm-2">상세주소</label>
+				<div class="col-sm-6">
+					<input class="form-control" type="text" id="addr2" name="memAddr2" required>
 				</div>
 			</div>
-
-			<div>
-				<div>
-					<button >가입하기</button>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-6">
+					<button class="btn btn-default" id="join">가입하기</button>
 					<span id="joinspan"></span>
 				</div>
 			</div>

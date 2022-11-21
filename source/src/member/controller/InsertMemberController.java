@@ -112,7 +112,7 @@ public class InsertMemberController extends HttpServlet{
 		
 		req.getSession().setAttribute("msg", msg);
 		if(gbn.equals("02")) {
-			req.getRequestDispatcher("/mypage/mem_update.jsp").forward(req, resp);
+			req.getRequestDispatcher("join_ins.jsp").forward(req, resp);
 		}else {
 			req.getRequestDispatcher("join_gen.jsp").forward(req, resp);
 		}

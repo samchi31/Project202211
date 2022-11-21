@@ -76,11 +76,15 @@ h1{
 	background-color: #ccc;
 	color:#fff
 }
-  
+a {
+  text-decoration: none;
+}  
 </style>
 </head>
 <body>
-	<h1>온(溫:ON)</h1>
+	<a href="/index.jsp">
+	  <h1>온(溫:ON)</h1>
+	</a>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">

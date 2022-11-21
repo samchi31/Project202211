@@ -17,6 +17,7 @@ import common.IFileService;
 import funding.service.FundingServiceImpl;
 import funding.service.IFundingService;
 import funding.vo.FundingVO;
+import member.vo.MemberVO;
 
 @MultipartConfig
 @WebServlet("/funding/Insert.do")
@@ -24,8 +25,6 @@ public class InsertFundingController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// req.getRequestDispatcher("/WEB-INF/views/funding/fundingInsert.jsp").forward(req, resp);
-		// System.out.println("=============ListFundingController==============");
 		doPost(req, resp);
 	}
 	
@@ -33,9 +32,11 @@ public class InsertFundingController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		req.setCharacterEncoding("UTF-8");
-			
+		
+		MemberVO mv = (MemberVO) req.getSession().getAttribute("loginUser");
+		String memId =   mv.getMemId(); // 로그인 사용자  
+		
 		String fundingId = req.getParameter("fundingId");
-		String memId = req.getParameter("memId");
 		String fundingTitle = req.getParameter("fundingTitle");
 		
 		int targetAmount = 0;
@@ -76,8 +77,6 @@ public class InsertFundingController extends HttpServlet {
 		fv.setFundingDetail(fundingDetail);
 		fv.setFundingThumbnail(fileService.getSavePath());
 		
-		System.out.println( fv.toString() );
-				
 		int cnt = fundingService.registFunding(fv);
 		
 		String msg = "";
@@ -88,7 +87,6 @@ public class InsertFundingController extends HttpServlet {
 			msg = "실패";
 		}
 		
-		System.out.println("== " + req.getContextPath()  +" ==");		
 		req.getSession().setAttribute("msg", msg);
 		resp.sendRedirect("/funding/List.do");
 	}

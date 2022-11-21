@@ -42,8 +42,9 @@ public class VolReservUpdateController extends HttpServlet {
 		
 		String reservId = request.getParameter("reservId"); // 시퀀스로(쿼리에서)
 		String reservDate = request.getParameter("reservDate");
-		String reservTime = request.getParameter("reservTime");
-		String memId = request.getParameter("memId");
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		String reservTime = startTime + " ~ " + endTime;
 		
 		IVolService service = VolService.getInstance();
 		
@@ -58,7 +59,7 @@ public class VolReservUpdateController extends HttpServlet {
 			msg = "성공";
 
 			request.getSession().setAttribute("msg", msg);
-			response.sendRedirect(request.getContextPath() + "/volReservList.do?memId=" + memId);
+			response.sendRedirect(request.getContextPath() + "/myVolReserv.do");
 		} else {
 			msg = "실패";
 		}

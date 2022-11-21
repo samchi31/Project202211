@@ -13,6 +13,7 @@ import common.IFileService;
 import funding.service.FundingServiceImpl;
 import funding.service.IFundingService;
 import funding.vo.FundingVO;
+import member.vo.MemberVO;
 
 
 @WebServlet("/funding/Update.do")
@@ -30,9 +31,12 @@ public class UpdateFundingController extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
+		
+		MemberVO mv = (MemberVO) req.getSession().getAttribute("loginUser");
+		String memId =   mv.getMemId(); // 로그인 사용자  
+		
 		// 기관명 조회
 		String fundingId = req.getParameter("fundingId");
-		String memId = req.getParameter("memId");
 
 		String fundingTitle = req.getParameter("fundingTitle");
 		String fundingStartDate = req.getParameter("fundingStartDate");
@@ -61,14 +65,12 @@ public class UpdateFundingController extends HttpServlet {
 		fv.setFundingBankName(fundingBankName);
 		fv.setFundingDetail(fundingDetail);
 
-		if (req.getParameter("isChange").equals("click")) {
-			IFileService fileService = new FileService();
-			fileService.saveImage(req, fv.getFundingThumbnail());
-			fv.setFundingThumbnail(fileService.getSavePath());
-		} else {
-			fv.setFundingThumbnail(req.getParameter("isChange"));
-		}
-
+		/*
+		 * if (req.getParameter("isChange").equals("click")) { IFileService fileService
+		 * = new FileService(); fileService.saveImage(req, fv.getFundingThumbnail());
+		 * fv.setFundingThumbnail(fileService.getSavePath()); } else {
+		 * fv.setFundingThumbnail(req.getParameter("isChange")); }
+		 */
 		int cnt = fundingService.modifyFunding(fv);
 
 		String msg = "";

@@ -26,4 +26,6 @@ public interface INoticeDao {
 	
 	public int updateNoticeAndAtch(NoticeVO noticeVO);
 	
+	public int insertOnlyNotice(NoticeVO noticeVO);
+	
 }

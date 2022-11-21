@@ -20,8 +20,8 @@ public class DeleteMemberController extends HttpServlet{
 	 @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String memId = req.getParameter("memId");
-		 
+		String memId = ((MemberVO)req.getSession().getAttribute("loginUser")).getMemId();
+		
 		IMypageService mypgService = MypageServiceImpl.getInstance();
 		
 		MemberVO mv = new MemberVO();

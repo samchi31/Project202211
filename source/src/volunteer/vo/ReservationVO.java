@@ -10,6 +10,24 @@ public class ReservationVO {
 	private String applyDate;
 	private String cancelDate;
 	private String rStId;
+	private String deleted;
+	private String volTitle;
+	
+	public String getVolTitle() {
+		return volTitle;
+	}
+
+	public void setVolTitle(String volTitle) {
+		this.volTitle = volTitle;
+	}
+
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
 
 	public String getReservId() {
 		return reservId;

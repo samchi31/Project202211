@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.vo.MemberVO;
 import notice.service.INoticeService;
 import notice.service.NoticeServiceImpl;
 import notice.vo.NoticeVO;
@@ -65,8 +66,15 @@ public class ListNoticeController extends HttpServlet {
 		req.setAttribute("ttPage", totalPage);
 		req.setAttribute("cPage", currentPage);
 		
+		MemberVO memVo = (MemberVO)req.getSession().getAttribute("loginUser");
+		
+		String viewPage = "/WEB-INF/adminNotice/memberlist.jsp";  // 회원
+		if(memVo!=null&&memVo.getAdmin().equals("Y")) {
+			viewPage = "/WEB-INF/adminNotice/list.jsp";  // 관리자
+		}
+		
 		//회원목록 화면 처리하기
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/adminNotice/list.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
 		
 		dispatcher.forward(req, resp); //jsp에게 전달
 	}
