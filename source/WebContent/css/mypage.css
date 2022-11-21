@@ -1,0 +1,283 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.myWrap {
+	width: 100%;
+	heigth: 100%;
+}
+
+.p_img {
+	background-color: #fff;
+	width: 100px;
+	heigth: 100px;
+	overflow: hidden;
+	margin: 5% auto
+}
+
+.p_img img {
+	width: 100%;
+	display: block;
+}
+
+#side {
+	width: 15%;
+	color: #fff;
+	float:left;
+	padding: 10% 0;
+}
+
+#side ul {
+	width: 100%;
+}
+
+#side ul li {
+	margin-left:15%;
+	text-align:right;
+	padding: 4% 0;
+	margin-right:10%;
+}
+
+#side ul li a:hover {
+	color: #50DCA4;
+}
+
+#side ul li a {
+	text-decoration: none;
+	color: #666;
+	font-size:18px;
+	font-weight: bold;
+	font-family: 'GmarketSansMedium', sans-serif;
+	font-weight: 400;
+}
+
+#content {
+	width: 85%;
+	height: 110%;
+	padding: 7%;
+	float:right;
+	border-left:1px solid #ccc
+}
+
+.title {
+	font-weight: bold;
+	font-family: 'GmarketSansMedium', sans-serif;
+	position: relative;
+}
+
+.title p {
+	position: absolute;
+	opacity: 0.1;
+	font-size: 100px;
+	top: 0;
+	color: #ccc
+}
+
+#content .mycon {
+	margin-top:0%;
+	width: 47%;
+	margin-right:5%;
+	margin-bottom:5%;
+	float: left;
+	display: block;
+	border: 1px solid #ccc;
+	padding: 3%;
+	box-shadow: 0px 0px 20px #f1f1f1;
+	border-radius: 10px;
+	
+}
+
+#content .mycon:nth-child(even){
+	margin-right:0;
+}
+
+#content #mycon1 {
+	margin-top:10%;
+	width: 100%;
+	margin-right:0%;
+	float: left;
+	display: block;
+	border: 1px solid #f2f2f2;
+	background-color:#f1f1f1;
+	box-shadow: 0px 0px 20px #f1f1f1;
+	border-radius: 10px;
+	position:relative;
+}
+
+#content #mycon1:hover {
+	box-shadow: 0px 5px 30px #ccc;
+	background-color:#CCDBCF
+}
+
+#content .mycon:hover {
+	box-shadow: 0px 5px 30px #ccc;
+}
+
+#content .mycon h3 {
+	font-size:24px;
+	font-weight: bold;
+	font-family: 'GmarketSansMedium', sans-serif;
+}
+
+.profile {font-size:18px; background-color:#fff;padding:1%;border-radius:10px}
+.profile span {
+	text-indent:20px;
+	font-size: 20px;
+	color: #fff;
+	font-weight: 600;
+	color: #50DCA4;
+	font-weight: bold;
+	font-family: 'GmarketSansMedium', sans-serif;
+}
+
+.mycon table {margin-top:3%;text-align:center;}
+
+.mycon table th{
+	font-size:12px;
+	text-align:center;
+	background-color:#f1f1f1;
+	padding:2% 0;
+	margin:2% 0
+}
+
+.mycon table td{
+	padding:1% 0
+}
+
+
+#wrapper {
+	width: 85%;
+	height: auto;
+	padding: 7%;
+	float:right;
+	border-left:1px solid #ccc
+}
+
+.wrapper_inner {
+	padding:5% 0;
+	overflow:hidden
+}
+
+.col_line {
+	clear: both;
+	width:100%;
+}
+
+.col_inner2 {
+	float: left;
+	font-size: 16px;
+	margin-right: 30px;
+	width: 900px;
+	margin: 1% 0;
+	background-color: #f1f1f1;
+	text-indent: 15px;
+	padding: 0.5% 0;
+	margin: 1% 0;
+	background-color: #f1f1f1;
+	text-indent: 15px
+}
+
+.col_inner2:first-child {
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #00AB84;
+	color: #fff;
+	padding: 0.5% 1% 0.5% 0;
+	width: 100px;
+	margin: 1% 0;
+	text-align: right
+}
+
+#select {
+	display: block;
+	margin: 1% 0; float : left !important;
+	width: 83%;
+	float: left !important;
+}
+
+#select .btn {
+	width: 400px !important;
+	margin: 0 auto
+}
+
+.mylist {
+	border:1px solid #f1f1f1;
+	box-shadow: 0px 0px 20px #f1f1f1;
+	padding:3%;
+	width:28%;
+	margin:0% 0% 5% 2%;
+	float:left;
+	border-radius:20px;
+}
+
+.mylist:nth-child(4) {
+	clear:both;
+}
+.mylist:nth-child(7) {
+	clear:both;
+}
+button:nth-child(10) {
+	clear:both;
+}
+
+.mylist:hover {
+	box-shadow: 0px 0px 30px #ccc;
+}
+
+.mylist .list_num {
+	background-color: #00AB84;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	color: #fff;
+	border-radius: 20px;
+	line-height: 20px;
+}
+
+.mylist .list_title {
+	font-size: 18px;
+	font-weight: bold;
+	font-weight: bold;
+	font-family: 'GmarketSansMedium', sans-serif;
+	color: #333;
+	margin-bottom: 5%;
+}
+
+.mylist button {bakcground-color:#fff;border:1px solid #fff;}
+
+
+.mylist2 {
+	border:1px solid #f1f1f1;
+	box-shadow: 0px 0px 20px #f1f1f1;
+	padding:3%;
+	width:90%;
+	margin:0% 0% 2% 2%;
+	float:left;
+	border-radius:20px;
+}
+
+.mylist2:hover {
+	box-shadow: 0px 0px 30px #ccc;
+}
+
+.mylist2 .list_title2 {
+	font-size: 22px;
+	font-weight: bold;
+	font-weight: bold;
+	font-family: 'GmarketSansMedium', sans-serif;
+	color: #333;
+	line-height:300%;
+}
+
+.list_bt {clear:both; display:block;float:left}
+

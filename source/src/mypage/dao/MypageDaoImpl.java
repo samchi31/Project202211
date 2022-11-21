@@ -1,6 +1,9 @@
 package mypage.dao;
 
+import java.util.List;
+
 import common.QueryDao;
+import donate.vo.DonateVO;
 import member.vo.InsVO;
 import member.vo.MemberVO;
 
@@ -43,6 +46,11 @@ import member.vo.MemberVO;
 		@Override
 		public InsVO getIns(String memId) {
 			return selectOne("member.selectIns", memId);
+		}
+
+		@Override
+		public List<DonateVO> getMyDonate(String memId) {
+			return selectList("donate.getMyDonate", memId);
 		}
 	}
 

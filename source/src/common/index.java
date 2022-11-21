@@ -11,11 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/index.do")
 public class index extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    
-    public index() {
-        super();
-    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -23,7 +18,7 @@ public class index extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 
-		RequestDispatcher disp = request.getRequestDispatcher("WEB-INF/views//index.jsp");
+		RequestDispatcher disp = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		disp.forward(request, response);
 	}
 	

@@ -14,6 +14,7 @@ import common.FileService;
 import common.IFileService;
 import common.VolCategory;
 import common.VolStatus;
+import member.vo.MemberVO;
 import volunteer.service.IVolService;
 import volunteer.service.VolService;
 import volunteer.vo.ReservationVO;
@@ -39,9 +40,8 @@ public class VolRegisterController extends HttpServlet {
 		
 	
 		// 파라미터 값 가져오기
-//		String volId = request.getParameter("volId"); // 시퀀스 사용하여 자동으로 들어감
 		String volTitle = request.getParameter("volTitle");
-		String memId = request.getParameter("memId"); // 바꿔줘야 함
+		String memId = ((MemberVO)request.getSession().getAttribute("loginUser")).getMemId();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String startTime = request.getParameter("startTime");
@@ -49,7 +49,7 @@ public class VolRegisterController extends HttpServlet {
 		int personnel = Integer.parseInt(request.getParameter("personnel"));
 		int total = Integer.parseInt(request.getParameter("total"));
 		String volCtId = request.getParameter("category");
-		String location = request.getParameter("location");
+		String location = request.getParameter("location");	
 		String status = request.getParameter("status");
 		String target = request.getParameter("target");
 		String qualification = request.getParameter("qualification");
@@ -62,9 +62,8 @@ public class VolRegisterController extends HttpServlet {
 		
 		fileService.saveImage(request, vv.getThumbnail());
 
-//		vv.setVolId(volId); //시퀀스 사용하여 자동으로 들어감
 		vv.setVolTitle(volTitle);
-		vv.setMemId("a001"); // 세션에서 아이디값 받아와서 바꿔주기 
+		vv.setMemId(memId);
 		vv.setStartDate(startDate);
 		vv.setEndDate(endDate);
 		vv.setStartTime(startTime);
@@ -89,7 +88,7 @@ public class VolRegisterController extends HttpServlet {
 		}
 		
 		request.getSession().setAttribute("msg", msg);
-		response.sendRedirect(request.getContextPath() + "/volList.do?memId="+memId);
+		response.sendRedirect(request.getContextPath() + "/volList.do");
 		
 	}
 	

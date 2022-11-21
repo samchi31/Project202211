@@ -19,7 +19,7 @@ public interface IUsrClsService {
 	 * 페이지 전체 갯수 세기
 	 * @return 
 	 */
-	public int countList();
+	public int countList(String category);
 	
 	/**
 	 * 게시물 선택 시 상세정보 가져오기
@@ -76,4 +76,11 @@ public interface IUsrClsService {
 	 * @return
 	 */
 	public int updateReplyRemove(String replyId);
+	
+	/**
+	 * 내가 작성한 모든 게시글
+	 * @param memId
+	 * @return
+	 */
+	public List<UsrClsVO> selectMyClassAll(String memId);
 }

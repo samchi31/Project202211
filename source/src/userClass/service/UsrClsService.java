@@ -28,8 +28,8 @@ public class UsrClsService implements IUsrClsService{
 	}
 	
 	@Override
-	public int countList() {
-		return dao.countList();
+	public int countList(String category) {
+		return dao.countList(category);
 	}
 	
 	@Override
@@ -72,5 +72,8 @@ public class UsrClsService implements IUsrClsService{
 		return dao.updateReplyRemove(replyId);
 	}	
 	
-	
+	@Override
+	public List<UsrClsVO> selectMyClassAll(String memId) {
+		return dao.selectMyClassAll(memId);
+	}
 }

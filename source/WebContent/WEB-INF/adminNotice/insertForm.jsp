@@ -11,39 +11,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<title>신규회원 등록</title>
-<style>
-	.btn {
-		float: right;
-	}
-	.container {
-		width: 100%;
-	}
-	.row {
-		width:90%; margin:0 auto;
-	}
-	
-	.f_title {
-	   font-weight: bold; 
-	   font-family:'GmarketSansMedium', sans-serif ;font-weight:bold;
-	}
+<link rel="stylesheet" href="../css/common.css">
+<link rel="stylesheet" href="../css/noticeInquiry.css">
 
-	.f_title p {
-	   position:absolute;
-	   opacity:0.1;
-	   font-size:100px;
-	   top:-5%;
-	   color:#ccc
-	 }
-	
-</style>
-<script>
-	
-</script>
+<title>신규회원 등록</title>
+
 </head>
 <body>
-
-
+<%@ include file="../header.jsp"%>
+ 	<div class="bigWrap">
 		<div class="container">
 		<h1 class="f_title">공지사항 등록
 			<p>Notice</p>
@@ -62,13 +38,23 @@
 					    <label for="pwd">첨부파일</label>
 					    <input type="file" name="atchFile" multiple>
 					  </div>
-			  		<button type="submit" class="btn btn-default">등록</button>
+			  		<button type="submit" class="btn btn-default" style="float:right">등록</button>
 				</div>
 			</form>
 	    </div>	  
-	    
+	</div> 
 
-
+<script>
+	$(document).ready(function(){
+		$('.menu_wrap').hide();
+		$('.gnbmenu').mouseover(function(){
+			$('.menu_wrap').slideDown();
+		});
+		$('.bigWrap').mouseout(function(){
+			$('.menu_wrap').hide();
+		});
+	});
+</script>
 	    
 	    
 </body>

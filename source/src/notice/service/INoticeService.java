@@ -18,14 +18,14 @@ public interface INoticeService {
 	public int removeNotice(String noticeId);
 	
 	
-//	public int registerNotice (NoticeVO nv);
+	public int registerNotice (NoticeVO nv);
 	
 	
 	
 	public NoticeVO selectNotice(String noticeId);
 	
 	
-	public int modifyNotice(NoticeVO nv, List<AtchFileVO> atchFileVOList);
+	public int modifyNotice(NoticeVO nv/* , List<AtchFileVO> atchFileVOList */);
 	
 	
 	public NoticeVO getNotice(String noticeId);
@@ -37,7 +37,11 @@ public interface INoticeService {
 	public int countList();
 
 
-	public int registerNotice(NoticeVO nv, List<AtchFileVO> atchFileVOList);
+//	public int registerNotice(NoticeVO nv, List<AtchFileVO> atchFileVOList);
+	
+	public int updateNoticeAndAtch(NoticeVO noticeVO);
+	
+	public int insertOnlyNotice(NoticeVO noticeVO);
 	
 	
 }

@@ -2,10 +2,10 @@ package donate.dao;
 
 import java.util.List;
 
-import batis.MyBatisDao;
+import common.QueryDao;
 import donate.vo.DonateVO;
 
-public class DonateDaoImpl extends MyBatisDao implements IDonateDao{
+public class DonateDaoImpl extends QueryDao implements IDonateDao{
 	
 	private static IDonateDao donateDao;
 	
@@ -37,6 +37,11 @@ public class DonateDaoImpl extends MyBatisDao implements IDonateDao{
 	@Override
 	public DonateVO selectDonateDetail(DonateVO dv) {
 		return selectOne("donate.selectDonateDetail", dv);
+	}
+
+	@Override
+	public int selectDonateCount(DonateVO dv) {
+		return selectOne("donate.selectDonateCount", dv);
 	}
 
 

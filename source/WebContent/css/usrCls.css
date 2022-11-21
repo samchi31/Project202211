@@ -1,0 +1,112 @@
+@charset "UTF-8";
+.bigWrap {
+	margin-top:7%
+}
+
+.container {
+	padding-top:5%;
+	margin-top:5%;
+	padding-bottom:7%
+}
+
+.f_title {
+	font-weight: bold; 
+	font-family:'GmarketSansMedium', sans-serif ;font-weight:bold;
+	position:relative;
+}
+
+.f_title p {
+	position:absolute;
+	opacity:0.1;
+	font-size:100px;
+	top:-5%;
+	color:#ccc
+}
+
+.f_title2 {
+	font-weight: bold; 
+	font-family:'GmarketSansMedium', sans-serif ;
+	margin-bottom:5%
+}
+
+.title3 {
+	font-weight: bold; 
+	font-family:'GmarketSansMedium', sans-serif ;
+	margin-bottom:5%;
+	font-size:18px;
+}
+
+.fdetail_tb {float:left;height:100%;position:relative;z-index:1;}
+
+.thumbnail {
+	margin:8% auto 0 auto;
+	padding:5%;
+	border:1px solid #f1f1f1;
+	border-radius:10px;
+	box-shadow : 0px 0px 20px #f1f1f1;
+	transition:0.2s
+}
+
+.thumbnail:hover {
+	box-shadow : 0px 5px 30px #ccc;
+}
+
+
+.thumb_img {
+	display:block;
+	width:80%;
+	border:1px solid #f1f1f1;
+}
+.thumb_img_normal {
+	display:block;
+	width:90%;
+	border:1px solid #f1f1f1;
+}
+
+
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#morebt, #cancelbt, #stopbt {width:100%; margin:1% 0; font-size:18px !important; font-family:'GmarketSansMedium', sans-serif; font-weight:bold !important; line-height:200%}
+
+.form-control {
+	margin:2% 0 0 0 
+	
+}
+
+.thumbnailImg {
+	width:100%;
+	height:300px;
+	border:1px solid #f1f1f1;
+}
+
+/* .donatebt {width:90%; height:100px; margin-top:10%;font-size:30px !important;font-family:'GmarketSansMedium', sans-serif; font-weight:bold !important;} */
+
+/* #donateForm{font-size:18x; text-indent:-1} */
+
+/* #donateForm .fdetail_tb {margin:5% 0} */
+
+/* .editorview {clear:both;border:1px solid #f1f1f1; margin-top:1%; text-align:center;padding:5% 0} */
+
+
+#pagelist {display:flex;justify-content:center;overflow:hidden}
+.pager {float:left;display:flex;}
+
+
+ul{list-style:none;}
+a:link{text-decoration: none;}
+
+.post_detail {
+	margin:8% auto 0 auto;
+	padding:5%;
+	border:1px solid #f1f1f1;
+	border-radius:10px;
+	box-shadow : 0px 0px 20px #f1f1f1;
+	transition:0.2s
+}

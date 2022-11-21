@@ -65,4 +65,22 @@ public class FundingServiceImpl implements IFundingService{
 		return fundingDao.updateFunding(fv);
 	}
 	
+	/**
+	 * 펀딩 모금액 수정하기 위한 메소드
+	 * @param fv update할 펀딩정보가 들어있는 FundingVO객체
+	 * @return
+	 */
+	public void modifyRecentAmount(String fundingId) {
+		fundingDao.updateRecentAmount(fundingId);
+	}
+
+	/**
+	 * 기관구분을 조회할 수 있기위해 쓰는 메소드
+	 */
+	@Override
+	public String getMemberGb(String memId) {
+		return fundingDao.getMemberGb(memId);
+	}
+
+
 }

@@ -21,33 +21,19 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<link rel="stylesheet" href="../css/noticeInquiry.css">
 
 <style>
-    th {
-        text-align: center;
-    }
-	.container {
-		width: 100%;
-	}
-	.row {
-		width:90%; margin:0 auto;
-	}
-	
-	.f_title {
-	   font-weight: bold; 
-	   font-family:'GmarketSansMedium', sans-serif ;font-weight:bold;
-	}
 
-	.f_title p {
-	   position:absolute;
-	   opacity:0.1;
-	   font-size:100px;
-	   top:-5%;
-	   color:#ccc
-	 }
+	 .btn btn-default {
+	 	float: right;
+	 
 </style>
 </head>
 <body>
+<%@ include file="../header.jsp"%>
+<div class="bigWrap">
 	<div class="container">
 	<h1 class="f_title">공지사항 내용
 		<p>Notice</p>
@@ -94,9 +80,22 @@
 				<tr>
 				</tr>
 			</table>
+		<button class="btn btn-default" ><a href="<%=request.getContextPath() %>/ListNoticeController.do">목록</a></button>
 		</div>
 		
-		<button class="btn btn-default" ><a href="<%=request.getContextPath() %>/ListNoticeController.do">목록</a></button>
 	</div>
+</div>
+<script>
+$(document).ready(function(){
+	$('.menu_wrap').hide();
+	$('.gnbmenu').mouseover(function(){
+		$('.menu_wrap').slideDown();
+	});
+	$('.bigWrap').mouseout(function(){
+		$('.menu_wrap').hide();
+	});
+});
+
+</script>	
 </body>
 </html>

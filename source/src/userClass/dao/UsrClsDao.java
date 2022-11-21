@@ -23,8 +23,8 @@ public class UsrClsDao extends QueryDao implements IUsrClsDao {
 	}
 	
 	@Override
-	public int countList() {
-		return countList("userClass.countList");
+	public int countList(String category) {
+		return (int)selectOne("userClass.countList", category);
 	}
 	
 	@Override
@@ -65,4 +65,8 @@ public class UsrClsDao extends QueryDao implements IUsrClsDao {
 		return update("userClass.updateReplyRemove", replyId);
 	}
 	
+	@Override
+	public List<UsrClsVO> selectMyClassAll(String memId) {
+		return selectList("userClass.selectMyClassAll",memId);
+	}
 }

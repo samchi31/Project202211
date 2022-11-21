@@ -21,7 +21,16 @@ public class VolunteerVO {
 	private String qualification;
 	private String detail;
 	private String thumbnail;
+	private String deleted;
 	
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+
 	private String defaultImage = "images/default/default.jpg";
 
 	public String getDefaultImage() {

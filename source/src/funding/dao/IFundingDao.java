@@ -49,5 +49,14 @@ public interface IFundingDao {
 	 * @param atchFileVO
 	 */
 	public int insertAtchFile(FundingVO atchFileVO);
+	
+	public void updateRecentAmount(String fundingId);
+	
+	/** 
+	 * 기관,회원구분 조회
+	 * @param memId
+	 * @return
+	 */
+	public String getMemberGb(String memId);
 
 }

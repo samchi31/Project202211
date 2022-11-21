@@ -52,7 +52,7 @@ public class NoticeServiceImpl implements INoticeService {
 
 	// 등록
 	@Override
-	public int registerNotice(NoticeVO nv, List<AtchFileVO> atchFileVOList) {
+	public int registerNotice(NoticeVO nv /*, List<AtchFileVO> atchFileVOList */) {
 //		// 파일서비스 객체 생성하기
 //		IAtchFileService fileService = AtchFileServiceImpl.getInstance();
 //
@@ -73,21 +73,23 @@ public class NoticeServiceImpl implements INoticeService {
 //		return fileService.insertNoticeAtch(atchFileVOList);
 		
 		///////////////////////////////////////////////////////////////////////////////
-		int cnt = noticeDao.insertNotice(nv);
-		
-		if(atchFileVOList!=null) {
-			for (int i = 0; i < atchFileVOList.size(); i++) {
-				atchFileVOList.get(i).setAtchId(nv.getAtchId());
-				atchFileVOList.get(i).setAtchSn(i + 1);
-			}
-			IAtchFileService fileService = AtchFileServiceImpl.getInstance();
-		
-//			nv.setAtchId(atchFileVOList.get(0).getAtchId());
-//			nv.setAtchId(Integer.toString(fileService.selectAtchId()));
-			cnt += fileService.insertNoticeAtch(atchFileVOList);
-		}
-		return cnt;		
+//		int cnt = noticeDao.insertNotice(nv);
+//		
+//		if(atchFileVOList!=null) {
+//			for (int i = 0; i < atchFileVOList.size(); i++) {
+//				atchFileVOList.get(i).setAtchId(nv.getAtchId());
+//				atchFileVOList.get(i).setAtchSn(i + 1);
+//			}
+//			IAtchFileService fileService = AtchFileServiceImpl.getInstance();
+//		
+////			nv.setAtchId(atchFileVOList.get(0).getAtchId());
+////			nv.setAtchId(Integer.toString(fileService.selectAtchId()));
+//			cnt += fileService.insertNoticeAtch(atchFileVOList);
+//		}
+//		return cnt;		
 		///////////////////////////////////////////////////////////////////////////////
+		
+		return noticeDao.insertNotice(nv);
 	}
 
 	// 수정 - get
@@ -99,23 +101,23 @@ public class NoticeServiceImpl implements INoticeService {
 	}
 
 	@Override
-	public int modifyNotice(NoticeVO nv, List<AtchFileVO> atchFileVOList) {
-		if(atchFileVOList != null) {
-			int cnt = noticeDao.updateNoticeAndAtch(nv);
-			
-			for (int i = 0; i < atchFileVOList.size(); i++) {
-				atchFileVOList.get(i).setAtchId(nv.getAtchId());
-				atchFileVOList.get(i).setAtchSn(i + 1);
-			}
-			
-			// 파일서비스 객체 생성하기
-			IAtchFileService fileService = AtchFileServiceImpl.getInstance();
-			cnt = fileService.insertNoticeAtch(atchFileVOList);
-		} else {
-			noticeDao.updateNotice(nv);
-		}
+	public int modifyNotice(NoticeVO nv/* , List<AtchFileVO> atchFileVOList */) {
+//		if(atchFileVOList != null) {
+//			int cnt = noticeDao.updateNoticeAndAtch(nv);
+//			
+//			for (int i = 0; i < atchFileVOList.size(); i++) {
+//				atchFileVOList.get(i).setAtchId(nv.getAtchId());
+//				atchFileVOList.get(i).setAtchSn(i + 1);
+//			}
+//			
+//			// 파일서비스 객체 생성하기
+//			IAtchFileService fileService = AtchFileServiceImpl.getInstance();
+//			cnt = fileService.insertNoticeAtch(atchFileVOList);
+//		} else {
+//			noticeDao.updateNotice(nv);
+//		}
 		
-		return 0;
+		return noticeDao.updateNotice(nv);
 	}
 
 	@Override
@@ -128,6 +130,16 @@ public class NoticeServiceImpl implements INoticeService {
 	@Override
 	public int countList() {
 		return noticeDao.countList();
+	}
+
+	@Override
+	public int updateNoticeAndAtch(NoticeVO noticeVO) {
+		return noticeDao.updateNoticeAndAtch(noticeVO);
+	}
+
+	@Override
+	public int insertOnlyNotice(NoticeVO noticeVO) {
+		return noticeDao.insertOnlyNotice(noticeVO);
 	}
 
 }

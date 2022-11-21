@@ -86,4 +86,10 @@ public class NoticeDaoImpl extends QueryDao implements INoticeDao{
 	}
 
 
+	@Override
+	public int insertOnlyNotice(NoticeVO noticeVO) {
+		return insert("insertOnlyNotice",noticeVO);
+	}
+
+
 }

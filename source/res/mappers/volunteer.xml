@@ -2,9 +2,41 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="volunteer">
 
-	<select id="getList" resultType="VolunteerVO">
+	<select id="getVolList" resultType="VolunteerVO">
 		select *
 		from volunteer
+		where deleted = 'N'
+		order by vol_id
+	</select>
+
+	<select id="getList" parameterType="map" resultType="VolunteerVO">
+
+		SELECT A.* 
+		 FROM(
+		      SELECT ROWNUM AS RNUM,
+		      B.* 
+		      FROM (
+			      
+		               SELECT * FROM VOLUNTEER
+                        WHERE DELETED = 'N'
+						<if test="location != null">
+					      AND LOCATION like '%'||#{location}||'%'
+					      </if>
+					      <if test="status != null">
+					      AND STATUS = #{status}
+					      </if>
+					      <if test = "category != null">
+					      AND   VOL_CT_ID = #{category}
+					      </if>
+					      <if test= "date!=null">
+					      AND to_date(#{date}) BETWEEN START_DATE AND END_DATE
+					      </if>                        
+		                ORDER BY VOL_ID DESC) B
+<![CDATA[		                
+		      WHERE ROWNUM <= #{end}) A
+		 WHERE A.RNUM >= #{start}
+]]>		order by vol_id	 
+		 
 	</select>
 	
 	<select id="getDetail" parameterType="String" resultType="VolunteerVO">
@@ -19,15 +51,30 @@
 		where reserv_id in (select reserv_id from reservation where vol_id = #{volId})
 	</select>
 	
-	<select id="getReview" parameterType="hashMap" resultType="int">
+	<select id="getReservId" parameterType="hashMap" resultType="String">
+		select distinct reserv_id
+		from reservation
+		where mem_id = #{memId}
+		and vol_id = #{volId}
+		and r_st_id = 'EXPIRED'
+		and rownum = 1
+	</select>
+	
+	<select id="canIReview" parameterType="String" resultType="int">	
 		select count(*)
 		from review
-		where reserv_id = ( select distinct reserv_id
-                            from reservation
-                            where vol_id = #{volId}
-                            and mem_id = #{memId}
-                            and r_st_id = 'EXPIRED')
+		where reserv_id = #{reservId}
 	</select>
+	
+<!-- 	<select id="getReview" parameterType="hashMap" resultType="int"> -->
+<!-- 		select count(*) -->
+<!-- 		from review -->
+<!-- 		where reserv_id = ( select distinct reserv_id -->
+<!--                             from reservation -->
+<!--                             where vol_id = #{volId} -->
+<!--                             and mem_id = #{memId} -->
+<!--                             and r_st_id = 'EXPIRED') -->
+<!-- 	</select> -->
 	
 <!-- 	<select id="countMyReview" parameterType="hashMap" resultType="int"> -->
 <!-- 		select count(*) -->
@@ -38,14 +85,14 @@
 	
 	<insert id="registerReview" parameterType="ReviewVO">
 		insert into review
-		values (#{reservId}, #{start}, #{content})
+		values (#{reservId}, #{star}, #{content}, SYSDATE, 'N')
 	</insert>
 	
 	<insert id="registerVol" parameterType="VolunteerVO">
 		insert into volunteer
 		values ('V'||LPAD(SEQ_VOLUNTEER.NEXTVAL, 5, '0'), #{volTitle}, #{memId}, #{startDate}, #{endDate},
 		#{startTime}, #{endTime}, #{personnel}, #{total}, #{volCtId}, #{location}, #{status}, #{target},
-		#{qualification}, #{detail}, #{thumbnail})
+		#{qualification}, #{detail}, #{thumbnail},'N')
 	</insert>
 	
 	<insert id="reservVol" parameterType="ReservationVO">
@@ -62,9 +109,25 @@
 	
 	<select id="getReservList" parameterType="String" resultType="ReservationVO">
 		select *
-		from reservation
-		where mem_id = #{memId}
+		from reservation a, volunteer b 
+		where a.vol_id = b.vol_id 
+		and a.mem_id = #{memId}
+		order by a.reserv_id
 	</select>
+	
+	<select id="getApproveList" parameterType="String" resultType="ReservationVO">
+		select *
+		from reservation a, volunteer b
+		where a.vol_id = b.vol_id
+		and b.mem_id = #{memID}
+		order by apply_date
+	</select>
+	
+	<update id="changeApproveReserv" parameterType="hashMap">
+		update reservation
+		set r_st_id = '${rStId}'
+		where reserv_id = #{reservId}
+	</update>
 	
 	<select id="getDetailForReserv" parameterType="String" resultType="VolunteerVO">
 		select *
@@ -74,17 +137,26 @@
                          where reserv_Id = #{reservId})
 	</select>
 	
-	<update id="cancelReserv" parameterType="ReservationVO">
+	<update id="cancelReserv" parameterType="String">
 		update reservation
-		set r_st_id = #{rStId}, cancel_date = SYSDATE
+		set r_st_id = 'CANCELED', cancel_date = SYSDATE
 		where reserv_id = #{reservId}
 	</update>
 	
-	<delete id="deleteVol" parameterType="String">
+	<update id="cancelReservVolDeleted" parameterType="String">
+		update reservation
+		set r_st_id = 'CANCELED', cancel_date = SYSDATE
+		where r_st_id != 'EXPIRED'
+		and r_st_id != 'CANCELED'
+		and r_st_id != 'REJECTED'
+		and vol_id = #{volId}
+	</update>
 	
-		delete from volunteer where vol_Id = #{volId}
-		
-	</delete>
+	<update id="deleteVol" parameterType="String">
+		update volunteer
+		set deleted = 'Y'
+		where vol_Id = #{volId}
+	</update>
 	
 	<update id="updateVol">
 		update volunteer
@@ -97,7 +169,7 @@
 	
 	<update id="updateReserv" parameterType="String">
 		update reservation
-		set reserv_date = #{reservDate}, reserv_time = #{reservTime}, apply_date = SYSDATE
+		set reserv_date = #{reservDate}, reserv_time = #{reservTime}, apply_date = SYSDATE, r_st_id = 'SUBMITTED'
 		where reserv_id = #{reservId}
 	</update>
 	
@@ -117,4 +189,48 @@
 		from wish
 	</select>
 	
+	<select id="getListMyVol" parameterType="String" resultType="VolunteerVO">
+		select *
+		from volunteer
+		where mem_id = #{memId}
+	</select>
+	
+	<select id="isInst" parameterType="String" resultType="int">
+		select count(*)
+		from member a, institution b
+		where a.mem_id = #{memId}
+		and a.mem_id = b.mem_id
+	</select>
+	
+	<update id="updateTotal" parameterType="String">
+		update volunteer
+		set total = (select count(*)
+                     from reservation
+                     where vol_id = (select vol_id
+                                    from reservation
+                                    where reserv_id = #{reservId})
+                	 and r_st_id = 'CONFIRMED')
+		where vol_id = (select vol_id
+                        from reservation
+                        where reserv_id = #{reservId})
+	</update>
+	
+	<update id="updateVolList1" parameterType="String">
+		update volunteer
+		set status = #{rStId}
+		where end_date <![CDATA[ < ]]> SYSDATE
+	</update>
+
+	<update id="updateVolList2" parameterType="String">
+		update reservation
+		set r_st_id = 'CANCELED'
+		where vol_id in (select vol_id
+		                from volunteer
+		                where status = #{rStId})
+		and r_st_id in ('SUBMITTED', 'WAITING')
+	</update>
+	
+	<select id="countList" resultType="int">
+    	SELECT COUNT(*) FROM VOLUNTEER   
+    </select>
 </mapper>

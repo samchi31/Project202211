@@ -9,7 +9,6 @@
 		</a>
 		<nav class="gnb">
 			<ul class="gnbmenu">
-				<li>소개</li>
 				<li>봉사</li>
 				<li>후원</li>
 				<li>재능기부</li>
@@ -24,9 +23,8 @@
 <!-- inside -->
 <div class="menu_wrap">
 	<ul>
-		<li><a href="/member/LoginForm.jsp">온:프로젝트 소개</a> </li>
-		<li><a href="/member/LoginForm.jsp">봉사 프로그램</a> <a href="/member/LoginForm.jsp">봉사 프로그램 등록</a> <a href="">봉사 후기</a></li>
-		<li><a href="/member/LoginForm.jsp">후원 목록</a> <a href="/member/LoginForm.jsp"></a> <a href="">후원 내역</a></li>
+		<li><a href="/member/LoginForm.jsp">봉사 프로그램</a> <a href="/member/LoginForm.jsp">봉사 프로그램 등록</a></li>
+		<li><a href="/member/LoginForm.jsp">후원 목록</a> <a href="/member/LoginForm.jsp"></a></li>
 		<li><a href="/member/LoginForm.jsp">재능기부 클래스</a> <a href="">재능기부 등록</a></li>
 		<li><a href="/member/LoginForm.jsp">공지사항</a> <a href="/member/LoginForm.jsp">문의사항</a> </li>
 		<li><a href="/member/LoginForm.jsp">마이페이지</a></li>

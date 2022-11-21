@@ -1,5 +1,8 @@
 package mypage.service;
 
+import java.util.List;
+
+import donate.vo.DonateVO;
 import member.vo.InsVO;
 import member.vo.MemberVO;
 
@@ -17,5 +20,7 @@ public interface IMypageService {
 	public MemberVO getMember(String memId);
 	
 	public InsVO getIns(String memId);
+	
+	public List<DonateVO> getMyDonate(String memId);
 }
 

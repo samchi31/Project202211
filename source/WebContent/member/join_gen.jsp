@@ -62,8 +62,8 @@ form{
 					class="sp"></span>
 				<div class="col-sm-4">
 					<input type="text" class="input" id="id"
-						placeholder="4자 이상(대ㆍ소문자,숫자)" name="memId" required
-						pattern="[a-zA-Z][a-zA-Z0-9]{3,}">
+						placeholder="3자 이상" name="memId" required
+						pattern="[a-zA-Z0-9가-힣]{3,}">
 				</div>
 				<div class="col-sm-6" style="text-align: left;">
 					<button type="button" class="btn btn-success btn-sm" id="idChk">중복검사</button>
@@ -74,7 +74,7 @@ form{
 			<div class="form-group">
 				<label for="pass" class="control-label col-sm-2">비밀번호</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="pass" name="memPass"
+					<input type="password" class="form-control" id="pass" name="memPass"
 						placeholder="8자 이상(대ㆍ소문자,숫자,특수문자)" required
 						pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>
@@ -84,7 +84,7 @@ form{
 				<label for="pass" class="control-label col-sm-2">비밀번호 확인</label>
 				<%-- 	      임의문자(.)를 대상으로 최소 갯수(*?)의 패턴을 찾음 --%>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="pass_chk" 
+					<input type="password" class="form-control" id="pass_chk" 
 						required
 						pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>

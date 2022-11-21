@@ -1,147 +1,115 @@
 <%@page import="member.vo.InsVO"%>
 <%@page import="member.vo.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
-
 <%
-	MemberVO mv = (MemberVO) request.getAttribute("mv");
+	// MemberVO mv = (MemberVO) request.getAttribute("mv");
 	InsVO iv = (InsVO) request.getAttribute("iv");
 	String msg = session.getAttribute("msg") == null ? "" : session.getAttribute("msg").toString();
 	session.removeAttribute("msg");
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
-<script type="text/javascript"></script>
-<style>
-div {
-	border: 1px solid olivedrab;
-}
-
-#side, #wrapper {
-	float: left;
-	height: 85vh;
-}
-
-#side {
-	width: 25%;
-}
-
-#wrapper {
-	width: 74%;
-}
-
-.content {
-	display: inline-block;
-	bor
-}
-</style>
+<title>마이페이지:회원정보수정</title>
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/mypage.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>온(溫:ON)</h1>
-	<div id="side">
-		<div id="memDetail" class="memDetail">
-			<a href="/mypage/memDetail.do">회원정보</a>
-		</div>
-		<div id=class="">
-			<a href="/">봉사내역</a>
-		</div>
-		<div id=class="">
-			<a href="/">재능기부현황</a>
-		</div>
-		<div id=class="">
-			<a href="/">후원내역</a>
-		</div>
-		<div id=class="">
-			<a href="/">공지사항</a>
-		</div>
-		<div id=class="">
-			<a href="/">Q&A</a>
-		</div>
-	</div>
+<%@ include file="../header.jsp"%>
+<%@ include file="side.jsp"%>
 
-	<div id="wrapper">
-		<div>
-			<div class="content">ID</div>
-			<div class="content"><%=mv.getMemId()%></div>
+<div id="wrapper">
+	<h1 class="title">회원정보<p>Profile</p></h1>
+	<ul class="wrapper_inner">
+		<div class="col_line">
+			<div class="col_inner2">ID</div>
+			<div class="col_inner2"><%=mv.getMemId()%></div>
 		</div>
 
-		<div>
-			<div class="content">비밀번호</div>
-			<div class="content"><%=mv.getMemPass()%>"</div>
+		<div class="col_line">
+			<div class="col_inner2">비밀번호</div>
+			<div class="col_inner2"><%=mv.getMemPass()%></div>
 		</div>
-
-
 		<%
 			if (iv != null) {
 		%>
 
-		<div>
-			<div class="content">기관명</div>
-			<div class="content"><%=iv.getInstName()%></div>
+		<div class="col_line">
+			<div class="col_inner2">기관명</div>
+			<div class="col_inner2"><%=iv.getInstName()%></div>
 		</div>
 
-		<div>
-			<div class="content">첨부파일</div>
-			<div class="content"><%=iv.getAtchCourse()%></div>
+		<div class="col_line">
+			<div class="col_inner2">첨부파일</div>
+			<div class="col_inner2"><%=iv.getAtchCourse()%></div>
 		</div>
 		<%
 			}
 		%>
-
-
-		<div>
-			<div class="content">이름</div>
-			<div class="content"><%=mv.getMemName()%></div>
+		<div class="col_line">
+			<div class="col_inner2">이름</div>
+			<div class="col_inner2"><%=mv.getMemName()%></div>
 		</div>
 
-		<div>
-			<div class="content">주민번호</div>
-			<div class="content"><%=mv.getRegno1()%>
+		<div class="col_line">
+			<div class="col_inner2">주민번호</div>
+			<div class="col_inner2"><%=mv.getRegno1()%>
 				ㅡ
 				<%=mv.getRegno2()%></div>
 		</div>
 
-		<div>
-			<div class="content">연락처</div>
-			<div class="content"><%=mv.getMemTel()%></div>
+		<div class="col_line">
+			<div class="col_inner2">연락처</div>
+			<div class="col_inner2"><%=mv.getMemTel()%></div>
 		</div>
 
-		<div>
-			<div class="content">이메일</div>
-			<div class="content"><%=mv.getMail()%></div>
+		<div class="col_line">
+			<div class="col_inner2">이메일</div>
+			<div class="col_inner2"><%=mv.getMail()%></div>
 		</div>
 
-		<div>
-			<div class="content">우편번호</div>
-			<div class="content"><%=mv.getMemZip()%></div>
+		<div class="col_line">
+			<div class="col_inner2">우편번호</div>
+			<div class="col_inner2"><%=mv.getMemZip()%></div>
 		</div>
 
-		<div>
-			<div class="content">주소</div>
-			<div class="content"><%=mv.getMemAddr1()%></div>
+		<div class="col_line">
+			<div class="col_inner2">주소</div>
+			<div class="col_inner2"><%=mv.getMemAddr1()%></div>
 		</div>
 
-		<div>
-			<div class="content">상세주소</div>
-			<div class="content"><%=mv.getMemAddr2()%></div>
+		<div class="col_line">
+			<div class="col_inner2">상세주소</div>
+			<div class="col_inner2"><%=mv.getMemAddr2()%></div>
 		</div>
 
-		<div id=select>
+		<div id="select" class="col_line">
 			<div id=option class="update">
-				<a href="/mypage/memUpdate.do?memId=<%=mv.getMemId()%>">회원정보 수정</a>
+				<a class="btn btn-warning" href="/mypage/memUpdate.do?memId=<%=mv.getMemId()%>">회원정보 수정</a>
 			</div>
 		</div>
 
-		<div id=select>
-			<input type="button" id="delete" class="delete" value="회원탈퇴">
+		<div id="select" class="col_line">
+			<input type="button" id="delete" class="delete btn btn-default" value="회원탈퇴">
 		</div>
-	</div>
+	</ul>
+</div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+	$('.menu_wrap').hide();
+	$('.gnbmenu').mouseover(function(){
+		$('.menu_wrap').slideDown();
+	});
+	$('#wrapper').mouseover(function(){
+		$('.menu_wrap').hide();
+	});
+});
+
 $('#delete').on('click',function(){
 	var result = confirm("회원탈퇴?");
 	var v_id = '<%=mv.getMemId()%>';

@@ -27,14 +27,17 @@ public class VolRegisterReviewController extends HttpServlet {
 		ReviewVO reviewVo = new ReviewVO();
 	
 		// 파라미터 값 가져오기
-		String volId = request.getParameter("volId");
 		String reservId = request.getParameter("reservId");
+		String volId = request.getParameter("volId");
 		int star = Integer.parseInt(request.getParameter("star"));
 		String content = request.getParameter("content");
 		
 		// 서비스 객체 생성하기
 		IVolService service = VolService.getInstance();
 		
+		reviewVo.setReservId(reservId);
+		reviewVo.setStar(star);
+		reviewVo.setContent(content);
 		
 		int cnt = service.registerReview(reviewVo);
 		

@@ -55,4 +55,14 @@ public class FundingDaoImpl extends QueryDao implements IFundingDao {
 	public int insertAtchFile(FundingVO atchFileVO) {
 		return insert("atchFile.insertAtchFile", atchFileVO);
 	}
+	
+	public void updateRecentAmount(String fundingId) {
+		update("funding.updateRecentAmount", fundingId);
+	}
+
+	@Override
+	public String getMemberGb(String memId) {
+		return selectOne("funding.getMemberGb",memId);
+	}
+
 }

@@ -64,12 +64,25 @@ public class UpdateNoticeController extends HttpServlet {
 		IAtchFileService fileService = AtchFileServiceImpl.getInstance();
 
 		// 첨부파일 목록 저장하기 (공통기능)
-		List<AtchFileVO> atchFileVOList = null;
-		if (req.getParameter("isChange").equals("yes")) {
-			atchFileVOList = fileService.saveAtchFileList(req);
+//		List<AtchFileVO> atchFileVOList = null;
+//		if (req.getParameter("isChange").equals("yes")) {
+//			atchFileVOList = fileService.saveAtchFileList(req, nv);
+//		}
+//		int cnt = noticeService.modifyNotice(nv,atchFileVOList); // db에 보내기!
+		
+		NoticeVO noticeVO = fileService.updateNoticeNAtchFileList(req,nv);
+		int cnt = 0;
+		if(noticeVO.getAtchId() == null) {
+			cnt = noticeService.modifyNotice(nv);
+		} else {
+			cnt=1;
 		}
-		int cnt = noticeService.modifyNotice(nv,atchFileVOList); // db에 보내기!
-
+		
+		String msg = "실패";
+		if(cnt > 0 ) {
+			msg="성공";
+		} 
+		req.getSession().setAttribute("msg", msg);
 		resp.sendRedirect(req.getContextPath() + "/ListNoticeController.do"); // 방향이 바뀜. insert를 했는데 최종적으로 list.do url로
 																				// 바뀜!
 

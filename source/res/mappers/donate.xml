@@ -3,18 +3,39 @@
 <mapper namespace="donate">
 
 	<!-- 일반회원 -->
+	<!-- 페이징 목록 카운트 -->
+	<select id="selectDonateCount" resultType="int">
+		SELECT count(1)         
+ 		  FROM donate A, FUNDING B, INSTITUTION C
+		 WHERE A.MEM_ID= #{memId}
+           AND A.FUNDING_ID = B.FUNDING_ID
+           AND B.MEM_ID = C.MEM_ID
+	</select>
+	
 	<!-- 후원(donate)내역 처리 -->
 	<select id="selectDonateList" resultType="DonateVO">
-	SELECT DONATE_ID as donateId,  
-	          MEM_ID as memId, 
-	          FUNDING_ID as fundingId, 
-	          DONATE_AMOUNT as donateAmount, 
-	          to_char(DONATE_DATE,'yyyy-MM-DD:HH') as donateDate, 
-	          REFUND as refund, 
-	          DONATE_ACCOUNT as donateAccount, 
-	          DONATE_ACCOUNT_HOLDER as donateAccountHolder, 
-	          DONATE_BANK_NAME as donateBankName
-	FROM donate
+		SELECT * FROM (
+			SELECT
+				ROWNUM AS RUM,
+				DN.*
+			FROM (
+				SELECT A.DONATE_ID as donateId,  
+				       A.MEM_ID as memId, 
+				       A.FUNDING_ID as fundingId, 
+				       A.DONATE_AMOUNT as donateAmount, 
+				       to_char(A.DONATE_DATE,'yyyy-MM-DD:HH') as donateDate, 
+				       A.REFUND as refund, 
+				       A.DONATE_ACCOUNT as donateAccount, 
+				       A.DONATE_ACCOUNT_HOLDER as donateAccountHolder, 
+				       A.DONATE_BANK_NAME as donateBankName,
+                       B.FUNDING_TITLE AS fundingTitle,
+                       c.inst_name AS instName         
+    	 		  FROM donate A, FUNDING B, INSTITUTION C
+				 WHERE A.MEM_ID=#{memId}
+                   AND A.FUNDING_ID = B.FUNDING_ID
+                   AND B.MEM_ID = C.MEM_ID
+        	) DN
+		) WHERE RUM BETWEEN (#{pageNo}-1) * #{pageRowCnt} + 1 AND ((#{pageNo} - 1) * #{pageRowCnt}) + #{pageRowCnt}
 	</select>
 
 	<!-- 일반 회원 -->
@@ -64,5 +85,11 @@
          DONATE_ACCOUNT_HOLDER as donateAccountHolder, 
          DONATE_BANK_NAME as donateBankName
 	FROM donate
+	</select>
+	
+	<select id="getMyDonate" parameterType="String" resultType="DonateVO">
+		select *
+		from donate
+		where mem_id = #{memId}
 	</select>
 </mapper>

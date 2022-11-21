@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.vo.MemberVO;
 import volunteer.service.IVolService;
 import volunteer.service.VolService;
 
@@ -15,7 +16,7 @@ public class VolDeleteController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String memId = request.getParameter("memId");
+		String memId = ((MemberVO)request.getSession().getAttribute("loginUser")).getMemId();
 		String volId = request.getParameter("volId");
 		
 		IVolService service = VolService.getInstance();
@@ -30,7 +31,7 @@ public class VolDeleteController extends HttpServlet {
 		}
 
 		request.getSession().setAttribute("msg", msg);
-		response.sendRedirect(request.getContextPath() + "/volList.do?memId="+memId);
+		response.sendRedirect(request.getContextPath() + "/volList.do");
 
 	}
 

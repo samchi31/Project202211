@@ -13,10 +13,16 @@ import javax.servlet.http.Part;
 import notice.dao.AtchFileDaoImpl;
 import notice.dao.IAtchFileDao;
 import notice.vo.AtchFileVO;
+import notice.vo.NoticeVO;
+import utils.PathSetting;
 
 
 public class AtchFileServiceImpl implements IAtchFileService {
-	private String path = "C:\\Users\\PC-07\\eclipse-workspace\\MidTeamProject\\MidTeamProject\\WebContent";
+//	private String path = "C:\\Users\\PC-07\\eclipse-workspace\\MidTeamProject\\MidTeamProject\\WebContent";
+//	private String path = "C:\\Users\\PC-07\\eclipse-workspace\\HighJava\\ONProject\\WebContent";
+	private static String path = PathSetting.getPathSetting();
+	
+	
 	private static final String SAVE_DIR = "/atchfile";
 	
 	private static IAtchFileService fileService;
@@ -34,16 +40,20 @@ public class AtchFileServiceImpl implements IAtchFileService {
 		return fileService;
 	}
 	
+
 	
 	@Override
-	public List<AtchFileVO> saveAtchFileList(HttpServletRequest req) {
+	public int saveAtchFileList(HttpServletRequest req, NoticeVO noticeVO) {
+		INoticeService noticeService = NoticeServiceImpl.getInstance();
 		File uploadDir = new File(path+SAVE_DIR);
 		if(!uploadDir.exists()) {
 			uploadDir.mkdir();
 		}
 		
-		List<AtchFileVO> list = null;
+//		List<AtchFileVO> list = null;
 		AtchFileVO atchFileVO = null;
+//		NoticeVO noticeVO = null;
+		int cnt = 0;
 		
 		try {
 			
@@ -58,10 +68,11 @@ public class AtchFileServiceImpl implements IAtchFileService {
 				if(fileName != null && !fileName.equals("")) {
 					//파일인 경우...
 					if(isFirstFile) { //첫번째 파일이 맞다면...
-						isFirstFile = false;						
+						isFirstFile = false;						 
+//						list = new ArrayList<AtchFileVO>();
 						
-						// 기본파일정보 저장하기 
-						list = new ArrayList<AtchFileVO>();	
+//						noticeVO = new NoticeVO();
+						noticeService.registerNotice(noticeVO);						
 					}			
 					String saveFilePath = path+SAVE_DIR + File.separator + fileName;
 					
@@ -70,11 +81,70 @@ public class AtchFileServiceImpl implements IAtchFileService {
 					part.write(saveFilePath);
 					
 					atchFileVO = new AtchFileVO();
-					atchFileVO.setAtchName(saveFilePath);
-					list.add(atchFileVO);
+					atchFileVO.setAtchName(SAVE_DIR + File.separator + fileName);
+					atchFileVO.setAtchId(noticeVO.getAtchId());
+//					list.add(atchFileVO);
 					
 //					//파일세부정보 저장
-//					int cnt = fileDao.insertAtchFileDetail(atchFileVO);		
+					cnt = fileDao.insertAtchFileDetail(atchFileVO);		
+					part.delete(); //임시업로드 파일 삭제하기
+				}
+			}
+			if(isFirstFile) {
+				cnt = noticeService.insertOnlyNotice(noticeVO);	
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return cnt;
+	}	
+	
+	public NoticeVO updateNoticeNAtchFileList(HttpServletRequest req, NoticeVO noticeVO) {
+		INoticeService noticeService = NoticeServiceImpl.getInstance();
+		File uploadDir = new File(path+SAVE_DIR);
+		if(!uploadDir.exists()) {
+			uploadDir.mkdir();
+		}
+		
+//		List<AtchFileVO> list = null;
+		AtchFileVO atchFileVO = null;
+//		NoticeVO noticeVO = null;
+		int cnt = 0;
+		
+		try {
+			
+			String fileName = "";
+			
+			boolean isFirstFile = true; //첫번째 파일 여부
+			
+			for(Part part : req.getParts()) {
+				
+				fileName = getFileName(part);
+				
+				if(fileName != null && !fileName.equals("")) {
+					//파일인 경우...
+					if(isFirstFile) { //첫번째 파일이 맞다면...
+						isFirstFile = false;						 
+//						list = new ArrayList<AtchFileVO>();
+						
+//						noticeVO = new NoticeVO();
+//						noticeService.registerNotice(noticeVO);		
+						noticeService.updateNoticeAndAtch(noticeVO);
+					}			
+					String saveFilePath = path+SAVE_DIR + File.separator + fileName;
+					
+					
+					//업로드 파일(원본파일) 저장
+					part.write(saveFilePath);
+					
+					atchFileVO = new AtchFileVO();
+					atchFileVO.setAtchName(SAVE_DIR + File.separator + fileName);
+					atchFileVO.setAtchId(noticeVO.getAtchId());
+//					list.add(atchFileVO);
+					
+//					//파일세부정보 저장
+					cnt = fileDao.insertAtchFileDetail(atchFileVO);		
 					part.delete(); //임시업로드 파일 삭제하기
 				}
 			}
@@ -82,17 +152,17 @@ public class AtchFileServiceImpl implements IAtchFileService {
 			ex.printStackTrace();
 		}
 		
-		return list;
-	}	
-	
-	/**
-	 * 파일 저장
-	 * @param atchFileVOList
-	 * @return
-	 */
-	public int insertNoticeAtch(List<AtchFileVO> atchFileVOList) {
-		return fileDao.insertAtchFileDetail(atchFileVOList);
+		return noticeVO;
 	}
+	
+//	/**
+//	 * 파일 저장
+//	 * @param atchFileVOList
+//	 * @return
+//	 */
+//	public int insertNoticeAtch(List<AtchFileVO> atchFileVOList) {
+//		return fileDao.insertAtchFileDetail(atchFileVOList);
+//	}
 	
 	/**
 	 * Part 객체를 파싱하여 파일이름 추출하기

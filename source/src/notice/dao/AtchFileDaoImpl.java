@@ -40,7 +40,7 @@ public class AtchFileDaoImpl extends QueryDao implements IAtchFileDao {
 	
 	
 	@Override
-	public int insertAtchFileDetail(List<AtchFileVO> atchFileVO) {
+	public int insertAtchFileDetail(/*List<AtchFileVO>*/AtchFileVO atchFileVO) {
 
 		return insert("notice.insertAtchFileDetail", atchFileVO);
 	}

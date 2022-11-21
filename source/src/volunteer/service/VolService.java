@@ -1,8 +1,10 @@
 package volunteer.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import member.vo.InsVO;
 import volunteer.dao.IVolDao;
 import volunteer.dao.VolDao;
 import volunteer.vo.VolunteerVO;
@@ -27,11 +29,32 @@ public class VolService implements IVolService {
 	}
 
 	@Override
-	public List<VolunteerVO> getList() {
-
-		List<VolunteerVO> volList = dao.getList();
+	public List<VolunteerVO> getVolList() {
+		
+		List<VolunteerVO> volList = dao.getVolList();
 
 		return volList;
+	}
+	
+	@Override
+	public List<VolunteerVO> getList(Map<String,Object> map) {
+
+		List<VolunteerVO> volList = dao.getList(map);
+
+		return volList;
+	}
+	
+	@Override
+	public int countList() {
+		
+		int cnt = 0;
+		try {
+			cnt = dao.countList();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cnt;
 	}
 
 	@Override
@@ -50,9 +73,15 @@ public class VolService implements IVolService {
 	}
 
 	@Override
-	public int getReview(Map reviewMap) {
+	public String getReservId(Map reviewMap) {
 		
-		return dao.getReview(reviewMap);
+		return dao.getReservId(reviewMap);
+	}
+	
+	@Override
+	public int canIReview(String reservId) {
+
+		return dao.canIReview(reservId);
 	}
 	
 	@Override
@@ -112,9 +141,9 @@ public class VolService implements IVolService {
 	}
 
 	@Override
-	public int cancelReserv(ReservationVO rv) {
+	public int cancelReserv(String reservId) {
 
-		int cnt = dao.cancelReserv(rv);
+		int cnt = dao.cancelReserv(reservId);
 
 		return cnt;
 	}
@@ -165,4 +194,41 @@ public class VolService implements IVolService {
 		return dao.getWishList();
 	}
 
+	@Override
+	public List<ReservationVO> getApproveList(String memId) {
+
+		return dao.getApproveList(memId);
+	}
+	
+	@Override
+	public int changeApproveReserv(Map rMap) {
+
+		int cnt = dao.changeApproveReserv(rMap);
+		
+		return cnt;
+	}
+
+	@Override
+	public List<VolunteerVO> getListMyVol(String memId) {
+		
+		return dao.getListMyVol(memId);
+	}
+
+	@Override
+	public int isInst(String memId) {
+		
+		return dao.isInst(memId);
+	}
+	
+	@Override
+	public int updateTotal(String reservId) {
+
+		return dao.updateTotal(reservId);
+	}
+	
+	@Override
+	public int updateVolList(String status) {
+		
+		return dao.updateVolList(status);
+	}
 }

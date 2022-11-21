@@ -19,10 +19,19 @@
 	</settings>
 	
 	<typeAliases>
+		<typeAlias type="userClass.vo.UsrClsVO" alias="UsrClsVO"/>
+		<typeAlias type="member.vo.MemberVO" alias="MemberVO"/>
+		<typeAlias type="notice.vo.NoticeVO" alias="NoticeVO" />
+		<typeAlias type="notice.vo.AtchFileVO" alias="AtchFileVO" />
+		<typeAlias type="qna.vo.QnaVO" alias="QnaVO" />
+		<typeAlias type="member.vo.InsVO" alias="InsVO"/>
 		<typeAlias type="funding.vo.FundingVO" alias="FundingVO"/>
 		<typeAlias type="donate.vo.DonateVO" alias="DonateVO"/>
-		<typeAlias type="member.vo.MemberVO" alias="MemberVO"/>
-		<typeAlias type="member.vo.InsVO" alias="InsVO"/>
+		<typeAlias type="volunteer.vo.VolunteerVO" alias="VolunteerVO"/>
+		<typeAlias type="volunteer.vo.ReviewVO" alias="ReviewVO"/>
+		<typeAlias type="volunteer.vo.ReservationVO" alias="ReservationVO"/>
+		<typeAlias type="volunteer.vo.WishVO" alias="WishVO"/>
+		<typeAlias type="userClass.vo.ReplyVO" alias="ReplyVO"/>
 	</typeAliases>
 	
 	<environments default="dev">
@@ -46,6 +55,10 @@
 		<mapper resource="mappers/funding.xml" />
 		<mapper resource="mappers/donate.xml" />
 		<mapper resource="mappers/member.xml" />
+		<mapper resource="mappers/volunteer.xml" />
+		<mapper resource="mappers/userClass.xml" />
+		<mapper resource="mappers/notice.xml"/>
+		<mapper resource="mappers/qna.xml"/>
 	</mappers>
 		
 </configuration>

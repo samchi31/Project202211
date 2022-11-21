@@ -9,7 +9,7 @@ import userClass.vo.UsrClsVO;
 public interface IUsrClsDao {
 	public List<UsrClsVO> selectAllDesc(Map<String, Object> map);
 	
-	public int countList();
+	public int countList(String category);
 	
 	public UsrClsVO getOneClassDetail(String classId);
 	
@@ -26,4 +26,6 @@ public interface IUsrClsDao {
 	public int insertReply(ReplyVO replyVO);
 	
 	public int updateReplyRemove(String replyId);
+	
+	public List<UsrClsVO> selectMyClassAll(String memId);
 }

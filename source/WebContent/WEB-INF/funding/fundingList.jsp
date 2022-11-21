@@ -29,6 +29,10 @@
       		<input type="hidden" id="cancelFundingId" name="cancelFundingId" value="" />
       		<input type="hidden" id="detailFundingId" name="detailFundingId" value="" />
       		<input type="hidden" id="pageNo" name="pageNo" value="<%=param.getPageNo()%>" />
+      		<input type="hidden" id="totalPageNo" name="totalPageNo" value="<%=param.getTotalPageNo()%>" />
+      		
+      		<input type="hidden" id="pageTotRowCnt" name="pageTotRowCnt" value="<%=param.getPageTotRowCnt()%>" />
+      		
 		<h1 class="f_title">후원목록
 			<p>DONATE</p>
 		</h1>
@@ -46,8 +50,8 @@
         <div class="row" data-aos="fade-up">
           <div class="col-sm-6">
             <a href="#" onClick="fnDetail('<%=fundingList.get(i).getFundingId() %>')" >
-            	<!-- <img src="funding/Filedownload.do?fundingId=<%= fundingList.get(i).getFundingId() %>" class="media-object thumbnailImg"/>-->
-            	<img src="<%= fundingList.get(i).getFundingThumbnail() %>" class="media-object thumbnailImg"/>
+<%--             	<img src="http://localhost:8889<%= fundingList.get(i).getFundingThumbnail() %>" class="media-object thumbnailImg" alt=""> --%>
+            	<img src="<%=fundingList.get(i).getFundingThumbnail() %>" class="media-object thumbnailImg" alt="">
             </a>
           </div>
           <div class="col-sm-6">
@@ -56,7 +60,6 @@
             <p><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;목표금액 : <%= fundingList.get(i).getTargetAmount() %></p>
             <p><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;현재금액 : <%= fundingList.get(i).getRecentAmount() %></p>
             <p><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;후원기간 : <%= fundingList.get(i).getFundingStartDate() %> -  <%= fundingList.get(i).getFundingEndDate() %></p>
-            <%--><p><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;후원상세내용 : <%= fundingList.get(i).getFundingDetail() %></p> --%>
             <%  if( "2".equals( param.getMemGb()) ){ // 기관 사용자 인 경우   상세 보기  %>
 	      	<a href="#" id="morebt" class="btn btn-success" onClick="fnDetail('<%=fundingList.get(i).getFundingId() %>')" >상세 보기</a>
 	      <% } else if( "1".equals( param.getMemGb()) ) { // 일반인  경우 상세보기/취소버튼 %>
@@ -73,18 +76,23 @@
         	}
         }
         %>
-		현재페이지 : <%=param.getPageNo()%>
 		<div id="pagelist">
 			<ul class="pager">
-				<li><a class="prev" href="#">Prev</a></li>
+				<li><a class="prev" href="#" onclick="fnPrev(<%=param.getFirstPageNo() %>);">Prev</a></li>
 			</ul>
 			<ul class="pagination pager">
-				<%for(int i=param.getFirstPageNo(); i <= param.getLastPageNo(); i++ ){ %>					
-					<li><a class="paging" href="#" onclick="fnReSearch(<%=i%>)" ><%=i%></a></li>
-				<%} %>
+				<%for(int i=param.getFirstPageNo(); i <= param.getLastPageNo(); i++ ){ 
+					if(i == param.getPageNo() ) {%>
+					<li class="active"><a class="paging" href="#" onclick="fnReSearch(<%=i%>);" ><%=i%></a></li>
+					<%} else { %>
+					<li><a class="pagingOn" href="#" onclick="fnReSearch(<%=i%>);" ><%=i%></a></li>
+				<%	
+					}
+				} 
+				%>
 			</ul>
 			<ul class="pager">
-				<li><a class="next" href="#">Next</a></li>
+				<li><a class="next" href="#" onclick="fnNext(<%=param.getLastPageNo() %>);">Next</a></li>
 			</ul>
 		</div>
         </form>
@@ -102,6 +110,23 @@ $(document).ready(function(){
 	});
 });
 
+// 이전 목록 
+function fnPrev(firstPage){
+	if(firstPage > 1){
+		fnReSearch(firstPage - 1);
+	}
+}
+
+//다음 목록
+function fnNext(lastPage){
+	var totPageNo = $('#totalPageNo').val();
+	
+	if(lastPage < totPageNo){
+		fnReSearch(lastPage + 1);
+	}
+}
+
+
 function fnReSearch(pageNo){
 	$('#pageNo').val(pageNo);
 	$("#listForm").attr("action", "List.do");
@@ -115,7 +140,6 @@ function fnStopFundingClick( strId ){
 		$('#stopFundingId').val(strId);
 		$("#listForm").attr("action", "Stop.do");
 		$("#listForm").submit();
-		$('#stopbt').css({visibility:'visible'});
 	}else{
 		return false;
 	}
