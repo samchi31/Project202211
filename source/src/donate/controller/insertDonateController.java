@@ -52,15 +52,15 @@ public class insertDonateController extends HttpServlet {
 		fundingService.modifyRecentAmount(fundingId);
 		
 		
-		String msg = "";
+//		String msg = "";
 		
-		if(cnt>0) {
-			msg = "성공";
-		} else {
-			msg = "실패";
-		}
+//		if(cnt>0) {
+//			msg = "성공";
+//		} else {
+//			msg = "실패";
+//		}
 		
-		req.getSession().setAttribute("msg", msg);
+//		req.getSession().setAttribute("msg", msg);
 		req.setAttribute("detailFundingId", fundingId);
 		resp.sendRedirect(req.getContextPath()+"/funding/Detail.do?detailFundingId="+fundingId);
 

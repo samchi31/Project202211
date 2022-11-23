@@ -43,11 +43,23 @@
 				 <p><span>[예약 날짜]</span>&nbsp;&nbsp;<%=(reservList.get(i).getReservDate()) %></p>
 				 <p><span>[예약 시간]</span>&nbsp;&nbsp;<%=(reservList.get(i).getReservTime()) %></p>
 				 <p><span>[신청 날짜]</span>&nbsp;&nbsp;<%=(reservList.get(i).getApplyDate()) %></p>
-				 <p><span>[취소 날짜]</span>&nbsp;&nbsp;<%=(reservList.get(i).getCancelDate()) %></p>
+				 <p><span>[취소 날짜]</span>&nbsp;&nbsp;<%if(reservList.get(i).getCancelDate() == null){%><%} else {%><%=(reservList.get(i).getCancelDate()) %><%} %></p>
 				 <p><span>[예약 상태]</span>&nbsp;&nbsp;<%=(reservList.get(i).getrStId()) %></p>
 				
+				<%
+				if (reservList.get(i).getrStId().equals("SUBMITTED") || reservList.get(i).getrStId().equals("WAITING")){
+				%>
 				<button type="submit" class="btn btn-danger" formaction="/volReservUpdate.do?reservId=<%=(reservList.get(i).getReservId())%>" formmethod="get">수정</button>
 				<button type="submit" class="btn btn-primary" formaction="/volReservCancel.do?reservId=<%=(reservList.get(i).getReservId())%>" formmethod="get">취소</button>
+				<%	
+				} else if (reservList.get(i).getrStId().equals("CONFIRMED")){
+				%>
+				<button type="submit" class="btn btn-primary" formaction="/volReservCancel.do?reservId=<%=(reservList.get(i).getReservId())%>" formmethod="get">취소</button>
+				<%	
+				} else {
+					
+				}
+				%>
 			</div>
 		</form>
 		<%

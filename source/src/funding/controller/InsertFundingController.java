@@ -81,13 +81,13 @@ public class InsertFundingController extends HttpServlet {
 		
 		String msg = "";
 		
-		if(cnt>0) {
-			msg="성공";
-		}else {
-			msg = "실패";
-		}
-		
-		req.getSession().setAttribute("msg", msg);
+//		if(cnt>0) {
+//			msg="성공";
+//		}else {
+//			msg = "실패";
+//		}
+//		
+//		req.getSession().setAttribute("msg", msg);
 		resp.sendRedirect("/funding/List.do");
 	}
 

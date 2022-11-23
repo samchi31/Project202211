@@ -32,9 +32,9 @@
 	        if(donateList.size() > 0){
 	        	for(int i=0; i<donateList.size(); i++ ){
 	        %>
-	        <div class="mylist2">
+	        <div class="mylist">
 	            <p>기부코드 : <%= donateList.get(i).getFundingId() %></p>
-	            <h2>기부명 : <%= donateList.get(i).getFundingTitle() %></h2>
+<%-- 	            <h2>기부명 : <%= donateList.get(i).getFundingTitle() %></h2> --%>
 	            <p>기부금액 : <%= donateList.get(i).getDonateAmount() %></p>
 	            <p>환불 받을 계좌 : <%= donateList.get(i).getDonateAccount() %></p>
 	            <p>환불 받을 계좌 예금주 : <%= donateList.get(i).getDonateAccountHolder() %></p>

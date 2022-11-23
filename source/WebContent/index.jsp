@@ -184,7 +184,7 @@
 	 document.getElementById("ob2").style.transform='rotate(0deg)';
 	}
    
-   $('a').click(function() {
+   $('.am').click(function() {
        var result = confirm('사이트를 이용하시려면 회원가입 하셔야합니다. 가입하시겠습니까?');
 
        if(result) {

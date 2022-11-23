@@ -39,14 +39,14 @@
 		     	 <table class="col-sm-6 fdetail_tb thum" style="height: 320px;">
 					<tr>
 						<td>
-	   					   <img src="http://localhost:9999/<%=(vv.getThumbnail())%>" class="col-sm-12"/>
+	   					   <img src="<%=(vv.getThumbnail())%>" class="thumb_img_normal col-sm-12" style="width:450px; margin-right:0px; height: 460px;"/>
 						</td>
 					</tr>
 				 </table>
         		 <table class="col-sm-6 fdetail_tb">
         		 	<tr>
         		 		 <td>
-       		 		 		<h1><%=(vv.getVolTitle())%></h1><br>
+        		 		 	<h2 class="f_title2"><%=(vv.getVolTitle())%></h2>
 							<p style="color:#ccc">봉사 아이디 : <%= (vv.getVolId()) %> <br> 기관 아이디 : <%= (vv.getMemId()) %></p>
 							<input type="text" name="volId" value="<%=vv.getVolId() %>" hidden>							
 						</td>
@@ -77,13 +77,6 @@
 					</tr>
 					<tr>
 						<td>
-							<label for="input">봉사 장소</label>
-							<input type="text" value="<%=(vv.getLocation())%>" readonly><br>
-							<!-- <div id="map" style="height: 400px;"></div> -->
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<label for="input">모집 현황</label>
 							<input type="text" value="<%=(vv.getStatus().getKorName())%>" readonly>
 						</td>
@@ -103,13 +96,20 @@
 				 </table>
         </div><!-- row End -->
         
-		<div class="row">
-			<h1>상세내용</h1>
-			<%= (vv.getDetail()) %>
-		</div>
+        <div class="row">
+        	<p><h2 class="f_title2"><span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;봉사 장소 : <%=(vv.getLocation())%></h2></p>
+        	<td><input type="text" name="detailAddress" id="address" value="<%=(vv.getLocation())%>" hidden></td>
+        	<input type="text" id="location" value="<%=(vv.getLocation())%>" hidden>
+			<div id="map" style="width:1000px;height:400px;"></div>
+        </div>
+        
+<!-- 		<div class="row"> -->
+<!--         	<h2 class="f_title2">상세 내용</h2> -->
+<%-- 			<%= (vv.getDetail()) %> --%>
+<!-- 		</div> -->
 					
 		<div class="row"> 
-			<h1>날짜 선택</h1>
+			<h2 class="f_title2">날짜 선택</h2>
 <%
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -118,7 +118,7 @@ int today = Integer.parseInt(LocalDate.now().format(formatter));
 int start = Integer.parseInt(vv.getStartDate().replace("-",""));
 %>
             	<input type="date" name="reservDate" value="<%if(today >= start){%><%=todate%><%}else{%><%=vv.getStartDate()%><%}%>"min="<%if(today >= start){%><%=todate%><%}else{%><%=vv.getStartDate()%><%}%>" max="<%=vv.getEndDate()%>">
-       		 <h1>시간 선택</h1>
+       		 <h2 class="f_title2">시간 선택</h2>
         		<input type="time" name="startTime" value="<%=vv.getStartTime() %>" min="<%=vv.getStartTime()%>"> ~ <input type="time" name="endTime" value="<%=vv.getEndTime() %>" max="<%=vv.getEndTime()%>" max="<%=vv.getEndTime()%>">
 		</div>
 		
@@ -126,8 +126,8 @@ int start = Integer.parseInt(vv.getStartDate().replace("-",""));
 		
 		<div id="button" style="text-align: right;">
 			<p>
-				<input type="submit" class="btn btn-success btn-lg" value="신청" style="width: 240px;">
-				<input type="text" class="btn btn-danger btn-lg" onClick="location.href='/volList.do'" value="취소">
+				<button type="submit" class="btn btn-success btn-lg" style="width: 240px;">신청</button>
+				<button class="btn btn-danger btn-lg" formaction="/volList.do" formmethod="get" style="width: 240px;">돌아가기</button>
 			</p>
 		</div>
      </form>
@@ -141,7 +141,7 @@ $(document).ready(function(){
 	$('.gnbmenu').mouseover(function(){
 		$('.menu_wrap').slideDown();
 	});
-	$('.menu_wrap').mouseout(function(){
+	$('.container').mouseover(function(){
 		$('.menu_wrap').hide();
 	});
 });
@@ -166,5 +166,67 @@ $('input[name=thumbnail]').on('click', function(){
 	$('input[name=isChange]').val("click");
 });
 
+</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=016a5620bb71501a85eeb5f90f394c41&libraries=services"></script>
+<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+	
+	
+	$(document).ready(function(){
+		// 버튼을 click했을때
+		
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch($('#address').val(), function(result, status) {
+	
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		        
+		        // 추출한 좌표를 통해 도로명 주소 추출
+		        let lat = result[0].y;
+		        let lng = result[0].x;
+		        getAddr(lat,lng);
+		        function getAddr(lat,lng){
+		            let geocoder = new kakao.maps.services.Geocoder();
+	
+		            let coord = new kakao.maps.LatLng(lat, lng);
+		            let callback = function(result, status) {
+		                if (status === kakao.maps.services.Status.OK) {
+		                	// 추출한 도로명 주소를 해당 input의 value값으로 적용
+		                    $('#address').val(result[0].road_address.address_name);
+		                    $('#typeLocation').val(result[0].road_address.address_name);
+		                }
+		            }
+		            geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+		        }
+		        
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+	
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">봉사 장소</div>'
+		        });
+		        infowindow.open(map, marker);
+	
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		});  
+	});
+	  
 </script>
 </html>

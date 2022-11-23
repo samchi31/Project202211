@@ -31,8 +31,9 @@
 	<%-- 		<input type="hidden" name="inquiryId"> --%>
 				<div class="row">  
 					  <div class="form-group">
-					    <label for="memId">회원 ID</label>
-					    <input type="text" class="form-control" name="memId" id="memId">
+<%-- 					    <%=mv.getMemId() %> --%>
+<%-- 					    <label for="memId">회원 ID</label> --%>
+					    <input type="hidden" class="form-control" name="memId" id="memId" value="<%=mv.getMemId() %>">
 					  </div>
 					  <div class="form-group">
 					    <label for="title">제 목</label>

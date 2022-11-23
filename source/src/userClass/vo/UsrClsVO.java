@@ -18,7 +18,7 @@ public class UsrClsVO {
 	private String classViews;                            // 조회수
 	private String classThumbnail;	                      // 썸네일경로
 	
-	private String defaultImage = "/images/default/wallpaper.jpg";
+	private String defaultImage = "/images/default/default.jpg";
 	
 	public UsrClsVO() {
 		classDelete = ClsStatus.POST; 

@@ -85,7 +85,7 @@
 					</tr>
 					<tr>
 						<td>썸네일:</td>
-						<td><input type="file" name="thumbnail"></td>
+						<td><input type="file" name="thumbnail" id="file"></td>
 					</tr>
 					<tr style="width:100%;border-top:1px solid black;display:block">
 						<td style="padding:50px 0"><input class="btn btn-primary" type="submit" value="후원 등록"></td>

@@ -54,6 +54,8 @@
   pointer-events: none;
   z-index:9999;
 }
+h1{	font-weight: bold;
+	font-family: 'GmarketSansMedium', sans-serif;}
 </style>
 <script type="text/javascript">
 	function drag2(){
@@ -72,13 +74,13 @@
 		     	 <table class="col-sm-6 fdetail_tb thum">
 					<tr>
 						<td>
-							<img src="http://localhost:9999/<%=(vv.getThumbnail())%>" class="thumb_img_normal" style="width:450px; margin-right:0px; height: 460px;">
+							<img src="<%=(vv.getThumbnail())%>" class="thumb_img_normal" style="width:450px; margin-right:0px; height: 460px;">
 						</td>
 					</tr>
 				 </table>
         		 <table class="col-sm-6 fdetail_tb">
         		 	<tr>
-        		 		 <td><h2 class="f_title2">봉사명 : <%=(vv.getVolTitle())%></h2></td>
+        		 		 <td><h2 class="f_title2"><%=(vv.getVolTitle())%></h2></td>
         		 	<tr>
 					<tr>
 						<td>
@@ -108,27 +110,30 @@
 <%
 if (vv.getMemId().equals(memId) || memId.equals("admin")){
 	%>
-							<a href="volDelete.do?volId=<%= (vv.getVolId()) %>" class="btn btn-danger btn-lg">삭제</a>
-							<a href="volUpdate.do?volId=<%= (vv.getVolId()) %>" class="btn btn-warning btn-lg">수정</a>
+							<a href="volDelete.do?volId=<%= (vv.getVolId()) %>" class="btn btn-danger btn-lg" style="width: 240px;">삭제</a>
+							<a href="volUpdate.do?volId=<%= (vv.getVolId()) %>" class="btn btn-warning btn-lg" style="width: 240px;">수정</a>
 	<%
+} else if (vv.getStatus().getKorName().equals("모집 완료")) {
+	
 } else {
 	%>
-							<a href="volReservation.do?volId=<%= (vv.getVolId()) %>" class="btn btn-primary btn-lg">예약</a>
+							<a href="volReservation.do?volId=<%= (vv.getVolId()) %>" class="btn btn-primary btn-lg" style="width: 240px;">예약</a>
 	<%
+	
 }
 %>
 							</div>
         </div><!-- row End -->
         
         <div class="row">
-        	<p><h3><span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;봉사 장소 : <%=(vv.getLocation())%></h3></p>
+        	<p><h2 class="f_title2"><span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;봉사 장소 : <%=(vv.getLocation())%></h2></p>
         	<td><input type="text" name="detailAddress" id="address" value="<%=(vv.getLocation())%>" hidden></td>
         	<input type="text" id="location" value="<%=(vv.getLocation())%>" hidden>
 			<div id="map" style="width:1000px;height:400px;"></div>
         </div>
         
         <div class="row">
-        	<h1>상세 내용</h1>
+        	<h2 class="f_title2">상세 내용</h2>
 				<%= vv.getDetail() %>
 		</div>
 		
@@ -191,7 +196,7 @@ if (vv.getMemId().equals(memId) || memId.equals("admin")){
 
 <br><br>
 	    <div id="button" style="text-align: right;"><br>
-			<a href="/volList.do" class="btn btn-success">목록가기</a>
+			<a href="/volList.do" class="btn btn-success btn-lg" style="width: 240px;">목록가기</a>
       	</div>
     </div><!-- container End -->
     

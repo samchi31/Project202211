@@ -28,6 +28,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+#pagelist {
+	display: flex;
+	justify-content: center;
+	overflow: hidden
+}
+
+</style>
 </head>
 <body>
 <%@ include file="../header.jsp"%>

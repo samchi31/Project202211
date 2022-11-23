@@ -4,14 +4,14 @@
 
 
 <%
-	//MemberVO mv = (MemberVO)request.getAttribute("mv");
+	MemberVO Mv = (MemberVO)request.getAttribute("mv");
 	InsVO iv = (InsVO)request.getAttribute("iv");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>회원 정소 부섲</title>
+<title>회원 정보 수정</title>
 <script type="text/javascript"></script>
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/mypage.css">
@@ -19,6 +19,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+
+</style>
 </head>
 <body>
 <%@ include file="../header.jsp"%>
@@ -44,13 +47,13 @@
 
 			<div class="col_line">
 				<div class="col_inner3">ID</div>
-				<div class="col_inner3"><%=mv.getMemId()%></div>
+				<div class="col_inner3 put"><%=mv.getMemId()%></div>
 			</div>
 
 			<div class="col_line">
 				<label class="col_inner3" for="pass">비밀번호</label>
-				<div class=col_inner3>
-					<input type="text" id="pass" name="memPass"
+				<div class="col_inner3">
+					<input type="password" id="pass" name="memPass" class="put"
 						placeholder="8자 이상(대ㆍ소문자,숫자,특수문자)" required
 						pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}"
 						value="<%=mv.getMemPass()%>">
@@ -61,7 +64,7 @@
 				<label for="pass" class="col_inner3">비밀번호 확인</label>
 				<%-- 	      임의문자(.)를 대상으로 최소 갯수(*?)의 패턴을 찾음 --%>
 				<div class="col_inner3">
-					<input type="text" id="pass_chk" required
+					<input type="password" id="pass_chk" required class="put"
 						pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>
 				<div class="col_inner3" style="text-align: left;">
@@ -75,7 +78,7 @@
 			<div class="col_line">
 				<label for="ins_name" class="col_inner3">기관명</label> <span class="sp"></span>
 				<div class="col_inner3">
-					<input type="text" id="ins_name" name="insName" required
+					<input type="text" id="ins_name" name="insName" required class="put"
 						parttern="[가-힣][A-Z]{1,8}" value="<%=iv.getInstName()%>">
 				</div>
 			</div>
@@ -89,7 +92,7 @@
 			<div class="col_line">
 				<label for="name" class="col_inner3">이름</label> <span class="sp"></span>
 				<div class="col_inner3">
-					<input type="text" id="name" name="memName" required
+					<input type="text" id="name" name="memName" required class="put"
 						parttern="[가-힣a-zA-z0-9]{2,8}" value="<%=mv.getMemName()%>">
 				</div>
 			</div>
@@ -97,13 +100,15 @@
 			<div class="col_line">
 				<label class="col_inner3" for="reg1">주민번호</label>
 				<div class="col_inner3">
-					<input type="text" id="reg_no1" name="regno1" maxlength="6"
-						required value="<%=mv.getRegno1()%>"> <span class="sp"></span>
+					<input type="text" id="reg_no1" name="regno1" maxlength="6" class="put reg"
+						required value="<%=Mv.getRegno1()%>"> <span class="sp"></span>
 				</div>
-				<label class="col_inner3">ㅡ</label>
+				
+				<label class="col_inner3 bar">ㅡ</label>
+				
 				<div class="col_inner3">
-					<input type="text" id="reg_no2" name="regno2" maxlength="1"
-						required value="<%=mv.getRegno2()%>"> <span class="sp"></span>
+					<input type="text" id="reg_no2" name="regno2" maxlength="1" class="put reg"
+						required value="<%=Mv.getRegno2()%>"> <span class="sp"></span>
 				</div>
 				<div class="col_inner3" style="text-align: left;">
 					<span id="reg"></span>
@@ -113,7 +118,7 @@
 			<div class="col_line">
 				<label class="col_inner3" for="hp">연락처</label>
 				<div class="col_inner3">
-					<input type="text" id="hp" name="memTel"
+					<input type="text" id="hp" name="memTel" class="put"
 						placeholder="010-0000-0000"
 						pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
 						value="<%=mv.getMemTel()%>">
@@ -124,7 +129,7 @@
 			<div class="col_line">
 				<label class="col_inner3" for="mail">이메일</label>
 				<div class="col_inner3">
-					<input type="email" id="mail" name="mail"
+					<input type="email" id="mail" name="mail" class="put"
 						pattern="[0-9a-zA-z]+@[0-9a-zA-Z]+(\.[a-z]+){1,2}"
 						value="<%=mv.getMail()%>">
 				</div>
@@ -134,7 +139,7 @@
 			<div class="col_line">
 				<label for="add1" class="col_inner3">우편번호</label>
 				<div class="col_inner3">
-					<input type="text" id="postAddr" name="memZip" required
+					<input type="text" id="postAddr" name="memZip" required class="put"
 						value="<%=mv.getMemZip()%>">
 				</div>
 				<div class="col_inner3">
@@ -144,7 +149,7 @@
 			<div class="col_line">
 				<label for="add1" class="col_inner3">주소</label>
 				<div class="col_inner3">
-					<input type="text" id="addr1" name="memAddr1" required
+					<input type="text" id="addr1" name="memAddr1" required class="put"
 						value="<%=mv.getMemAddr1()%>">
 				</div>
 			</div>
@@ -152,12 +157,12 @@
 			<div class="col_line">
 				<label class="col_inner3" for="add2">상세주소</label>
 				<div class="col_inner3">
-					<input type="text" id="addr2" name="memAddr2" required
+					<input type="text" id="addr2" name="memAddr2" required class="put"
 						value="<%=mv.getMemAddr2()%>">
 				</div>
 			</div>
 			<div id="select">
-				<button>완료</button>
+				<button id="done">완료</button>
 				<span id="btn"></span>
 			</div>
 		</form>
