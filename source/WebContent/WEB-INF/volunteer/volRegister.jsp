@@ -17,6 +17,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> 
  	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
   	<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
+  	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  	
 
 </head>
 <body>
@@ -31,19 +33,17 @@
 		     	 <table class="col-sm-6 fdetail_tb thum">
 					<tr>
 						<td>
-							썸네일 <input type="file" name="thumbnail">
+							<h3 class="f_title2">썸네일</h3>
+							<div id="disp"><img id="img_disp" src="" alt="" class="thumb_img_normal" style="width:450px; margin-right:0px; height: 460px;"></div><br>
+							<input type="file" name="thumbnail" id="file">
 						</td>
 					</tr>
 				 </table>
-				 
-				 <br>
-				 <hr>
-				 <br>
-				 
+
         		 <table class="col-sm-6 fdetail_tb">
         		 	<tr>
         		 		 <td>
-       		 		 		<label for="input"><h1>제목</h1></label>
+       		 		 		<label for="input"><h2 class="f_title2">제목</h2></label>
 							<input class="form-control" type="text" name="volTitle"><br>
 						</td>
         		 	</tr>
@@ -132,11 +132,11 @@ for(VolStatus volStatus : VolStatus.values()){
         </div><!-- row End -->
                 
         <div class="row">
-	       <p><h3><span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;봉사 장소</h3></p>
+	       <p><h2 class="f_title2"><span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;봉사 장소</h2></p>
 	        <table>
 				<tr>
 					<td>주소</td>
-					<td><input type="text" name="detailAddress" id="address"></td>
+					<td><input type="text" name="detailAddress" id="address" style="width: 300px;"></td>
 					<td><input type="text" name="location" id="typeLocation" hidden></td>
 					<td><button type="button" id="searchBtn">검색</button></td>
 				</tr>
@@ -145,13 +145,16 @@ for(VolStatus volStatus : VolStatus.values()){
         </div>
         
 		<div class="row">
-			<h1>상세내용</h1>
+			<h2 class="f_title2">상세내용</h2>
 			<textarea id="summernote" name="detail"></textarea>
 		</div>
+		
+		<br>
+		
 		<div id="button" style="text-align: right;">
 			<p>
-				<input type="submit" class="btn btn-success btn-lg" value="등록" style="width: 240px;">
-				<input type="text" class="btn btn-danger btn-lg" onClick="location.href='/volList.do'" value="취소">
+				<button type="submit" class="btn btn-success btn-lg" style="width: 240px;">등록</button>
+				<button class="btn btn-danger btn-lg" formaction="/volList.do" formmethod="get" style="width: 240px;">돌아가기</button>
 			</p>
 		</div>
      </form>
@@ -255,5 +258,45 @@ function drag(){
 		});  
 	});
 	  
+	var v_fileBtn = document.querySelector("#file");
+    var v_disp = document.querySelector("#disp");
+
+    v_fileBtn.onchange = function(){
+        var v_file = v_fileBtn.files[0]; 
+
+        var rd = new FileReader();
+
+        rd.onload = function(){
+        	document.querySelector("#img_disp").src = rd.result;
+        	document.querySelector("#img_disp").width = 100;
+        }
+        rd.readAsDataURL(v_file);
+    }
+    
+    $('#address').on('click',function(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                document.getElementById('address').value = roadAddr;
+            }
+        }).open({
+        	 autoClose: true
+        });
+    });
 	</script>
 </html>

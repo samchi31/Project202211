@@ -48,6 +48,22 @@ session.removeAttribute("msg"); // 세션은 계속 유지되니 속성값 삭�
 .text-center * {
 	justify-content : center;
 }
+
+#btn_replySubmit{
+	margin-left:85%
+}
+
+table{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.titleMargin{
+	margin-left:10%;
+
+}
+
+
 </style>
 
 </head>
@@ -90,36 +106,41 @@ if(memberVO==null){
 		</div>
 		<div class="row_block post_detail">
 			<table>
-				<tr>
-					<td rowspan="3" class="text-center" style="height:200px">
+				<tr class="title3">
+					<td rowspan="3" class="text-center " style="height:200px; magin-right:10%;">
 						<img id="thumb" alt="" src="<%=usrClsVO.getClassThumbnail()%>">
 					</td>
-					<td style="width:200px">
-					<span class="glyphicon glyphicon-pencil f_title3"/>&nbsp;&nbsp;작성자:
+					<td style="width:150px">
+					<span class="glyphicon glyphicon-pencil"/>&nbsp;&nbsp;작성자:
 					</td>
-					<td style="width:200px">
+					<td >
 					<%=usrClsVO.getMemId()%> 
 					</td>
 				</tr>
-				<tr>
-					<td style="width:200px">
-					<span class="glyphicon glyphicon-calendar f_title3"/>&nbsp;&nbsp;작성날짜:
+				<tr class="title3">
+					<td style="width:150px">
+					<span class="glyphicon glyphicon-calendar"/>&nbsp;&nbsp;작성날짜:
 					</td>
 					<td>
 					<%=usrClsVO.getClassDate()%>
 					</td>
 				</tr>
-				<tr>
+				<tr class="title3">
 					<td colspan="2" style="width:200px">
-					<span class="glyphicon glyphicon-tag f_title3"/>&nbsp;&nbsp;<%=usrClsVO.getClsCtId()%>
+					<span class="glyphicon glyphicon-tag"/>&nbsp;<%=usrClsVO.getClsCtId()%>
 					&nbsp;&nbsp;
-					<span class="glyphicon glyphicon-eye-open f_title3"/>&nbsp;&nbsp;<%=usrClsVO.getClassViews()%>
+					<span class="glyphicon glyphicon-eye-open"/>&nbsp;<%=usrClsVO.getClassViews()%>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+					<hr style="width:100%;margin-top:10%;text-align:center;">
 					</td>
 				</tr>
 				
 				<tr>
 					<td colspan="3" style="clear:both">
-					<div class="text-center">
+					<div >
 						<%=usrClsVO.getClassContent()%>					
 					</div>
 					</td>
@@ -134,12 +155,12 @@ if(memberVO==null){
 					<div class="form-group">
 						<input type="hidden" name="classId" value="<%=usrClsVO.getClassId()%>">
 						<input type="hidden" name="depth" value="1">
-						<textarea name="replyContent" class="form-control" rows="3" required></textarea>
+						<textarea name="replyContent" class="form-control" rows="3" placeholder="로그인 후 이용 가능합니다" required></textarea>
 					</div>
 					<%
 					if(memberVO!=null){
 					%>
-						<button class="btn btn-success" id="btn_replySubmit">Submit</button>
+						<button class="btn btn-success">Submit</button>
 					<%
 					}
 					%>
@@ -160,7 +181,7 @@ if(memberVO==null){
 				%>
 				<div id="id_<%=replyList.get(i).getReplyId() %>">
 					<div class="col-sm-2 text-center">
-			          <img src="../images/default/wallpaper.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+			          <img src="<%=request.getContextPath() %>/images/default/default.jpg" class="img-circle" height="65" width="65" alt="Avatar">
 			        </div>
 					<div class="col-sm-10">
 						<h4><%=replyList.get(i).getMemId() %></h4>
@@ -189,7 +210,7 @@ if(memberVO==null){
 						<div id="id_<%=replyList.get(i).getReplyId() %>">
 							<div class="row">
 								<div class="col-sm-2 text-center">
-					          		<img src="../images/default/wallpaper.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+					          		<img src="<%=request.getContextPath() %>/images/default/default.jpg" class="img-circle" height="65" width="65" alt="Avatar">
 					        	</div>
 								<div class="col-xs-10">
 									<h4><%=replyList.get(i).getMemId() %></h4>

@@ -3,6 +3,7 @@ package volunteer.controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import volunteer.service.VolService;
 import volunteer.vo.ReservationVO;
 import volunteer.vo.VolunteerVO;
 
+@MultipartConfig
 @WebServlet("/volReservUpdate.do")
 public class VolReservUpdateController extends HttpServlet {
 

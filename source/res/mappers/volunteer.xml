@@ -35,7 +35,7 @@
 <![CDATA[		                
 		      WHERE ROWNUM <= #{end}) A
 		 WHERE A.RNUM >= #{start}
-]]>		order by vol_id	 
+]]>		order by vol_id desc
 		 
 	</select>
 	
@@ -125,7 +125,7 @@
 	
 	<update id="changeApproveReserv" parameterType="hashMap">
 		update reservation
-		set r_st_id = '${rStId}'
+		set r_st_id = #{rStId}
 		where reserv_id = #{reservId}
 	</update>
 	

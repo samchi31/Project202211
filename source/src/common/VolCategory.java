@@ -2,7 +2,7 @@ package common;
 
 public enum VolCategory {
 	CONVENIENCE("생활편의지원"),
-	RESIENTIAL("주거환경"),
+	RESIDENTIAL("주거환경"),
 	COUNSEL("상담"),
 	EDUCATION("교육"),
 	MEDICAL("보건의료"),
@@ -10,13 +10,11 @@ public enum VolCategory {
 	CULTURE("문화행사"),
 	ENVIRONMENT("환경보호"),
 	ADMINISTRATION("행정보조"),
-	SATETYTRAINING("안전훈련"),
+	SAFETYTRAINING("안전훈련"),
 	PUBLIC("공익"),
 	GLOBAL("국제협력,해외"),
 	MENTORING("멘토링"),
-	ETC("기타"),
-	Messing("골탕 먹이기 키킼ㅋ킼ㅋ"),
-	Disaster("볼드모트가 쳐들어와요");
+	ETC("기타");
 	
 	String kor = "";
 	

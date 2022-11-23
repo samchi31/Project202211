@@ -39,7 +39,7 @@
 				<p><span>[예약 날짜]</span>&nbsp;&nbsp;<%=(approveList.get(i).getReservDate()) %></p>
 				<p><span>[예약 시간]</span>&nbsp;&nbsp;<%=(approveList.get(i).getReservTime()) %></p>
 				<p><span>[신청 날짜]</span>&nbsp;&nbsp;<%=(approveList.get(i).getApplyDate()) %></p>
-				<p><span>[취소 날짜]</span>&nbsp;&nbsp;<%=(approveList.get(i).getCancelDate()) %></p>
+				<p><span>[취소 날짜]</span>&nbsp;&nbsp;<%if(approveList.get(i).getCancelDate() == null){%><%} else {%><%=(approveList.get(i).getCancelDate()) %><%} %></p>
 				<p><span>[예약 상태]</span>&nbsp;&nbsp;</p>
 					<select class="form-control" id="sel1" name="rStId">
 						<option><%=approveList.get(i).getrStId()%></option>

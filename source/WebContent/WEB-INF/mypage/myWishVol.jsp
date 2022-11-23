@@ -25,6 +25,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+#heart { background:#fff; border:0px solid #fff;}
+</style>
 </head>
 <body>
 <%@ include file="../header.jsp"%>
@@ -34,6 +37,7 @@
 	<ul class="wrapper_inner">
 	<%
 	int k = 1;
+	if(wishList!=null){
 	for(int i = 0; i < wishList.size(); i++){
 		if(wishList.get(i).getMemId().equals(memId)){
 			for(int j = 0; j < volList.size(); j++){
@@ -51,7 +55,7 @@
 					<p><span>[봉사 대상]</span>&nbsp;&nbsp;<%=(volList.get(j).getTarget())%></p>
 					<p><span>[자격 요건]</span>&nbsp;&nbsp;<%=(volList.get(j).getQualification())%></p>
 					<form action="volWish.do" method="post" onsubmit="return true;">
-						<button type="submit">
+						<button type="submit" id="heart">
 <% 
 						for(int l = 0; l < wishList.size(); l++) {
 							if(volList.get(j).getVolId().equals(wishList.get(l).getVolId()) && memId.equals(wishList.get(l).getMemId())) {
@@ -87,6 +91,7 @@
 			}
 		}
 	}
+	}
 	%>
 	</ul>
 </div>
@@ -106,9 +111,7 @@ $(document).ready(function(){
 // 하트
       	var yon = <%=yon%>;
 
-        $('i').on('click',function(){
-        	
-          	
+        $('i').on('click',function(){          	
 			$.ajax({
                 type: 'post',
 				url: '/volWish.do',
@@ -128,9 +131,9 @@ $(document).ready(function(){
 		             },
                  error: function(chr){
                      alert("상태 : " + xhr.status)
-                 };
-       		})
-        });
+                 }
+       		});
+        };
 </script>
 </body>
 </html>

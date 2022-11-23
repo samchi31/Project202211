@@ -21,7 +21,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../css/common.css">
 <link rel="stylesheet" href="../css/noticeInquiry.css">
-
+<style>
+	th {
+		width: 30%;
+	}
+	
+</style>
 </head>
 <body>
 <%@ include file="../header.jsp"%>

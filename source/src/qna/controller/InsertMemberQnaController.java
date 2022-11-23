@@ -54,7 +54,10 @@ public class InsertMemberQnaController extends HttpServlet {
 		// 서비스 객체 생성하기
 		IQnaService qnaService = QnaServiceImpl.getInstance();
 		
+		
+		
 		QnaVO qv = new QnaVO();
+		
 		qv.setInquiryId(inquiryId);
 		qv.setMemId(memId);
 		qv.setInquiryTitle(inquiryTitle);

@@ -13,7 +13,7 @@ public class FileService implements IFileService{
 //	private String path = "C:\\Users\\PC-07\\eclipse-workspace\\HighJava\\ONProject\\WebContent";
 	private String path = PathSetting.getPathSetting();
 	//private String path = "";
-	private static final String SAVE_DIR = "/images/thumbnail";
+	private static final String SAVE_DIR = "\\images\\thumbnail";
 		
 	private File file;
 	
@@ -38,7 +38,7 @@ public class FileService implements IFileService{
 		if(file != null) {
 			return file.getPath();
 		}
-		return "/images/default/wallpapaer.jpg";
+		return "/images/default/default.jpg";
 	}
 	
 	/**

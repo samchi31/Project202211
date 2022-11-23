@@ -23,6 +23,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> 
  	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
   	<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
+  	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  	
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -45,9 +47,9 @@
 		     	 	</tr>
 					<tr>
 						<td>
-							<img src="http://localhost:9999/<%=(vv.getThumbnail())%>" class="thumb_img_normal" style="width:450px; margin-right:0px; height: 460px;">
-							썸네일 <input type="file" name="thumbnail" value="<%=(vv.getThumbnail()) %>">
-							
+							<h3 class="f_title2">썸네일</h3>
+							<div id="disp"><img id="img_disp" src="<%=(vv.getThumbnail())%>" alt="" class="thumb_img_normal" style="width:450px; margin-right:0px; height: 460px;"></div><br>
+							<input type="file" name="thumbnail" id="file">
 						</td>
 					</tr>
 				 </table>
@@ -148,7 +150,7 @@ for(VolStatus volStatus : VolStatus.values()){
 	        <table>
 				<tr>
 					<td>주소</td>
-					<td><input type="text" name="detailAddress" id="address" value="<%=vv.getLocation()%>"></td>
+					<td><input type="text" name="detailAddress" id="address" style="width: 300px;"></td>
 					<td><input type="text" name="location" id="typeLocation" value="<%=vv.getLocation()%>" hidden></td>
 					<td><button type="button" id="searchBtn">검색</button></td>
 				</tr>
@@ -160,10 +162,13 @@ for(VolStatus volStatus : VolStatus.values()){
 			<h1>상세내용</h1>
 			<textarea id="summernote" name="detail"><%=(vv.getDetail())%></textarea>
 		</div>
+		
+		<br>
+		
 		<div id="button" style="text-align: right;">
 			<p>
-				<input type="submit" class="btn btn-success btn-lg" value="등록" style="width: 240px;">
-				<input type="text" class="btn btn-danger btn-lg" onClick="location.href='/volList.do'" value="취소">
+				<button type="submit" class="btn btn-success btn-lg" style="width: 240px;">등록</button>
+				<button class="btn btn-danger btn-lg" onclick="location.href='/volList.do'" style="width: 240px;">돌아가기</button>
 			</p>
 		</div>
       </form>
@@ -177,7 +182,7 @@ $(document).ready(function(){
 	$('.gnbmenu').mouseover(function(){
 		$('.menu_wrap').slideDown();
 	});
-	$('.menu_wrap').mouseout(function(){
+	$('.container').mouseover(function(){
 		$('.menu_wrap').hide();
 	});
 });
@@ -264,5 +269,45 @@ $('input[name=thumbnail]').on('click', function(){
 		});  
 	});
 	  
+	var v_fileBtn = document.querySelector("#file");
+    var v_disp = document.querySelector("#disp");
+
+    v_fileBtn.onchange = function(){
+        var v_file = v_fileBtn.files[0]; 
+
+        var rd = new FileReader();
+
+        rd.onload = function(){
+        	document.querySelector("#img_disp").src = rd.result;
+        	document.querySelector("#img_disp").width = 100;
+        }
+        rd.readAsDataURL(v_file);
+    }
+    
+    $('#address').on('click',function(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                document.getElementById('address').value = roadAddr;
+            }
+        }).open({
+        	 autoClose: true
+        });
+    });
 	</script>
 </html>

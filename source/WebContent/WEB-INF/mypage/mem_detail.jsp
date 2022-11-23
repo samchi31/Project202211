@@ -2,7 +2,7 @@
 <%@page import="member.vo.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%
-	// MemberVO mv = (MemberVO) request.getAttribute("mv");
+	MemberVO Mv = (MemberVO) request.getAttribute("mv");
 	InsVO iv = (InsVO) request.getAttribute("iv");
 	String msg = session.getAttribute("msg") == null ? "" : session.getAttribute("msg").toString();
 	session.removeAttribute("msg");
@@ -27,12 +27,12 @@
 	<ul class="wrapper_inner">
 		<div class="col_line">
 			<div class="col_inner2">ID</div>
-			<div class="col_inner2"><%=mv.getMemId()%></div>
+			<div class="col_inner2"><%=Mv.getMemId()%></div>
 		</div>
 
 		<div class="col_line">
 			<div class="col_inner2">비밀번호</div>
-			<div class="col_inner2"><%=mv.getMemPass()%></div>
+			<div class="col_inner2"><%=Mv.getMemPass()%></div>
 		</div>
 		<%
 			if (iv != null) {
@@ -52,44 +52,43 @@
 		%>
 		<div class="col_line">
 			<div class="col_inner2">이름</div>
-			<div class="col_inner2"><%=mv.getMemName()%></div>
+			<div class="col_inner2"><%=Mv.getMemName()%></div>
 		</div>
 
 		<div class="col_line">
 			<div class="col_inner2">주민번호</div>
-			<div class="col_inner2"><%=mv.getRegno1()%>
-				ㅡ
-				<%=mv.getRegno2()%></div>
-		</div>
+			<div class="col_inner2"><%=Mv.getRegno1()%>
+									ㅡ <%=Mv.getRegno2()%></div>
+			</div>
 
 		<div class="col_line">
 			<div class="col_inner2">연락처</div>
-			<div class="col_inner2"><%=mv.getMemTel()%></div>
+			<div class="col_inner2"><%=Mv.getMemTel()%></div>
 		</div>
 
 		<div class="col_line">
 			<div class="col_inner2">이메일</div>
-			<div class="col_inner2"><%=mv.getMail()%></div>
+			<div class="col_inner2"><%=Mv.getMail()%></div>
 		</div>
 
 		<div class="col_line">
 			<div class="col_inner2">우편번호</div>
-			<div class="col_inner2"><%=mv.getMemZip()%></div>
+			<div class="col_inner2"><%=Mv.getMemZip()%></div>
 		</div>
 
 		<div class="col_line">
 			<div class="col_inner2">주소</div>
-			<div class="col_inner2"><%=mv.getMemAddr1()%></div>
+			<div class="col_inner2"><%=Mv.getMemAddr1()%></div>
 		</div>
 
 		<div class="col_line">
 			<div class="col_inner2">상세주소</div>
-			<div class="col_inner2"><%=mv.getMemAddr2()%></div>
+			<div class="col_inner2"><%=Mv.getMemAddr2()%></div>
 		</div>
 
 		<div id="select" class="col_line">
 			<div id=option class="update">
-				<a class="btn btn-warning" href="/mypage/memUpdate.do?memId=<%=mv.getMemId()%>">회원정보 수정</a>
+				<a class="btn btn-warning" href="/mypage/memUpdate.do?memId=<%=Mv.getMemId()%>">회원정보 수정</a>
 			</div>
 		</div>
 
@@ -111,8 +110,8 @@ $(document).ready(function(){
 });
 
 $('#delete').on('click',function(){
-	var result = confirm("회원탈퇴?");
-	var v_id = '<%=mv.getMemId()%>';
+	var result = confirm("회원탈퇴를 진행하시겠습니까?");
+	var v_id = '<%=Mv.getMemId()%>';
 	if (result) {
 		
 		$.ajax({
@@ -125,7 +124,7 @@ $('#delete').on('click',function(){
 					if(rst.code == "ok"){
 						// 성공시 페이지 이동
 						alert("회원 탈퇴가 완료되었습니다.");
-						location.replace("/member/start.jsp");
+						location.replace("/index.jsp");
 					}
 				}
 		 });

@@ -58,22 +58,26 @@ public class volWishController extends HttpServlet {
 		if(isWished.equals("n")) {
 			service.wishVol(wv);
 			yesOrNo = "y";
+			request.setAttribute("rst", "y");
 		} else if(isWished.equals("y")) {
 			service.unWishVol(wv);
 			yesOrNo ="n";
+			request.setAttribute("rst", "n");
 		} else {
 			yesOrNo = "하트가 제대로 안 눌려요..";
 		}
+		List<WishVO> wishList = service.getWishList();
+		List<VolunteerVO> volList = service.getVolList();
 		
+		request.setAttribute("wishList", wishList);
+		request.setAttribute("volList", volList);
 		request.setAttribute("yesOrNo", yesOrNo);
 		
 		if(page.equals("volList")) {
 			request.getRequestDispatcher("/volList.do").forward(request, response);
 		} else if(page.equals("mypage")) {
-			request.getRequestDispatcher("/WEB-INF/mypage/mypage_main.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/mypage/myWishVol.jsp").forward(request, response);
 		}
-		
-		
 		
 	}
 

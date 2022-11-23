@@ -76,7 +76,7 @@ form{
 			<div class="form-group">
 				<label for="pass" class="control-label col-sm-2">비밀번호</label>
 				<div class="col-sm-4">
-					<input class="form-control" type="text" id="pass" name="memPass" placeholder="8자 이상(대ㆍ소문자,숫자,특수문자)" required
+					<input class="form-control" type="password" id="pass" name="memPass" placeholder="8자 이상(대ㆍ소문자,숫자,특수문자)" required
 						   pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>
 			</div>
@@ -85,7 +85,7 @@ form{
 				<label for="pass" class="control-label col-sm-2">비밀번호 확인</label>
 				<%-- 	      임의문자(.)를 대상으로 최소 갯수(*?)의 패턴을 찾음 --%>
 				<div  class="col-sm-4">
-					<input class="form-control" type="text" id="pass_chk" required
+					<input class="form-control" type="password" id="pass_chk" required
 					    	pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}">
 				</div>
 				<div class="col-sm-6" style="text-align: left;">

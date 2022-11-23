@@ -170,6 +170,28 @@
 	width:100%;
 }
 
+.col_inner3 {
+	padding-top: 7px;
+    margin-bottom: 0;
+    width: 16.66666667%;
+    padding-right: 15px;
+    display: inline-block;
+    font-family: 'GmarketSansMedium', sans-serif;
+    
+}
+.wrapper_inner{
+	margin-top: 50px;
+}
+.reg{
+	width: 60%;
+}
+
+.bar{
+    text-align: left;
+    width: 5%;
+    margin: 10px;
+}
+
 .col_inner2 {
 	float: left;
 	font-size: 16px;
@@ -281,3 +303,29 @@ button:nth-child(10) {
 
 .list_bt {clear:both; display:block;float:left}
 
+.put{
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: start;
+}
+#addrBtn{
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 70px;
+}
+#done{
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    border: 1px solid #0000002e;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-left: 20.5%;
+}
+	
